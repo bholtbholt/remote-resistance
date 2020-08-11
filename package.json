@@ -1,0 +1,26 @@
+{
+  "name": "remote-resistance",
+  "version": "1.0.0",
+  "description": "Play Resistance with your friends anywhere – a real-time remote version of the game.",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "start": "node ./server/index.ts & parcel ./client/index.html"
+  },
+  "author": "bholtbholt",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.17.1",
+    "normalize.css": "^8.0.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.27",
+    "@types/socket.io": "^2.1.11",
+    "@types/socket.io-client": "^1.4.33",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.0.5",
+    "sass": "^1.26.10",
+    "typescript": "^3.9.7"
+  }
+}
