@@ -1,5 +1,11 @@
 import { User } from 'types';
+import { v4 as uuid } from 'uuid';
 const socket = require('socket.io-client')();
+
+// Redirect if hitting the parent root
+if (window.location.pathname === '/') {
+  window.location.pathname = `/${uuid()}`;
+}
 
 // (() => {
 //   const ws = new WebSocket(`ws://localhost:8082`);
