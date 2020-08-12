@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Play Resistance with your friends anywhere – a real-time remote version of the game.",
   "scripts": {
+    "build": "npm run clean && parcel build ./client/index.html",
     "clean": "rm -rf dist",
-    "start": "node ./server/index.ts & parcel ./client/index.html"
+    "start": "node ./server/index.js & parcel ./client/index.html"
   },
   "author": "bholtbholt",
   "license": "UNLICENSED",
@@ -17,7 +18,6 @@
   },
   "devDependencies": {
     "@types/node": "^14.0.27",
-    "@types/socket.io": "^2.1.11",
     "@types/socket.io-client": "^1.4.33",
     "@types/uuid": "^8.3.0",
     "parcel-bundler": "^1.12.4",
