@@ -13,10 +13,11 @@ app.use(express.static(path.join(process.env.PWD, 'dist')));
 app.get('/:room_id', function (req, res, next) {
   return res.sendFile(path.join(process.env.PWD, 'dist', 'index.html'));
 });
+http.listen(port);
 
 rooms.on('connection', (socket) => {
   const { nsp: room } = socket;
-  console.log('a user connected');
+  console.log('connected');
 
   socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
@@ -24,10 +25,6 @@ rooms.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log('disconnected');
   });
-});
-
-http.listen(port, () => {
-  console.log(`App listening on port ${port}`);
 });
