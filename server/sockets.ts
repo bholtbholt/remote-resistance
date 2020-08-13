@@ -1,4 +1,4 @@
-import { Player } from 'types';
+import type { Player } from 'types';
 import * as socketIO from 'socket.io';
 import { server } from './routes';
 import { historyEvents, createHistory } from './history';

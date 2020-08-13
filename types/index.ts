@@ -1,8 +1,11 @@
+type UUID = string;
+type PlayerId = UUID;
+
 export interface HistoryEvent {
   action: string;
   data: any;
   timestamp: number;
-  id: string;
+  id: UUID;
 }
 
 export interface Listeners {
@@ -10,9 +13,9 @@ export interface Listeners {
 }
 
 export interface Player {
-  id: string;
-  name: string;
   avatar: string;
+  name: string;
+  id: PlayerId;
 }
 
 declare global {
