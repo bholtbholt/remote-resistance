@@ -1,4 +1,4 @@
-import { HistoryEvent } from '../client/js/types';
+import { HistoryEvent } from 'types';
 import * as socketIO from 'socket.io';
 import { v4 as uuid } from 'uuid';
 
