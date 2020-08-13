@@ -1,15 +1,15 @@
-interface HistoryEvent {
+export interface HistoryEvent {
   action: string;
   data: any;
   timestamp: number;
   id: string;
 }
 
-interface Listeners {
+export interface Listeners {
   [key: string]: Function;
 }
 
-interface User {
+export interface User {
   id: string;
   name: string;
   avatar: string;
@@ -20,5 +20,3 @@ declare global {
     historyEvents: HistoryEvent[];
   }
 }
-
-export { HistoryEvent, Listeners, User };
