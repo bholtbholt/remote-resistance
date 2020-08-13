@@ -1,8 +1,10 @@
+import { HistoryEvent } from '../client/js/types';
+import * as socketIO from 'socket.io';
 import { v4 as uuid } from 'uuid';
 
 const historyEvents = {};
-function createHistory(room, action, data) {
-  const event = {
+function createHistory(room: socketIO.Namespace, action: string, data) {
+  const event: HistoryEvent = {
     action,
     data,
     timestamp: Date.now(),

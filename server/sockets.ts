@@ -1,3 +1,4 @@
+import { User } from '../client/js/types';
 import * as socketIO from 'socket.io';
 import { server } from './routes';
 import { historyEvents, createHistory } from './history';
@@ -11,7 +12,7 @@ rooms.on('connection', (socket) => {
 
   room.emit('history::init', historyEvents[room.name]);
 
-  socket.on('user::add', (user) => {
+  socket.on('user::add', (user: User) => {
     createHistory(room, 'user::add', user);
     room.emit('user::add', user);
   });
