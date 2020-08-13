@@ -3,10 +3,13 @@ const path = require('path');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const { v4: uuid } = require('uuid');
+
+const port = process.env.PORT || 3000;
 // Rooms are actually "namespaces" in socket.io for better security
 // not to be confused with socket.io "rooms"
 const rooms = io.of(/^\/\w+/);
-const port = process.env.PORT || 3000;
+const history = {};
 
 // Default paths render static file and support route parameter for :room_id
 app.use(express.static(path.join(process.env.PWD, 'dist')));
@@ -16,15 +19,29 @@ app.get('/:room_id', function (req, res, next) {
 http.listen(port);
 
 rooms.on('connection', (socket) => {
-  const { nsp: room } = socket;
   console.log('connected');
+  const { nsp: room } = socket;
+  history[room.name] = history[room.name] || [];
 
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-    room.emit('chat message', msg);
+  room.emit('history::init', history[room.name]);
+
+  socket.on('message::add', (msg) => {
+    createHistory(room, 'message::add', msg);
+    room.emit('message::add', msg);
   });
 
   socket.on('disconnect', () => {
     console.log('disconnected');
   });
 });
+
+function createHistory(room, action, data) {
+  const event = {
+    action,
+    data,
+    timestamp: Date.now(),
+    id: uuid(),
+  };
+  history[room.name].push(event);
+  room.emit('history::add', event);
+}
