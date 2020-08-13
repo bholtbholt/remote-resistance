@@ -25,9 +25,9 @@ rooms.on('connection', (socket) => {
 
   room.emit('history::init', history[room.name]);
 
-  socket.on('message::add', (msg) => {
-    createHistory(room, 'message::add', msg);
-    room.emit('message::add', msg);
+  socket.on('user::add', (user) => {
+    createHistory(room, 'user::add', user);
+    room.emit('user::add', user);
   });
 
   socket.on('disconnect', () => {

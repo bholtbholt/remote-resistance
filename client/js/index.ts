@@ -10,26 +10,29 @@ if (window.location.pathname === '/') {
 // init/setup
 window.historyEvents = [];
 const listeners: Listeners = {
-  'message::add': appendMessage,
+  'user::add': appendUser,
   'history::add': addHistory,
 };
 
-// Adding a message code
-const form = document.getElementById('form') as HTMLFormElement;
-const m = document.getElementById('m') as HTMLInputElement;
-const messages = document.getElementById('messages');
-
+const form = document.getElementById('user-form') as HTMLFormElement;
 form.addEventListener('submit', function (event) {
   event.preventDefault();
-  socket.emit('message::add', m.value);
-  m.value = '';
+
+  const [name, avatar] = ['name', 'avatar'].map((fieldName) => this.elements[fieldName].value);
+  const user: User = {
+    id: uuid(),
+    name,
+    avatar,
+  };
+
+  socket.emit('user::add', user);
   return false;
 });
 
-function appendMessage(msg: string): void {
-  const newMessage = document.createElement('li');
-  newMessage.innerHTML = msg;
-  messages.appendChild(newMessage);
+function appendUser(user: User): void {
+  const newUser = document.createElement('li');
+  newUser.innerHTML = `${user.avatar} ${user.name}`;
+  document.getElementById('users').appendChild(newUser);
 }
 
 function addHistory(event: HistoryEvent): void {
