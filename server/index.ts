@@ -1,22 +1,11 @@
-const express = require('express');
-const path = require('path');
-const app = express();
-const http = require('http').createServer(app);
-const socketIO = require('socket.io')(http);
+import { server } from './routes';
+const socketIO = require('socket.io')(server);
 const { v4: uuid } = require('uuid');
 
-const port = process.env.PORT || 3000;
 // Rooms are actually "namespaces" in socket.io for better security
 // not to be confused with socket.io "rooms"
 const rooms = socketIO.of(/^\/\w+/);
 const historyEvents = {};
-
-// Default paths render static file and support route parameter for :room_id
-app.use(express.static(path.join(process.env.PWD, 'dist')));
-app.get('/:room_id', function (req, res, next) {
-  return res.sendFile(path.join(process.env.PWD, 'dist', 'index.html'));
-});
-http.listen(port);
 
 rooms.on('connection', (socket) => {
   console.log('connected');
