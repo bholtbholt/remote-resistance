@@ -1,4 +1,4 @@
-import { User } from 'types';
+import { HistoryEvent, Listeners, User } from 'types';
 import { v4 as uuid } from 'uuid';
 const socket = require('socket.io-client')(window.location.pathname);
 
@@ -7,19 +7,49 @@ if (window.location.pathname === '/') {
   window.location.pathname = `/${uuid()}`;
 }
 
-const form = document.getElementById('form') as HTMLFormElement;
-const m = document.getElementById('m') as HTMLInputElement;
-const messages = document.getElementById('messages');
+// init/setup
+window.historyEvents = [];
+const listeners: Listeners = {
+  'user::add': appendUser,
+  'history::add': addHistory,
+};
 
+const form = document.getElementById('user-form') as HTMLFormElement;
 form.addEventListener('submit', function (event) {
   event.preventDefault();
-  socket.emit('chat message', m.value);
-  m.value = '';
+
+  const [name, avatar] = ['name', 'avatar'].map((fieldName) => this.elements[fieldName].value);
+  const user: User = {
+    id: uuid(),
+    name,
+    avatar,
+  };
+
+  socket.emit('user::add', user);
   return false;
 });
 
-socket.on('chat message', function (msg) {
-  const newMessage = document.createElement('li');
-  newMessage.innerHTML = msg;
-  messages.appendChild(newMessage);
+function appendUser(user: User): void {
+  const newUser = document.createElement('li');
+  newUser.innerHTML = `${user.avatar} ${user.name}`;
+  document.getElementById('users').appendChild(newUser);
+}
+
+function addHistory(event: HistoryEvent): void {
+  window.historyEvents.push(event);
+}
+
+// Initialize all socket events
+Object.entries(listeners).forEach(([action, fn]) => {
+  socket.on(action, fn);
+});
+
+// replay socket events
+socket.on('history::init', (events: HistoryEvent[]) => {
+  if (window.historyEvents.length === events.length) return false;
+
+  window.historyEvents = events;
+  window.historyEvents.forEach(({ action, data }) => {
+    listeners[action](data);
+  });
 });

@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npm run clean && parcel build ./client/index.html",
     "clean": "rm -rf dist",
-    "start": "node ./server/index.js & parcel ./client/index.html"
+    "start": "node ./server/index.js & parcel ./client/index.html",
+    "prestart": "rm -rf dist"
   },
   "author": "bholtbholt",
   "license": "UNLICENSED",
@@ -14,6 +15,7 @@
     "normalize.css": "^8.0.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
+    "types": "^0.1.1",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
