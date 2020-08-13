@@ -9,7 +9,7 @@ export interface Listeners {
   [key: string]: Function;
 }
 
-export interface User {
+export interface Player {
   id: string;
   name: string;
   avatar: string;

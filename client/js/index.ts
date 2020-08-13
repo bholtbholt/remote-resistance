@@ -1,4 +1,4 @@
-import { HistoryEvent, Listeners, User } from 'types';
+import { HistoryEvent, Listeners, Player } from 'types';
 import { v4 as uuid } from 'uuid';
 const socket = require('socket.io-client')(window.location.pathname);
 
@@ -10,29 +10,29 @@ if (window.location.pathname === '/') {
 // init/setup
 window.historyEvents = [];
 const listeners: Listeners = {
-  'user::add': appendUser,
+  'player::add': appendPlayer,
   'history::add': addHistory,
 };
 
-const form = document.getElementById('user-form') as HTMLFormElement;
+const form = document.getElementById('player-form') as HTMLFormElement;
 form.addEventListener('submit', function (event) {
   event.preventDefault();
 
   const [name, avatar] = ['name', 'avatar'].map((fieldName) => this.elements[fieldName].value);
-  const user: User = {
+  const player: Player = {
     id: uuid(),
     name,
     avatar,
   };
 
-  socket.emit('user::add', user);
+  socket.emit('player::add', player);
   return false;
 });
 
-function appendUser(user: User): void {
-  const newUser = document.createElement('li');
-  newUser.innerHTML = `${user.avatar} ${user.name}`;
-  document.getElementById('users').appendChild(newUser);
+function appendPlayer(player: Player): void {
+  const newPlayer = document.createElement('li');
+  newPlayer.innerHTML = `${player.avatar} ${player.name}`;
+  document.getElementById('players').appendChild(newPlayer);
 }
 
 function addHistory(event: HistoryEvent): void {
