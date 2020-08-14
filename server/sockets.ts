@@ -16,4 +16,9 @@ rooms.on('connection', (socket) => {
     createHistory(room, 'player::add', player);
     room.emit('player::add', player);
   });
+
+  console.log('connected');
+  socket.on('disconnect', () => {
+    console.log('disconnected');
+  });
 });
