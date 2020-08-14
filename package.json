@@ -5,11 +5,22 @@
   "scripts": {
     "build": "npm run clean && parcel build ./client/index.html",
     "clean": "rm -rf dist",
+    "lint": "svelte-check",
     "start": "ts-node ./server/index.ts & parcel ./client/index.html",
     "prestart": "rm -rf dist"
   },
   "author": "bholtbholt",
   "license": "UNLICENSED",
+  "prettier": {
+    "overrides": [
+      {
+        "files": "*.svelte",
+        "options": {
+          "parser": "html"
+        }
+      }
+    ]
+  },
   "dependencies": {
     "express": "^4.17.1",
     "normalize.css": "^8.0.1",
@@ -20,14 +31,20 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
+    "@tsconfig/svelte": "^1.0.8",
     "@types/express": "^4.17.7",
     "@types/node": "^14.0.27",
     "@types/socket.io": "^2.1.11",
     "@types/socket.io-client": "^1.4.33",
     "@types/uuid": "^8.3.0",
     "parcel-bundler": "^1.12.4",
+    "parcel-plugin-svelte": "^4.0.6",
     "prettier": "^2.0.5",
+    "prettier-plugin-svelte": "^1.1.0",
     "sass": "^1.26.10",
+    "svelte": "^3.24.1",
+    "svelte-check": "^1.0.14",
+    "svelte-preprocess": "^4.0.12",
     "typescript": "^3.9.7"
   }
 }
