@@ -7,10 +7,34 @@
     "clean": "rm -rf dist",
     "lint": "svelte-check",
     "start": "ts-node ./server/index.ts & parcel ./client/index.html",
-    "prestart": "rm -rf dist"
+    "prestart": "rm -rf dist",
+    "test": "jest --watch"
   },
   "author": "bholtbholt",
   "license": "UNLICENSED",
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfig": {
+          "esModuleInterop": true
+        }
+      }
+    },
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testPathIgnorePatterns": [
+      "test-helper.ts"
+    ],
+    "compilerOptions": {
+      "esModuleInterop": true
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ]
+  },
   "prettier": {
     "overrides": [
       {
@@ -33,10 +57,12 @@
   "devDependencies": {
     "@tsconfig/svelte": "^1.0.8",
     "@types/express": "^4.17.7",
+    "@types/jest": "^26.0.10",
     "@types/node": "^14.0.27",
     "@types/socket.io": "^2.1.11",
     "@types/socket.io-client": "^1.4.33",
     "@types/uuid": "^8.3.0",
+    "jest": "^26.4.0",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.6",
     "prettier": "^2.0.5",
@@ -45,6 +71,7 @@
     "svelte": "^3.24.1",
     "svelte-check": "^1.0.14",
     "svelte-preprocess": "^4.0.12",
+    "ts-jest": "^26.2.0",
     "typescript": "^3.9.7"
   }
 }
