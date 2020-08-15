@@ -3,10 +3,6 @@
   "include": ["client/**/*", "server/**/*", "types/*"],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
   "compilerOptions": {
-    "esModuleInterop": false,
-    "baseUrl": "./",
-    "paths": {
-      "types": ["types/index"]
-    }
+    "esModuleInterop": false
   }
 }
