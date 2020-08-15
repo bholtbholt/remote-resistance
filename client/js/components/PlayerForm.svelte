@@ -5,7 +5,8 @@
 
   import { getContext } from 'svelte';
   const socket = getContext('socketIORoom');
-  socket.on('player::add', players['player::add']);
+
+  import PlayerList from './PlayerList.svelte';
 
   // prettier-ignore
   const avatars = [
@@ -30,11 +31,7 @@
   }
 </script>
 
-<ul>
-  {#each $players as { avatar, name }}
-  <li>{avatar} {name}</li>
-  {/each}
-</ul>
+<PlayerList />
 
 <form on:submit|preventDefault="{handleSubmit}">
   <label for="name">
