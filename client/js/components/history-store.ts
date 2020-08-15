@@ -9,9 +9,9 @@ import { players } from './player-store';
 
 // The structure is not robust and requires the following:
 //   eventNamespace: storeObject
-// For example, event { action: 'history::add', data: {…} }
-//   eventNamespace = 'history'
-//   storeObject = import { history } from './history-store';
+// For example, event { action: 'player::add', data: {…} }
+//   eventNamespace = 'player' (splitting from player::add)
+//   storeObject = 'players' (from import { players } from './player-store';)
 const allStores = {
   player: players,
 };
@@ -31,9 +31,6 @@ function createStore() {
         const [eventNamespaceToStoreKey] = action.split('::');
         allStores[eventNamespaceToStoreKey][action](data);
       });
-    },
-    'history::add': (historyEvent: HistoryEvent) => {
-      update((historyEvents) => (historyEvents = [...historyEvents, historyEvent]));
     },
   };
 }

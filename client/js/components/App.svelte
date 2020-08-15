@@ -7,7 +7,6 @@
   import PlayerForm from './PlayerForm.svelte';
   import { history } from './history-store';
 
-  socket.on('history::add', history['history::add']);
   socket.once('history::init', history['history::init']);
 </script>
 

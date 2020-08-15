@@ -11,7 +11,6 @@ function createHistory(room: Namespace, action: string, data) {
     id: uuid(),
   };
   historyEvents[room.name].push(event);
-  room.emit('history::add', event);
 }
 
 export { historyEvents, createHistory };
