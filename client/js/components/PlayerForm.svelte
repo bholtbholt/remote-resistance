@@ -1,6 +1,6 @@
 <script type="text/typescript" lang="ts">
   import type { Player } from 'types';
-  import { players } from './player-store';
+  import { currentPlayerId, players } from './player-store';
   import { v4 as uuid } from 'uuid';
 
   import { getContext } from 'svelte';
@@ -27,6 +27,7 @@
     };
 
     socket.emit('player::add', player);
+    currentPlayerId.set(player.id);
     this.reset();
   }
 </script>

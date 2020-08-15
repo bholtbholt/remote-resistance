@@ -1,5 +1,5 @@
 type UUID = string;
-type PlayerId = UUID;
+export type PlayerId = UUID;
 export type Action = string;
 
 export interface HistoryEvent {

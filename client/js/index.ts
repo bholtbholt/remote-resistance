@@ -11,5 +11,6 @@ export default new App({
   target: document.body,
   props: {
     socket,
+    currentPlayerIdSessionKey: window.sessionStorage.getItem('currentPlayerId') || '',
   },
 });

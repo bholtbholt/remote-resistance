@@ -1,7 +1,7 @@
-import type { Player } from 'types';
+import type { Player, PlayerId } from 'types';
 import { writable, derived } from 'svelte/store';
 
-function createStore() {
+function createPlayersStore() {
   const { subscribe, update } = writable([]);
 
   return {
@@ -12,4 +12,18 @@ function createStore() {
   };
 }
 
-export const players = createStore();
+function createCurrentPlayerIdStore() {
+  const { subscribe, set } = writable('');
+
+  return {
+    subscribe,
+    set: (playerId: PlayerId) => {
+      set(playerId);
+      window.sessionStorage.setItem('currentPlayerId', playerId);
+    },
+  };
+}
+
+export const players = createPlayersStore();
+export const currentPlayerId = createCurrentPlayerIdStore();
+export const playerIsLoggedIn = derived(currentPlayerId, ($currentPlayerId) => !!$currentPlayerId);
