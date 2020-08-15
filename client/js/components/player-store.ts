@@ -26,4 +26,9 @@ function createCurrentPlayerIdStore() {
 
 export const players = createPlayersStore();
 export const currentPlayerId = createCurrentPlayerIdStore();
-export const playerIsLoggedIn = derived(currentPlayerId, ($currentPlayerId) => !!$currentPlayerId);
+export const playerIsLoggedIn = derived(
+  [players, currentPlayerId],
+  ([$players, $currentPlayerId]) => {
+    return !!$players.find((player) => player.id === $currentPlayerId);
+  },
+);

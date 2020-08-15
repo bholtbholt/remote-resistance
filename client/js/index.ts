@@ -1,8 +1,10 @@
 import { v4 as uuid } from 'uuid';
 const socket = require('socket.io-client')(window.location.pathname);
 
-// Redirect if hitting the parent root
+// Hitting the root sends the player to a brand new room and should feel like
+// the first time they've been on the app – so we clear storage and redirect
 if (window.location.pathname === '/') {
+  window.sessionStorage.removeItem('currentPlayerId');
   window.location.pathname = `/${uuid()}`;
 }
 
@@ -11,6 +13,6 @@ export default new App({
   target: document.body,
   props: {
     socket,
-    currentPlayerIdSessionKey: window.sessionStorage.getItem('currentPlayerId') || '',
+    currentPlayerIdSessionKey: window.sessionStorage.getItem('currentPlayerId'),
   },
 });
