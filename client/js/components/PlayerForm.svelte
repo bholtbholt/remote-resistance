@@ -6,8 +6,6 @@
   import { getContext } from 'svelte';
   const socket = getContext('socketIORoom');
 
-  import PlayerList from './PlayerList.svelte';
-
   // prettier-ignore
   const avatars = [
     '🐶','🐱','🦊','🐯','🦁',
@@ -32,13 +30,12 @@
   }
 </script>
 
-<PlayerList />
 
 <form on:submit|preventDefault="{handleSubmit}">
   <label for="name">
     Name: <input id="name" name="name" autocomplete="off" required autofocus />
   </label>
-  <div>
+  <div class="avatars">
     {#each avatars as avatar, i}
     <label for="avatar_{i}">
       <input id="avatar_{i}" type=radio name="avatar" value={avatar} checked={checkedAvatar ===
