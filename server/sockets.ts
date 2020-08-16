@@ -2,7 +2,7 @@ import type { Action } from 'types';
 import * as socketIO from 'socket.io';
 import { server } from './routes';
 import { historyEvents, createHistory } from './history';
-import { createPlayer, createHistoryEvent } from './test-helper';
+import { createPlayer, createHistoryEvent } from '../client/js/__tests__/test-helper';
 
 const actionNames: Action[] = ['player::add', 'ruleset::generate'];
 // Rooms are actually "namespaces" in socket.io for better security
