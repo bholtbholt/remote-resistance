@@ -1,7 +1,6 @@
 <script type="text/typescript" lang="ts">
   import { players, playerIsLoggedIn } from './player-store';
   import { generateRuleset, maximumPlayerCount, minimumPlayerCount } from './rules-store';
-  import { preGame } from './game-store';
 
   import { getContext } from 'svelte';
   const socket = getContext('socketIORoom');
@@ -11,6 +10,7 @@
 
   $: playerSlots = Array(Math.max(0, maximumPlayerCount - $players.length));
   $: enoughPlayers = $players.length >= minimumPlayerCount;
+  $: availableSlots = $players.length < maximumPlayerCount;
 
   function handleSubmit() {
     const ruleset = generateRuleset($players);
@@ -28,16 +28,23 @@
 
 <ul class="player-list">
   {#each $players as {...player}}
-  <Player {...player} />
-  {/each}{#each playerSlots as playerSlot}
-  <li>Empty slot</li>
+    <Player {...player} />
+  {/each}
+  {#each playerSlots as playerSlot}
+    <li>Empty slot</li>
   {/each}
 </ul>
 
-{#if $playerIsLoggedIn} {#if enoughPlayers}
-<button on:click|preventDefault="{handleSubmit}">Start the game!</button>
+{#if $playerIsLoggedIn}
+  {#if enoughPlayers}
+    <button on:click|preventDefault="{handleSubmit}">Start the game!</button>
+  {:else}
+    <p>Waiting for more players to join…</p>
+  {/if}
 {:else}
-<p>Waiting for more players to join…</p>
-{/if} {:else if !$playerIsLoggedIn && $preGame}
-<PlayerForm />
+  {#if availableSlots}
+    <PlayerForm />
+  {:else}
+    <p>Game is about to start</p>
+  {/if}
 {/if}
