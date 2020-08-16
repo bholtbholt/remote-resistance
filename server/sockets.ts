@@ -3,7 +3,7 @@ import * as socketIO from 'socket.io';
 import { server } from './routes';
 import { historyEvents, createHistory } from './history';
 
-const actionNames: Action[] = ['player::add'];
+const actionNames: Action[] = ['player::add', 'ruleset::generate'];
 // Rooms are actually "namespaces" in socket.io for better security
 // not to be confused with socket.io "rooms"
 const rooms = socketIO(server).of(/^\/\w+/);

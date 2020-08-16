@@ -4,8 +4,9 @@ import { writable } from 'svelte/store';
 // Build up all the stores to pass them through history::init
 // which replays all historyEvents in order to build the state
 
-// Import all stores
+// Import all stores with historyEvents
 import { players } from './player-store';
+import { ruleset } from './rules-store';
 
 // The structure is not robust and requires the following:
 //   eventNamespace: storeObject
@@ -14,6 +15,7 @@ import { players } from './player-store';
 //   storeObject = 'players' (from import { players } from './player-store';)
 const allStores = {
   player: players,
+  ruleset: ruleset,
 };
 
 function createStore() {
