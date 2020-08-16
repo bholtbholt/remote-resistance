@@ -14,6 +14,7 @@ function createHistory(room: Namespace, action: Action, data) {
   };
   historyEvents[room.name].push(event);
   room.emit(action, data);
+  console.log('HistoryEvent', action, data);
 }
 
 export { historyEvents, createHistory };
