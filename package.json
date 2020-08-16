@@ -35,16 +35,6 @@
       "js"
     ]
   },
-  "prettier": {
-    "overrides": [
-      {
-        "files": "*.svelte",
-        "options": {
-          "parser": "html"
-        }
-      }
-    ]
-  },
   "dependencies": {
     "express": "^4.17.1",
     "normalize.css": "^8.0.1",
