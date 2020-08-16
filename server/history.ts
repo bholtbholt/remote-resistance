@@ -1,5 +1,5 @@
 import type { Namespace } from 'socket.io';
-import type { Action, HistoryEvent } from 'types';
+import type { Action, HistoryEvent } from '../types';
 import { v4 as uuid } from 'uuid';
 
 const historyEvents = {};

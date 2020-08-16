@@ -1,4 +1,4 @@
-import type { Action } from 'types';
+import type { Action } from '../types';
 import * as socketIO from 'socket.io';
 import { server } from './routes';
 import { historyEvents, createHistory } from './history';

@@ -1,4 +1,4 @@
-import type { HistoryEvent } from 'types';
+import type { HistoryEvent } from '../../../types';
 import { writable } from 'svelte/store';
 
 // Build up all the stores to pass them through history::init
