@@ -1,0 +1,1 @@
+<p>Game lobby</p>

@@ -1,9 +1,8 @@
 {
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "include": ["client/**/*", "server/**/*", "types/*"],
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "types": ["types/index"]
-    }
-  },
-  "include": ["**/*"]
+    "esModuleInterop": false
+  }
 }
