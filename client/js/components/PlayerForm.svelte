@@ -30,6 +30,13 @@
   }
 </script>
 
+<style>
+  .avatars {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1rem;
+  }
+</style>
 
 <form on:submit|preventDefault="{handleSubmit}">
   <label for="name">

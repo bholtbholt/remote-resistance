@@ -18,6 +18,14 @@
   }
 </script>
 
+<style>
+  .player-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1rem;
+  }
+</style>
+
 <ul class="player-list">
   {#each $players as {...player}}
   <Player {...player} />
