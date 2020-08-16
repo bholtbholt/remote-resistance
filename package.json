@@ -37,11 +37,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "normalize.css": "^8.0.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "ts-node": "^8.10.2",
-    "types": "^0.1.1",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
@@ -55,13 +52,15 @@
     "jest": "^26.4.0",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.6",
+    "postcss-modules": "^3.2.0",
     "prettier": "^2.0.5",
     "prettier-plugin-svelte": "^1.1.0",
-    "sass": "^1.26.10",
     "svelte": "^3.24.1",
     "svelte-check": "^1.0.14",
     "svelte-preprocess": "^4.0.12",
+    "tailwindcss": "^1.6.2",
     "ts-jest": "^26.2.0",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   }
 }
