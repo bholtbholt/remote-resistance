@@ -1,0 +1,30 @@
+button[disabled] {
+  opacity: theme('opacity.75');
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  text-align: center;
+  white-space: nowrap;
+
+  border-radius: theme('borderRadius.sm');
+  padding: theme('spacing.sm') theme('spacing.md');
+  cursor: pointer;
+
+  background-color: theme('colors.primary.500');
+  color: theme('colors.primary.100');
+  border: none;
+  box-shadow: 0 0.2em 0 0.03em theme('colors.primary.700');
+
+  &:hover:not([disabled]),
+  &:focus {
+    background-color: theme('colors.primary.400');
+    outline: 0;
+  }
+
+  &:active {
+    background-color: theme('colors.primary.600');
+    box-shadow: inset 0 0.12em 0.05em hsla(183, 42%, 27%, 0.5);
+    transform: translateY(0.1rem);
+  }
+}

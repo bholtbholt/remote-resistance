@@ -1,4 +1,4 @@
-import type { Player, PlayerId } from 'types';
+import type { Player, PlayerId } from '../../../types';
 import { writable, derived } from 'svelte/store';
 
 function createPlayersStore() {

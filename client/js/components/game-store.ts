@@ -1,4 +1,4 @@
-import type { Gamestate, Ruleset } from 'types';
+import type { Gamestate, Ruleset } from '../../../types';
 import { writable, derived } from 'svelte/store';
 import { ruleset } from './rules-store';
 
