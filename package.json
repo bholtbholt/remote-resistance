@@ -53,6 +53,7 @@
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.6",
     "postcss-modules": "^3.2.0",
+    "postcss-nested": "^4.2.3",
     "prettier": "^2.0.5",
     "prettier-plugin-svelte": "^1.1.0",
     "svelte": "^3.24.1",

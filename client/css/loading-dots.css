@@ -1,0 +1,42 @@
+.loading-dots {
+  --color-base: rgba(255, 255, 255, 0.3);
+  --color-animate: rgba(255, 255, 255, 0.8);
+  --size: 10px;
+
+  height: var(--size);
+  width: var(--size);
+  border-radius: 50%;
+  background-color: var(--color-base);
+  position: relative;
+  animation: load-glow 1.8s infinite;
+  animation-delay: 0.5s;
+
+  &:before,
+  &:after {
+    content: '';
+    background-color: var(--color-base);
+    height: var(--size);
+    width: var(--size);
+    border-radius: 50%;
+    position: absolute;
+    animation: load-glow 1.8s infinite;
+  }
+
+  &:before {
+    left: calc(var(--size) * -2);
+  }
+
+  &:after {
+    right: calc(var(--size) * -2);
+    animation-delay: 0.9s;
+  }
+}
+
+@keyframes load-glow {
+  25% {
+    background-color: var(--color-animate);
+  }
+  50% {
+    background-color: var(--color-base);
+  }
+}
