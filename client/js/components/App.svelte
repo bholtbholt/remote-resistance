@@ -20,6 +20,7 @@
   import LobbyPostGame from './LobbyPostGame.svelte';
   import Credits from './Credits.svelte';
 
+  $: historyIsLoaded = Array.isArray($history);
   const state = {
     PRE_GAME: LobbyPreGame,
     IN_GAME: LobbyGame,
@@ -27,5 +28,9 @@
   };
 </script>
 
+{#if historyIsLoaded}
 <svelte:component this="{state[$gamestate]}" />
+{:else}
+<div class="loading-dots mx-auto my-xl"></div>
+{/if}
 <Credits />

@@ -19,20 +19,19 @@ const allStores = {
 };
 
 function createStore() {
-  const { set, subscribe, update } = writable([]);
+  const { set, subscribe, update } = writable(undefined);
 
   return {
     subscribe,
     'history::init': (historyEvents: HistoryEvent[]) => {
-      set(historyEvents);
-
-      // Replay all events in order:
+      // Replay all events in order then set history:
       // - match the event namespace with the key in allStores
       // - call the store action with event data
       historyEvents.forEach(({ action, data }) => {
         const [eventNamespaceToStoreKey] = action.split('::');
         allStores[eventNamespaceToStoreKey][action](data);
       });
+      set(historyEvents);
     },
   };
 }
