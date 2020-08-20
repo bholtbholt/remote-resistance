@@ -2,10 +2,11 @@ import type { Player, PlayerId } from '../../../types';
 import { writable, derived } from 'svelte/store';
 
 function createPlayersStore() {
-  const { subscribe, update } = writable([]);
+  const { subscribe, set, update } = writable([]);
 
   return {
     subscribe,
+    set,
     'player::add': (player: Player) => {
       update((players) => (players = [...players, player]));
     },
