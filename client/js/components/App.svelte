@@ -13,6 +13,7 @@
   socket.once('history::init', history['history::init']);
   socket.once('ruleset::generate', ruleset['ruleset::generate']);
   socket.on('player::add', players['player::add']);
+  socket.on('gamestate::set', gamestate['gamestate::set']);
   currentPlayerId.set(currentPlayerIdSessionKey);
 
   import LobbyPreGame from './LobbyPreGame.svelte';

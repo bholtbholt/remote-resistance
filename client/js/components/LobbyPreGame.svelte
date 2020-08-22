@@ -20,6 +20,7 @@
     this.disabled = true;
     const ruleset = generateRuleset($players);
     socket.emit('ruleset::generate', ruleset);
+    socket.emit('gamestate::set', 'IN_GAME');
   }
 </script>
 

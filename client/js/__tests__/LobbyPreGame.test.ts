@@ -95,3 +95,23 @@ test('should generate a ruleset when the game is started', async () => {
 
   expect(socket.emit).toHaveBeenCalledWith('ruleset::generate', expect.objectContaining({}));
 });
+
+test('should set the game state to IN_GAME', async () => {
+  const binks = { id: 'id-for-binks', avatar: '🐶', name: 'Binks' };
+  players['player::add'](binks);
+  currentPlayerId.set(binks.id);
+
+  repeat(4, () => {
+    const player = createPlayer();
+    players['player::add'](player);
+  });
+
+  spyOn(socket, 'emit');
+  const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
+
+  const button = getByText('Start the game!');
+
+  await fireEvent.click(button);
+
+  expect(socket.emit).toHaveBeenCalledWith('gamestate::set', 'IN_GAME');
+});
