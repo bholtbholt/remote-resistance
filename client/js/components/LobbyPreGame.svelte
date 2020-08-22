@@ -25,12 +25,12 @@
 </script>
 
 <div id="LobbyPreGame" in:fade>
-  <ul class="grid grid-cols-5 grid-rows-2 mb-lg gap-xs border solid border-gray-800 transition-all duration-1000 ease-out" class:blur={!$playerIsLoggedIn} class:opacity-50={!$playerIsLoggedIn}>
+  <ul id="playerList" class="grid grid-cols-5 grid-rows-2 mb-lg gap-xs border solid border-gray-800 transition-all duration-1000 ease-out" class:blur={!$playerIsLoggedIn} class:opacity-50={!$playerIsLoggedIn}>
     {#each $players as {...player}}
       <Player {...player} />
     {/each}
     {#each playerSlots as playerSlot, i}
-      <li class="bg-gray-900 animate-pulse" style="animation-delay: {i * 100}ms"></li>
+      <li class="bg-gray-900 animate-pulse rounded-sm" style="animation-delay: {i * 100}ms"></li>
     {/each}
   </ul>
 
