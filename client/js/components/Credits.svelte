@@ -1,16 +1,5 @@
-<style>
-  ul {
-    text-align: center;
-    margin-top: 3rem;
-  }
-  li {
-    display: inline-block;
-    margin: 0.5rem;
-  }
-</style>
-
-<ul>
-  <li>Original Game</li>
-  <li>Made by @bholtbholt</li>
-  <li>Read rules</li>
+<ul class="text-center py-xl px-lg">
+  <li class="inline-block text-gray-600">Original Game</li>
+  <li class="inline-block text-gray-600 mx-md">Made by @bholtbholt</li>
+  <li class="inline-block text-gray-600">Read rules</li>
 </ul>

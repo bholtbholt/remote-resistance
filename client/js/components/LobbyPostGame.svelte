@@ -1,1 +1,1 @@
-<p>Post Game</p>
+<p id="LobbyPostGame">Post Game</p>

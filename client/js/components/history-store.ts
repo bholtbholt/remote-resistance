@@ -7,6 +7,7 @@ import { writable } from 'svelte/store';
 // Import all stores with historyEvents
 import { players } from './player-store';
 import { ruleset } from './rules-store';
+import { gamestate } from './game-store';
 
 // The structure is not robust and requires the following:
 //   eventNamespace: storeObject
@@ -16,10 +17,11 @@ import { ruleset } from './rules-store';
 const allStores = {
   player: players,
   ruleset: ruleset,
+  gamestate: gamestate,
 };
 
 function createStore() {
-  const { set, subscribe, update } = writable(undefined);
+  const { set, subscribe } = writable(undefined);
 
   return {
     subscribe,

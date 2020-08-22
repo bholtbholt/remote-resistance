@@ -1,0 +1,31 @@
+<script type="text/typescript" lang="ts">
+  import { players, playerIsASpy, currentPlayer } from './player-store';
+  import { ruleset } from './rules-store';
+  import { spies } from './game-store';
+
+  import { blur } from './custom-transitions';
+
+  import Player from './Player.svelte';
+  import { gridSize, playerNamesToSentance } from './view-helper';
+</script>
+
+{#if $playerIsASpy}
+  <h2 class="heading text-gray-100 mb-lg text-center" in:blur>
+    {playerNamesToSentance($spies.map(spy => spy.name), $currentPlayer.name)} are
+    <span class="text-fail-300">spies</span> amongst the resistance!
+  </h2>
+  <ul id="playerList" class="grid {gridSize($ruleset.spyCount)} -mx-lg mb-xl gap-xs border solid border-gray-800" in:blur>
+    {#each $spies as {...player}}
+      <Player {...player} />
+    {/each}
+  </ul>
+{:else}
+  <h2 class="heading text-gray-100 mb-lg text-center" in:blur>
+    You're part of the <span class="text-success-300">resistance</span>, but there are {$ruleset.spyCount} spies in your midst.
+  </h2>
+  <ul id="playerList" class="grid {gridSize($ruleset.playerCount)} -mx-lg mb-xl gap-xs border solid border-gray-800" in:blur>
+    {#each $players as {...player}}
+      <Player {...player} />
+    {/each}
+  </ul>
+{/if}

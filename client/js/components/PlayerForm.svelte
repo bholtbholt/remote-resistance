@@ -29,7 +29,7 @@
     const player: Player = {
       id: uuid(),
       name: this.elements['name'].value,
-      avatar: this.elements['avatar'].value || firstAvailableAvatar,
+      avatar: this.elements['avatar'].value,
     };
 
     socket.emit('player::add', player);
