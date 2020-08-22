@@ -19,7 +19,7 @@ module.exports = {
       primary: colors.teal,
       warning: colors.yellow,
       fail: colors.red,
-      success: colors.green,
+      success: colors.blue,
       gray: colors.gray,
       black: colors.black,
       white: colors.white,
@@ -40,7 +40,17 @@ module.exports = {
       lg: 'var(--space-lg)',
       xl: 'var(--space-xl)',
     },
-    extend: {},
+    extend: {
+      animation: {
+        'slow-pulse': 'slow-pulse 3s cubic-bezier(0, 0, 0.2, 1) infinite',
+      },
+      keyframes: {
+        'slow-pulse': {
+          '0%': { transform: 'scale(1)', opacity: 1 },
+          '25%, 100%': { transform: 'scale(2)', opacity: 0 },
+        },
+      },
+    },
   },
   variants: {
     borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
