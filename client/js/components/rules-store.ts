@@ -5,10 +5,20 @@ export const maximumPlayerCount = 10;
 export const minimumPlayerCount = 5;
 
 function createStore() {
-  const { set, subscribe, update } = writable({});
+  const initRuleset: Ruleset = {
+    playerCount: undefined,
+    spyCount: undefined,
+    playerIds: [],
+    spyIds: [],
+    missions: {},
+    failVoteTies: undefined,
+    roundsToWin: undefined,
+  };
+  const { set, subscribe, update } = writable(initRuleset);
 
   return {
     subscribe,
+    set,
     'ruleset::generate': (ruleset: Ruleset) => {
       set(ruleset);
     },
