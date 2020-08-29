@@ -2,8 +2,8 @@ import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import AppFixture from './AppFixture.svelte';
 import LobbyPreGame from '../components/LobbyPreGame.svelte';
-import { currentPlayerId, players } from '../components/player-store';
-import { generateRuleset, ruleset } from '../components/rules-store';
+import { currentPlayerId, players } from '../stores/player';
+import { generateRuleset, ruleset } from '../stores/rules';
 import { createPlayer, repeat } from './test-helper';
 const socket = require('socket.io-client')('test');
 

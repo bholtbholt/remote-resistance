@@ -3,7 +3,7 @@ import * as socketIO from 'socket.io';
 import { server } from './routes';
 import { historyEvents, createHistory } from './history';
 import { actionNames } from '../actions';
-import { createPlayer, createHistoryEvent } from '../client/js/__tests__/test-helper';
+import { createPlayer, createHistoryEvent } from '../tests/test-helper';
 
 // Rooms are actually "namespaces" in socket.io for better security
 // not to be confused with socket.io "rooms"

@@ -1,6 +1,6 @@
-import type { Player, PlayerId, Ruleset } from '../../../types';
+import type { Player, PlayerId, Ruleset } from '../types';
 import { writable, derived } from 'svelte/store';
-import { ruleset } from './rules-store';
+import { ruleset } from './rules';
 
 function createPlayersStore() {
   const { subscribe, set, update } = writable([]);

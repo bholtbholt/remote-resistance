@@ -1,7 +1,7 @@
-import type { Gamestate, Player, Ruleset } from '../../../types';
+import type { Gamestate, Player, Ruleset } from '../types';
 import { writable, derived } from 'svelte/store';
-import { ruleset } from './rules-store';
-import { players } from './player-store';
+import { ruleset } from './rules';
+import { players } from './player';
 
 function createStore() {
   const { set, subscribe } = writable('PRE_GAME');

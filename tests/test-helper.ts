@@ -1,4 +1,4 @@
-import type { Action, HistoryEvent, Player } from '../../../types';
+import type { Action, HistoryEvent, Player } from '../types';
 import { v4 as uuid } from 'uuid';
 
 export function repeat(number: number, callback) {

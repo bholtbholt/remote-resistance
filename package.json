@@ -35,7 +35,7 @@
     "compilerOptions": {
       "esModuleInterop": true
     },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.ts$",
+    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
     "moduleFileExtensions": [
       "svelte",
       "ts",

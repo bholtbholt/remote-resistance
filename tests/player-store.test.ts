@@ -7,8 +7,8 @@ import {
   playerIsASpy,
   playerIsLoggedIn,
   players,
-} from '../components/player-store';
-import { generateRuleset, ruleset } from '../components/rules-store';
+} from '../stores/player';
+import { generateRuleset, ruleset } from '../stores/rules';
 
 afterEach(() => {
   return players.set([]);

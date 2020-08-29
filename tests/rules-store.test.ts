@@ -1,6 +1,6 @@
 import 'ts-jest';
 import { createPlayer, repeat } from './test-helper';
-import { generateRuleset } from '../components/rules-store';
+import { generateRuleset } from '../stores/rules';
 
 test('should generate a ruleset for 5 players', () => {
   const players = repeat(5, createPlayer);

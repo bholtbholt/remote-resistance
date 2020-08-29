@@ -1,6 +1,6 @@
-import type { HistoryEvent } from '../../../types';
+import type { HistoryEvent } from '../types';
 import { derived, writable } from 'svelte/store';
-import { actions } from '../../../actions';
+import { actions } from '../actions';
 
 function createStore() {
   const { set, subscribe } = writable(undefined);

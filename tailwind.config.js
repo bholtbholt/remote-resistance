@@ -2,7 +2,7 @@ const plugin = require('tailwindcss/plugin');
 const { colors } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  purge: ['./client/**/*.svelte'],
+  purge: ['./components/**/*.svelte'],
   theme: {
     borderRadius: {
       none: '0',

@@ -2,7 +2,7 @@ import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import AppFixture from './AppFixture.svelte';
 import PlayerForm from '../components/PlayerForm.svelte';
-import { currentPlayerId, players } from '../components/player-store';
+import { currentPlayerId, players } from '../stores/player';
 const socket = require('socket.io-client')('test');
 
 test('should enable the form by default', () => {

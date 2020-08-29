@@ -1,4 +1,4 @@
-import type { Player, Ruleset } from '../../../types';
+import type { Player, Ruleset } from '../types';
 import { writable } from 'svelte/store';
 
 export const maximumPlayerCount = 10;

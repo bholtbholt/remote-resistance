@@ -1,6 +1,6 @@
 <script type="text/typescript" lang="ts">
-  import { players, playerIsLoggedIn } from './player-store';
-  import { ruleset } from './rules-store';
+  import { players, playerIsLoggedIn } from '../stores/player';
+  import { ruleset } from '../stores/rules';
 
   import RoundTracker from './RoundTracker.svelte';
 </script>

@@ -2,10 +2,10 @@ import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { get } from 'svelte/store';
 import App from '../components/App.svelte';
-import { history } from '../components/history-store';
-import { gamestate } from '../components/game-store';
-import { generateRuleset, ruleset } from '../components/rules-store';
-import { players } from '../components/player-store';
+import { history } from '../stores/history';
+import { gamestate } from '../stores/game';
+import { generateRuleset, ruleset } from '../stores/rules';
+import { players } from '../stores/player';
 import { createHistoryEvent, createPlayer, repeat } from './test-helper';
 const socket = require('socket.io-client')('test');
 

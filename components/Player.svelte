@@ -1,6 +1,6 @@
 <script type="text/typescript" lang="ts">
-  import type { Player } from '../../../types';
-  import { currentPlayerId } from './player-store';
+  import type { Player } from '../types';
+  import { currentPlayerId } from '../stores/player';
 
   export let avatar;
   export let name;

@@ -5,10 +5,10 @@
   import { setContext } from 'svelte';
   setContext('socketIORoom', socket);
 
-  import { history, historyIsLoaded } from './history-store';
-  import { actions } from '../../../actions';
-  import { currentPlayerId } from './player-store';
-  import { gamestate } from './game-store';
+  import { history, historyIsLoaded } from '../stores/history';
+  import { actions } from '../actions';
+  import { currentPlayerId } from '../stores/player';
+  import { gamestate } from '../stores/game';
 
   currentPlayerId.set(currentPlayerIdSessionKey);
   socket.once('history::init', history['history::init']);

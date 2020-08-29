@@ -1,9 +1,9 @@
 import 'ts-jest';
 import { createPlayer, repeat } from './test-helper';
 import { get } from 'svelte/store';
-import { gamestate, preGame, inGame, postGame, spies } from '../components/game-store';
-import { players } from '../components/player-store';
-import { ruleset, generateRuleset } from '../components/rules-store';
+import { gamestate, preGame, inGame, postGame, spies } from '../stores/game';
+import { players } from '../stores/player';
+import { ruleset, generateRuleset } from '../stores/rules';
 
 afterEach(() => {
   return gamestate.set('PRE_GAME');

@@ -1,6 +1,6 @@
 <script type="text/typescript" lang="ts">
-  import type { Player } from '../../../types';
-  import { currentPlayerId, players } from './player-store';
+  import type { Player } from '../types';
+  import { currentPlayerId, players } from '../stores/player';
   import { v4 as uuid } from 'uuid';
 
   import { fly, fade } from 'svelte/transition';
