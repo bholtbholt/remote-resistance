@@ -51,24 +51,5 @@ test('should only init history once', () => {
   socket.emit('history::init', []);
   socket.emit('history::init', []);
 
-  // one for history::init, one for ruleset::generate
-  expect(socket.once).toHaveBeenCalledTimes(2);
-});
-
-test('should take the last set ruleset', () => {
-  spyOn(socket, 'once');
-  const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
-  history['history::init']([]);
-  repeat(10, () => {
-    players['player::add'](createPlayer());
-  });
-  const expectedRuleset = generateRuleset(get(players));
-  socket.emit('ruleset::generate', expectedRuleset);
-  socket.emit('ruleset::generate', generateRuleset(get(players)));
-  socket.emit('ruleset::generate', generateRuleset(get(players)));
-  socket.emit('ruleset::generate', generateRuleset(get(players)));
-
-  // one for history::init, one for ruleset::generate
-  expect(socket.once).toHaveBeenCalledTimes(2);
-  // expect(get(ruleset)).toEqual(expectedRuleset);
+  expect(socket.once).toHaveBeenCalledTimes(1);
 });

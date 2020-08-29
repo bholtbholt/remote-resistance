@@ -5,23 +5,22 @@
   import { setContext } from 'svelte';
   setContext('socketIORoom', socket);
 
-  import { history } from './history-store';
-  import { ruleset } from './rules-store';
-  import { players, currentPlayerId } from './player-store';
+  import { history, historyIsLoaded } from './history-store';
+  import { actions } from '../../../actions';
+  import { currentPlayerId } from './player-store';
   import { gamestate } from './game-store';
 
-  socket.once('history::init', history['history::init']);
-  socket.once('ruleset::generate', ruleset['ruleset::generate']);
-  socket.on('player::add', players['player::add']);
-  socket.on('gamestate::set', gamestate['gamestate::set']);
   currentPlayerId.set(currentPlayerIdSessionKey);
+  socket.once('history::init', history['history::init']);
+  Object.entries(actions).map(([actionName, callback]) => {
+    socket.on(actionName, callback);
+  });
 
   import LobbyPreGame from './LobbyPreGame.svelte';
   import LobbyGame from './LobbyGame.svelte';
   import LobbyPostGame from './LobbyPostGame.svelte';
   import Credits from './Credits.svelte';
 
-  $: historyIsLoaded = Array.isArray($history);
   const state = {
     PRE_GAME: LobbyPreGame,
     IN_GAME: LobbyGame,
@@ -29,7 +28,7 @@
   };
 </script>
 
-{#if historyIsLoaded}
+{#if $historyIsLoaded}
 <svelte:component this="{state[$gamestate]}" />
 {:else}
 <div class="loading-dots mx-auto my-xl"></div>

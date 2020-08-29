@@ -1,37 +1,17 @@
 import type { HistoryEvent } from '../../../types';
-import { writable } from 'svelte/store';
-
-// Build up all the stores to pass them through history::init
-// which replays all historyEvents in order to build the state
-
-// Import all stores with historyEvents
-import { players } from './player-store';
-import { ruleset } from './rules-store';
-import { gamestate } from './game-store';
-
-// The structure is not robust and requires the following:
-//   eventNamespace: storeObject
-// For example, event { action: 'player::add', data: {…} }
-//   eventNamespace = 'player' (splitting from player::add)
-//   storeObject = 'players' (from import { players } from './player-store';)
-const allStores = {
-  player: players,
-  ruleset: ruleset,
-  gamestate: gamestate,
-};
+import { derived, writable } from 'svelte/store';
+import { actions } from '../../../actions';
 
 function createStore() {
   const { set, subscribe } = writable(undefined);
 
   return {
     subscribe,
+    set,
     'history::init': (historyEvents: HistoryEvent[]) => {
       // Replay all events in order then set history:
-      // - match the event namespace with the key in allStores
-      // - call the store action with event data
       historyEvents.forEach(({ action, data }) => {
-        const [eventNamespaceToStoreKey] = action.split('::');
-        allStores[eventNamespaceToStoreKey][action](data);
+        actions[action](data);
       });
       set(historyEvents);
     },
@@ -39,3 +19,4 @@ function createStore() {
 }
 
 export const history = createStore();
+export const historyIsLoaded = derived(history, ($history) => Array.isArray($history));
