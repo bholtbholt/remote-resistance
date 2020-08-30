@@ -14,6 +14,10 @@ export const players = (() => {
   };
 })();
 
+export const spies = derived([ruleset, players], ([$ruleset, $players]): Player[] => {
+  return $players.filter((player) => $ruleset.spyIds.includes(player.id));
+});
+
 export const currentPlayerId = (() => {
   const { subscribe, set } = writable('');
 
