@@ -11,8 +11,9 @@ export const ruleset = (() => {
     playerIds: [],
     spyIds: [],
     missions: {},
-    failVoteTies: undefined,
+    failTies: undefined,
     roundsToWin: undefined,
+    permittedTeamVoteFails: undefined,
   };
   const { set, subscribe, update } = writable(initRuleset);
 
@@ -47,8 +48,9 @@ export function generateRuleset(players: Player[]): Ruleset {
     playerIds,
     spyIds,
     missions,
-    failVoteTies: true,
+    failTies: true,
     roundsToWin: 3,
+    permittedTeamVoteFails: 4,
   };
 }
 
@@ -59,23 +61,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 2,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 2,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       5: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -85,23 +87,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 2,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       5: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -111,23 +113,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 2,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 4,
-        permittedFails: 1,
+        permittedMissionVoteFails: 1,
       },
       5: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -137,23 +139,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 5,
-        permittedFails: 1,
+        permittedMissionVoteFails: 1,
       },
       5: {
         teamSize: 5,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -163,23 +165,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 5,
-        permittedFails: 1,
+        permittedMissionVoteFails: 1,
       },
       5: {
         teamSize: 5,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -189,23 +191,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 5,
-        permittedFails: 1,
+        permittedMissionVoteFails: 1,
       },
       5: {
         teamSize: 5,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },

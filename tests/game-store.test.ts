@@ -20,8 +20,9 @@ afterEach(() => {
     playerIds: [],
     spyIds: [],
     missions: {},
-    failVoteTies: undefined,
+    failTies: undefined,
     roundsToWin: undefined,
+    permittedTeamVoteFails: undefined,
   });
 });
 

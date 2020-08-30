@@ -35,10 +35,13 @@ export interface Player {
 }
 
 export interface Round {
+  name: string;
+  teamSize: number;
+  failedTeamVotes: number;
+  permittedTeamVoteFails: number;
+  permittedMissionVoteFails: number;
   teamBuildingPhase: TeamBuildingPhase[];
   missionPhase: MissionPhase;
-  voteTrackMaximum: number;
-  voteTrack: number;
   winner: 'resistance' | 'spies';
 }
 
@@ -48,8 +51,9 @@ export interface Ruleset {
   playerCount: number;
   spyCount: number;
   missions: Object;
-  failVoteTies: boolean;
+  failTies: boolean;
   roundsToWin: number;
+  permittedTeamVoteFails: number;
 }
 
 export interface TeamBuildingPhase {
