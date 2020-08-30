@@ -52,3 +52,13 @@ export const currentRound = derived(
     return $rounds.find((round) => round.winner !== undefined) || $rounds[0];
   },
 );
+
+export const roundstate = (() => {
+  const { set, subscribe } = writable('TEAM_SELECTION');
+
+  return {
+    subscribe,
+    set,
+    'roundstate::set': set,
+  };
+})();
