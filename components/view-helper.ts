@@ -1,4 +1,4 @@
-function gridSize(playerCount) {
+export function gridSize(playerCount) {
   const gridMap = {
     2: 'grid-cols-2',
     3: 'grid-cols-3',
@@ -14,7 +14,7 @@ function gridSize(playerCount) {
   return gridMap[playerCount];
 }
 
-function playerNamesToSentance(players, currentPlayer = '') {
+export function playerNamesToSentance(players, currentPlayer = '') {
   let sentance;
 
   const index = players.indexOf(currentPlayer);
@@ -29,7 +29,7 @@ function playerNamesToSentance(players, currentPlayer = '') {
   return sentance;
 }
 
-function toSentance(words) {
+export function toSentance(words) {
   let sentance;
 
   if (words.length === 2) {
@@ -41,5 +41,3 @@ function toSentance(words) {
 
   return sentance;
 }
-
-export { gridSize, playerNamesToSentance, toSentance };
