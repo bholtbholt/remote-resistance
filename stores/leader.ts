@@ -2,7 +2,7 @@ import type { Player, PlayerId } from '../types';
 import { writable, derived } from 'svelte/store';
 import { currentPlayerId } from './player';
 
-function createLeaderStore() {
+export const leader = (() => {
   const { subscribe, set } = writable(undefined);
 
   return {
@@ -14,9 +14,8 @@ function createLeaderStore() {
       set(newLeader);
     },
   };
-}
+})();
 
-export const leader = createLeaderStore();
 export const playerIsLeader = derived(
   [currentPlayerId, leader],
   ([$currentPlayerId, $leader]): Boolean => {

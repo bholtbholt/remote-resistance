@@ -3,7 +3,7 @@ import { writable, derived } from 'svelte/store';
 import { ruleset } from './rules';
 import { players } from './player';
 
-function createStore() {
+export const gamestate = (() => {
   const { set, subscribe } = writable('PRE_GAME');
 
   return {
@@ -13,9 +13,8 @@ function createStore() {
       set(gamestate);
     },
   };
-}
+})();
 
-export const gamestate = createStore();
 export const preGame = derived(gamestate, ($gamestate) => $gamestate === 'PRE_GAME');
 export const inGame = derived(gamestate, ($gamestate) => $gamestate === 'IN_GAME');
 export const postGame = derived(gamestate, ($gamestate) => $gamestate === 'POST_GAME');

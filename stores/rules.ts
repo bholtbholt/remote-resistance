@@ -4,7 +4,7 @@ import { writable } from 'svelte/store';
 export const maximumPlayerCount = 10;
 export const minimumPlayerCount = 5;
 
-function createStore() {
+export const ruleset = (() => {
   const initRuleset: Ruleset = {
     playerCount: undefined,
     spyCount: undefined,
@@ -23,9 +23,7 @@ function createStore() {
       set(ruleset);
     },
   };
-}
-
-export const ruleset = createStore();
+})();
 
 export function generateRuleset(players: Player[]): Ruleset {
   const playerCount = players.length;

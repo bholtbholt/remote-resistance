@@ -2,7 +2,7 @@ import type { HistoryEvent } from '../types';
 import { derived, writable } from 'svelte/store';
 import { actions } from '../actions';
 
-function createStore() {
+export const history = (() => {
   const { set, subscribe } = writable(undefined);
 
   return {
@@ -16,7 +16,6 @@ function createStore() {
       set(historyEvents);
     },
   };
-}
+})();
 
-export const history = createStore();
 export const historyIsLoaded = derived(history, ($history) => Array.isArray($history));
