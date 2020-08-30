@@ -1,6 +1,7 @@
 import type { Player, PlayerId, Ruleset } from '../types';
 import { writable, derived } from 'svelte/store';
 import { ruleset } from './rules';
+import { leader } from './leader';
 
 export const players = (() => {
   const { subscribe, set, update } = writable([]);
@@ -48,5 +49,12 @@ export const playerIsASpy = derived(
   [currentPlayerId, ruleset],
   ([$currentPlayerId, $ruleset]): Boolean => {
     return $ruleset.spyIds.includes($currentPlayerId);
+  },
+);
+
+export const playerIsLeader = derived(
+  [currentPlayerId, leader],
+  ([$currentPlayerId, $leader]): Boolean => {
+    return $currentPlayerId === $leader.id;
   },
 );

@@ -1,6 +1,5 @@
 import type { Player, PlayerId } from '../types';
-import { writable, derived } from 'svelte/store';
-import { currentPlayerId } from './player';
+import { writable } from 'svelte/store';
 
 export const leader = (() => {
   const { subscribe, set } = writable(undefined);
@@ -15,10 +14,3 @@ export const leader = (() => {
     },
   };
 })();
-
-export const playerIsLeader = derived(
-  [currentPlayerId, leader],
-  ([$currentPlayerId, $leader]): Boolean => {
-    return $currentPlayerId === $leader.id;
-  },
-);

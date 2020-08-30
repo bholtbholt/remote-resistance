@@ -2,7 +2,7 @@ import 'ts-jest';
 import { createPlayer, repeat } from './test-helper';
 import { get } from 'svelte/store';
 import { currentPlayerId, players } from '../stores/player';
-import { leader, playerIsLeader } from '../stores/leader';
+import { leader } from '../stores/leader';
 
 beforeEach(() => {
   repeat(5, () => {
@@ -45,22 +45,4 @@ test('should not pick a previous leader', () => {
   expect(get(leader)).toEqual(p1);
   leader['leader::change']([get(players), p1.id]);
   expect(get(leader)).not.toEqual(p1);
-});
-
-describe('#playerIsLeader', () => {
-  test('should return true when the current player is the leader', () => {
-    const [p1] = get(players);
-    currentPlayerId.set(p1.id);
-
-    leader['leader::change']([get(players), undefined]);
-    expect(get(playerIsLeader)).toEqual(true);
-  });
-
-  test("should return false when the current player isn't the leader", () => {
-    const [p1, p2] = get(players);
-    currentPlayerId.set(p2.id);
-
-    leader['leader::change']([get(players), undefined]);
-    expect(get(playerIsLeader)).toEqual(false);
-  });
 });
