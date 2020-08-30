@@ -12,8 +12,10 @@ module.exports = {
     },
     borderWidth: {
       default: '.2rem',
+      lg: '1rem',
+      xl: '1.4rem',
       transparent: 'transparent',
-      '0': '0',
+      0: '0',
     },
     colors: {
       primary: colors.teal,
@@ -61,6 +63,12 @@ module.exports = {
       const newUtilities = {
         '.outline': {
           boxShadow: `0 0 0 ${theme('borderWidth.default')} ${theme('colors.primary.500')}`,
+        },
+        '.outline-success-700': {
+          boxShadow: `0 0 0 ${theme('borderWidth.lg')} ${theme('colors.success.700')}`,
+        },
+        '.outline-fail-700': {
+          boxShadow: `0 0 0 ${theme('borderWidth.lg')} ${theme('colors.fail.700')}`,
         },
         '.blur': {
           filter: 'blur(0.6em)',
