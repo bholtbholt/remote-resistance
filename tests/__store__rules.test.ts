@@ -1,6 +1,6 @@
 import 'ts-jest';
 import { createPlayer, repeat } from './test-helper';
-import { generateRuleset } from '../components/rules-store';
+import { generateRuleset } from '../stores/rules';
 
 test('should generate a ruleset for 5 players', () => {
   const players = repeat(5, createPlayer);
@@ -26,7 +26,7 @@ test('should generate a ruleset for 7 players', () => {
 
   expect(7).toEqual(ruleset.playerIds.length);
   expect(3).toEqual(ruleset.spyIds.length);
-  expect(ruleset.missions[4]['permittedFails']).toEqual(1);
+  expect(ruleset.missions[4]['permittedMissionVoteFails']).toEqual(1);
   expect(ruleset.spyIds[0]).not.toEqual(ruleset.spyIds[1]);
   expect(ruleset.spyIds[0]).not.toEqual(ruleset.spyIds[2]);
   expect(ruleset.spyIds[1]).not.toEqual(ruleset.spyIds[2]);
@@ -38,7 +38,7 @@ test('should generate a ruleset for 8 players', () => {
 
   expect(8).toEqual(ruleset.playerIds.length);
   expect(3).toEqual(ruleset.spyIds.length);
-  expect(ruleset.missions[4]['permittedFails']).toEqual(1);
+  expect(ruleset.missions[4]['permittedMissionVoteFails']).toEqual(1);
   expect(ruleset.spyIds[0]).not.toEqual(ruleset.spyIds[1]);
   expect(ruleset.spyIds[0]).not.toEqual(ruleset.spyIds[2]);
   expect(ruleset.spyIds[1]).not.toEqual(ruleset.spyIds[2]);
@@ -50,7 +50,7 @@ test('should generate a ruleset for 9 players', () => {
 
   expect(9).toEqual(ruleset.playerIds.length);
   expect(3).toEqual(ruleset.spyIds.length);
-  expect(ruleset.missions[4]['permittedFails']).toEqual(1);
+  expect(ruleset.missions[4]['permittedMissionVoteFails']).toEqual(1);
   expect(ruleset.spyIds[0]).not.toEqual(ruleset.spyIds[1]);
   expect(ruleset.spyIds[0]).not.toEqual(ruleset.spyIds[2]);
   expect(ruleset.spyIds[1]).not.toEqual(ruleset.spyIds[2]);
@@ -62,7 +62,7 @@ test('should generate a ruleset for 10 players', () => {
 
   expect(10).toEqual(ruleset.playerIds.length);
   expect(4).toEqual(ruleset.spyIds.length);
-  expect(ruleset.missions[4]['permittedFails']).toEqual(1);
+  expect(ruleset.missions[4]['permittedMissionVoteFails']).toEqual(1);
   expect(ruleset.spyIds[0]).not.toEqual(ruleset.spyIds[1]);
   expect(ruleset.spyIds[0]).not.toEqual(ruleset.spyIds[2]);
   expect(ruleset.spyIds[0]).not.toEqual(ruleset.spyIds[3]);

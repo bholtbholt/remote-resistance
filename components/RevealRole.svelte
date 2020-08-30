@@ -1,7 +1,6 @@
 <script type="text/typescript" lang="ts">
-  import { players, playerIsASpy, currentPlayer } from './player-store';
-  import { ruleset } from './rules-store';
-  import { spies } from './game-store';
+  import { currentPlayer, players, playerIsASpy, spies } from '../stores/player';
+  import { ruleset } from '../stores/rules';
 
   import { blur } from './custom-transitions';
 

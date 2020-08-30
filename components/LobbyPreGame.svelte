@@ -1,8 +1,8 @@
 <script type="text/typescript" lang="ts">
-  import { redirect } from '../redirect';
+  import { redirect } from '../client/js/redirect';
 
-  import { players, playerIsLoggedIn } from './player-store';
-  import { generateRuleset, maximumPlayerCount, minimumPlayerCount } from './rules-store';
+  import { players, playerIsLoggedIn } from '../stores/player';
+  import { generateRuleset, maximumPlayerCount, minimumPlayerCount } from '../stores/rules';
 
   import { fly, fade } from 'svelte/transition';
   import { getContext } from 'svelte';
@@ -20,7 +20,9 @@
     this.disabled = true;
     const ruleset = generateRuleset($players);
     socket.emit('ruleset::generate', ruleset);
-    socket.emit('gamestate::set', 'IN_GAME');
+    socket.emit('rounds::init', ruleset);
+    socket.emit('leader::change', [$players, undefined]);
+    socket.emit('appstate::set', 'IN_GAME');
   }
 </script>
 

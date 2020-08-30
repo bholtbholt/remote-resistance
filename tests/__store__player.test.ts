@@ -5,10 +5,13 @@ import {
   currentPlayer,
   currentPlayerId,
   playerIsASpy,
+  playerIsLeader,
   playerIsLoggedIn,
   players,
-} from '../components/player-store';
-import { generateRuleset, ruleset } from '../components/rules-store';
+  spies,
+} from '../stores/player';
+import { generateRuleset, ruleset } from '../stores/rules';
+import { leader } from '../stores/leader';
 
 afterEach(() => {
   return players.set([]);
@@ -16,6 +19,19 @@ afterEach(() => {
 
 afterEach(() => {
   return currentPlayerId.set('');
+});
+
+afterEach(() => {
+  return ruleset.set({
+    playerCount: undefined,
+    spyCount: undefined,
+    playerIds: [],
+    spyIds: [],
+    missions: {},
+    failTies: undefined,
+    roundsToWin: undefined,
+    permittedTeamVoteFails: undefined,
+  });
 });
 
 describe('#players', () => {
@@ -102,5 +118,51 @@ describe('#playerIsASpy', () => {
 
     expect(get(ruleset).spyIds).not.toContain(player.id);
     expect(get(playerIsASpy)).toEqual(false);
+  });
+});
+
+describe('#spies', () => {
+  test('should return the spies in a game', () => {
+    const spy1 = createPlayer();
+    const spy2 = createPlayer();
+    players['player::add'](spy1);
+    players['player::add'](spy2);
+    repeat(3, () => {
+      players['player::add'](createPlayer());
+    });
+
+    let rules = generateRuleset(get(players));
+    rules.spyIds = [spy1.id, spy2.id];
+    ruleset.set(rules);
+
+    expect(get(spies)).toEqual([spy1, spy2]);
+  });
+
+  test('should init with []', () => {
+    expect(get(spies)).toEqual([]);
+  });
+});
+
+describe('#playerIsLeader', () => {
+  test('should return true when the current player is the leader', () => {
+    repeat(5, () => {
+      players['player::add'](createPlayer());
+    });
+    const [p1] = get(players);
+    currentPlayerId.set(p1.id);
+
+    leader['leader::change']([get(players), undefined]);
+    expect(get(playerIsLeader)).toEqual(true);
+  });
+
+  test("should return false when the current player isn't the leader", () => {
+    repeat(5, () => {
+      players['player::add'](createPlayer());
+    });
+    const [p1, p2] = get(players);
+    currentPlayerId.set(p2.id);
+
+    leader['leader::change']([get(players), undefined]);
+    expect(get(playerIsLeader)).toEqual(false);
   });
 });

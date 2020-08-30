@@ -3,6 +3,7 @@
 
   import RoundTracker from './RoundTracker.svelte';
   import RevealRole from './RevealRole.svelte';
+  import TeamBuilding from './TeamBuilding.svelte';
 
   let showRoles = true;
 </script>
@@ -15,5 +16,7 @@
       <button on:click|preventDefault="{() => { showRoles = false }}"
         class="btn-primary font-bold text-lg w-full">Start first round</button>
     </div>
+  {:else}
+    <TeamBuilding />
   {/if}
 </div>

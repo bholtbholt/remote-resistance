@@ -1,9 +1,10 @@
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
+import { get } from 'svelte/store';
 import AppFixture from './AppFixture.svelte';
 import LobbyPreGame from '../components/LobbyPreGame.svelte';
-import { currentPlayerId, players } from '../components/player-store';
-import { generateRuleset, ruleset } from '../components/rules-store';
+import { currentPlayerId, players } from '../stores/player';
+import { generateRuleset, ruleset } from '../stores/rules';
 import { createPlayer, repeat } from './test-helper';
 const socket = require('socket.io-client')('test');
 
@@ -113,5 +114,45 @@ test('should set the game state to IN_GAME', async () => {
 
   await fireEvent.click(button);
 
-  expect(socket.emit).toHaveBeenCalledWith('gamestate::set', 'IN_GAME');
+  expect(socket.emit).toHaveBeenCalledWith('appstate::set', 'IN_GAME');
+});
+
+test('should set the first team builder leader', async () => {
+  const binks = { id: 'id-for-binks', avatar: '🐶', name: 'Binks' };
+  players['player::add'](binks);
+  currentPlayerId.set(binks.id);
+
+  repeat(4, () => {
+    const player = createPlayer();
+    players['player::add'](player);
+  });
+
+  spyOn(socket, 'emit');
+  const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
+
+  const button = getByText('Start the game!');
+
+  await fireEvent.click(button);
+
+  expect(socket.emit).toHaveBeenCalledWith('leader::change', [get(players), undefined]);
+});
+
+test('should initialize rounds', async () => {
+  const binks = { id: 'id-for-binks', avatar: '🐶', name: 'Binks' };
+  players['player::add'](binks);
+  currentPlayerId.set(binks.id);
+
+  repeat(4, () => {
+    const player = createPlayer();
+    players['player::add'](player);
+  });
+
+  spyOn(socket, 'emit');
+  const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
+
+  const button = getByText('Start the game!');
+
+  await fireEvent.click(button);
+
+  expect(socket.emit).toHaveBeenCalledWith('rounds::init', expect.objectContaining({}));
 });

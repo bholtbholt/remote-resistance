@@ -1,6 +1,6 @@
 <script type="text/typescript" lang="ts">
-  import type { Player } from '../../../types';
-  import { currentPlayerId } from './player-store';
+  import type { Player } from '../types';
+  import { currentPlayerId } from '../stores/player';
 
   export let avatar;
   export let name;
@@ -11,5 +11,5 @@
   <svg viewBox="0 0 20 20">
     <text x="50%" y="80%" class="align-middle overflow-visible" style="text-anchor: middle;">{avatar}</text>
   </svg>
-  <div class="truncate px-xs mb-sm text-gray-700">{name}</div>
+  <div class="truncate px-xs mb-sm text-gray-700" class:font-extrabold="{id === $currentPlayerId}">{name}</div>
 </li>

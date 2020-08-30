@@ -2,9 +2,9 @@ import type { Action } from '../types';
 import * as socketIO from 'socket.io';
 import { server } from './routes';
 import { historyEvents, createHistory } from './history';
-import { createPlayer, createHistoryEvent } from '../client/js/__tests__/test-helper';
+import { actionNames } from '../actions';
+import { createPlayer, createHistoryEvent } from '../tests/test-helper';
 
-const actionNames: Action[] = ['player::add', 'ruleset::generate', 'gamestate::set'];
 // Rooms are actually "namespaces" in socket.io for better security
 // not to be confused with socket.io "rooms"
 const rooms = socketIO(server).of(/^\/\w+/);

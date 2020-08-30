@@ -2,10 +2,10 @@ import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { get } from 'svelte/store';
 import App from '../components/App.svelte';
-import { history } from '../components/history-store';
-import { gamestate } from '../components/game-store';
-import { generateRuleset, ruleset } from '../components/rules-store';
-import { players } from '../components/player-store';
+import { history } from '../stores/history';
+import { appstate } from '../stores/app';
+import { generateRuleset, ruleset } from '../stores/rules';
+import { players } from '../stores/player';
 import { createHistoryEvent, createPlayer, repeat } from './test-helper';
 const socket = require('socket.io-client')('test');
 
@@ -28,7 +28,7 @@ test('should render pre_game component', () => {
 
 test('should render in_game component', () => {
   history['history::init']([]);
-  gamestate['gamestate::set']('IN_GAME');
+  appstate['appstate::set']('IN_GAME');
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
   expect(container.querySelector('#LobbyGame')).not.toBeNull();
@@ -36,7 +36,7 @@ test('should render in_game component', () => {
 
 test('should render post_game component', () => {
   history['history::init']([]);
-  gamestate['gamestate::set']('POST_GAME');
+  appstate['appstate::set']('POST_GAME');
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
   expect(container.querySelector('#LobbyPostGame')).not.toBeNull();
@@ -51,24 +51,5 @@ test('should only init history once', () => {
   socket.emit('history::init', []);
   socket.emit('history::init', []);
 
-  // one for history::init, one for ruleset::generate
-  expect(socket.once).toHaveBeenCalledTimes(2);
-});
-
-test('should take the last set ruleset', () => {
-  spyOn(socket, 'once');
-  const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
-  history['history::init']([]);
-  repeat(10, () => {
-    players['player::add'](createPlayer());
-  });
-  const expectedRuleset = generateRuleset(get(players));
-  socket.emit('ruleset::generate', expectedRuleset);
-  socket.emit('ruleset::generate', generateRuleset(get(players)));
-  socket.emit('ruleset::generate', generateRuleset(get(players)));
-  socket.emit('ruleset::generate', generateRuleset(get(players)));
-
-  // one for history::init, one for ruleset::generate
-  expect(socket.once).toHaveBeenCalledTimes(2);
-  // expect(get(ruleset)).toEqual(expectedRuleset);
+  expect(socket.once).toHaveBeenCalledTimes(1);
 });

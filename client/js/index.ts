@@ -5,7 +5,7 @@ const socket = require('socket.io-client')(window.location.pathname);
 // the first time they've been on the app – so we clear storage and redirect
 if (window.location.pathname === '/') redirect();
 
-import App from './components/App.svelte';
+import App from '../../components/App.svelte';
 export default new App({
   target: document.body,
   props: {

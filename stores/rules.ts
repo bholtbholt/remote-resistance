@@ -1,18 +1,19 @@
-import type { Player, Ruleset } from '../../../types';
+import type { Player, Ruleset } from '../types';
 import { writable } from 'svelte/store';
 
 export const maximumPlayerCount = 10;
 export const minimumPlayerCount = 5;
 
-function createStore() {
+export const ruleset = (() => {
   const initRuleset: Ruleset = {
     playerCount: undefined,
     spyCount: undefined,
     playerIds: [],
     spyIds: [],
     missions: {},
-    failVoteTies: undefined,
+    failTies: undefined,
     roundsToWin: undefined,
+    permittedTeamVoteFails: undefined,
   };
   const { set, subscribe, update } = writable(initRuleset);
 
@@ -23,9 +24,7 @@ function createStore() {
       set(ruleset);
     },
   };
-}
-
-export const ruleset = createStore();
+})();
 
 export function generateRuleset(players: Player[]): Ruleset {
   const playerCount = players.length;
@@ -49,8 +48,9 @@ export function generateRuleset(players: Player[]): Ruleset {
     playerIds,
     spyIds,
     missions,
-    failVoteTies: true,
+    failTies: true,
     roundsToWin: 3,
+    permittedTeamVoteFails: 4,
   };
 }
 
@@ -61,23 +61,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 2,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 2,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       5: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -87,23 +87,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 2,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       5: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -113,23 +113,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 2,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 4,
-        permittedFails: 1,
+        permittedMissionVoteFails: 1,
       },
       5: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -139,23 +139,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 5,
-        permittedFails: 1,
+        permittedMissionVoteFails: 1,
       },
       5: {
         teamSize: 5,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -165,23 +165,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 5,
-        permittedFails: 1,
+        permittedMissionVoteFails: 1,
       },
       5: {
         teamSize: 5,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
@@ -191,23 +191,23 @@ const rules = {
     missions: {
       1: {
         teamSize: 3,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       2: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       3: {
         teamSize: 4,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
       4: {
         teamSize: 5,
-        permittedFails: 1,
+        permittedMissionVoteFails: 1,
       },
       5: {
         teamSize: 5,
-        permittedFails: 0,
+        permittedMissionVoteFails: 0,
       },
     },
   },
