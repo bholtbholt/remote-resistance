@@ -3,6 +3,7 @@
 
   import RoundTracker from './RoundTracker.svelte';
   import RevealRole from './RevealRole.svelte';
+  import RoleCard from './RoleCard.svelte';
   import TeamBuilding from './TeamBuilding.svelte';
 
   let hideRoleReveal = window.sessionStorage.getItem('hideRoleReveal');
@@ -10,9 +11,15 @@
     hideRoleReveal = true;
     window.sessionStorage.setItem('hideRoleReveal', true);
   }
+
+  $: blurredClasses = showPlayerCard ? 'transition-all duration-1000 ease-out blur opacity-50' : ''
+  $: showPlayerCard = false;
+  function toggleCardVisibility() {
+    showPlayerCard = !showPlayerCard;
+  }
 </script>
 
-<div id="LobbyGame" in:fade>
+<div id="LobbyGame" class="{blurredClasses}" in:fade>
   <RoundTracker />
   {#if hideRoleReveal}
     <TeamBuilding />
@@ -24,3 +31,7 @@
     </div>
   {/if}
 </div>
+
+{#if hideRoleReveal}
+  <RoleCard on:click="{toggleCardVisibility}" showCard={showPlayerCard} />
+{/if}
