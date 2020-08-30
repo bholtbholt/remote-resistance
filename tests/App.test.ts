@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/svelte';
 import { get } from 'svelte/store';
 import App from '../components/App.svelte';
 import { history } from '../stores/history';
-import { gamestate } from '../stores/game';
+import { appstate } from '../stores/app';
 import { generateRuleset, ruleset } from '../stores/rules';
 import { players } from '../stores/player';
 import { createHistoryEvent, createPlayer, repeat } from './test-helper';
@@ -28,7 +28,7 @@ test('should render pre_game component', () => {
 
 test('should render in_game component', () => {
   history['history::init']([]);
-  gamestate['gamestate::set']('IN_GAME');
+  appstate['appstate::set']('IN_GAME');
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
   expect(container.querySelector('#LobbyGame')).not.toBeNull();
@@ -36,7 +36,7 @@ test('should render in_game component', () => {
 
 test('should render post_game component', () => {
   history['history::init']([]);
-  gamestate['gamestate::set']('POST_GAME');
+  appstate['appstate::set']('POST_GAME');
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
   expect(container.querySelector('#LobbyPostGame')).not.toBeNull();

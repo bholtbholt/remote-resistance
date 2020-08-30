@@ -1,5 +1,4 @@
 export type Action = string;
-export type Gamestate = 'PRE_GAME' | 'IN_GAME' | 'POST_GAME';
 export type PlayerId = UUID;
 type UUID = string;
 

@@ -1,5 +1,5 @@
 import type { Action } from '../types';
-import { gamestate } from '../stores/game';
+import { appstate } from '../stores/app';
 import { leader } from '../stores/leader';
 import { players } from '../stores/player';
 import { rounds, roundstate } from '../stores/round';
@@ -8,7 +8,7 @@ import { ruleset } from '../stores/rules';
 // history::init must live outside of the actions otherwise it creates
 // circular dependencies when looping through the events
 export const actions = {
-  'gamestate::set': gamestate['gamestate::set'],
+  'appstate::set': appstate['appstate::set'],
   'leader::change': leader['leader::change'],
   'player::add': players['player::add'],
   'rounds::init': rounds['rounds::init'],

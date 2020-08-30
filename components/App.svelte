@@ -8,7 +8,7 @@
   import { history, historyIsLoaded } from '../stores/history';
   import { actions } from '../actions';
   import { currentPlayerId } from '../stores/player';
-  import { gamestate } from '../stores/game';
+  import { appstate } from '../stores/app';
 
   currentPlayerId.set(currentPlayerIdSessionKey);
   socket.once('history::init', history['history::init']);
@@ -29,7 +29,7 @@
 </script>
 
 {#if $historyIsLoaded}
-<svelte:component this="{state[$gamestate]}" />
+<svelte:component this="{state[$appstate]}" />
 {:else}
 <div class="loading-dots mx-auto my-xl"></div>
 {/if}
