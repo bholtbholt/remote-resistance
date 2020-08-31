@@ -10,6 +10,7 @@
   import { ruleset } from '../stores/rules';
   import { team } from '../stores/team';
 
+  import Spinner from './Spinner.svelte';
   import { gridSize } from './view-helper';
 
   $: disableSelection = $team.length >= $currentRound.teamSize;
@@ -29,10 +30,6 @@
   {#if $playerIsLeader}
     <h2 class="heading text-gray-100 mb-lg text-center">
       Pick <span class="text-success-300">{$currentRound.teamSize} players</span> for the {$currentRound.name} mission.
-    </h2>
-  {:else}
-    <h2 class="heading text-gray-100 mb-lg text-center">
-      <span class="text-primary-300">{$leader.name}</span> is picking {$currentRound.teamSize} players for the {$currentRound.name} mission.
     </h2>
   {/if}
 
@@ -67,4 +64,13 @@
       </button>
     {/if}
   </form>
+
+  {#if !$playerIsLeader}
+    <div class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center" in:fade>
+      <Spinner color="text-success-700" margins="mr-md" />
+      <h2 class="text-lg text-success-900">
+        <span class="font-extrabold">{$leader.name}</span> is picking {$currentRound.teamSize} players for the {$currentRound.name} mission.
+      </h2>
+    </div>
+  {/if}
 </div>
