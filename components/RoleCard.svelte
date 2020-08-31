@@ -1,7 +1,7 @@
 <script type="text/typescript" lang="ts">
   export let showCard = false;
   import { fly } from 'svelte/transition';
-  import { rotate } from './custom-transitions';
+  import { cardFlip } from './custom-transitions';
   import { currentPlayer, playerIsASpy } from '../stores/player';
 
   import Player from './Player.svelte';
@@ -13,8 +13,8 @@
 </script>
 
 {#if showCard}
-  <div class="fixed inset-0 cursor-pointer background-fail-700" on:click>
-    <div class="fixed top-0 inset-x-0 z-10 m-xl rounded-lg shadow-xl border-solid border-xl {borderColor}" transition:rotate>
+  <div class="fixed inset-0 z-10 cursor-pointer background-fail-700" on:click>
+    <div class="fixed top-0 inset-x-0 m-xl rounded-lg shadow-xl border-solid border-xl {borderColor}" transition:cardFlip>
       <div class="text-center bg-white rounded-lg p-lg pt-xl {outlineColor}">
         <h2 class="text-xl font-extrabold -mb-lg {headingColor}">{headingText}</h2>
         <svg viewBox="0 0 20 20">
