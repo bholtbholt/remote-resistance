@@ -52,6 +52,18 @@ module.exports = {
           '25%, 100%': { transform: 'scale(2)', opacity: 0 },
         },
       },
+      minHeight: {
+        xl: 'var(--space-xl)',
+      },
+      transitionProperty: {
+        border: 'border',
+      },
+      scale: {
+        flip: '-1',
+      },
+      zIndex: {
+        n: '-1',
+      },
     },
   },
   variants: {
@@ -61,6 +73,9 @@ module.exports = {
   plugins: [
     plugin(function ({ addUtilities, theme }) {
       const newUtilities = {
+        '.blur': {
+          filter: 'blur(0.6em)',
+        },
         '.outline': {
           boxShadow: `0 0 0 ${theme('borderWidth.default')} ${theme('colors.primary.500')}`,
         },
@@ -70,8 +85,8 @@ module.exports = {
         '.outline-fail-700': {
           boxShadow: `0 0 0 ${theme('borderWidth.lg')} ${theme('colors.fail.700')}`,
         },
-        '.blur': {
-          filter: 'blur(0.6em)',
+        '.text-anchor-middle': {
+          textAnchor: 'middle',
         },
       };
 
