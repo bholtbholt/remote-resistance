@@ -29,18 +29,20 @@ export function cardFlip(node, { delay = 0, duration = 400, flip = false }) {
 
 export function rotate(
   node,
-  { delay = 0, duration = 400, x = -160, y = 100, deg = -30, origin = 'top right' },
+  { delay = 0, duration = 400, x = 0, y = 0, deg = -30, easing = cubicOut },
 ) {
   const style = getComputedStyle(node);
   const transform = style.transform === 'none' ? '' : style.transform;
+  const o = +style.opacity;
 
   return {
     delay,
     duration,
+    easing,
     css: (t, u) => `
       transform: ${transform}
         rotate(${(1 - t) * deg}deg)
         translate(${(1 - t) * x}%, ${(1 - t) * y}%);
-      transform-origin: ${origin};`,
+      opacity: ${t * o};`,
   };
 }

@@ -59,14 +59,14 @@
     </div>
 
     {#if $playerIsLeader && enableSubmit}
-      <button class="btn-primary font-bold text-lg w-full" in:fly="{{ y: 200, duration: 600 }}" out:fade="{{ duration: 75 }}">
+      <button class="btn-primary font-bold text-lg w-full" in:fly="{{ y: 200, duration: 600 }}">
         Confirm this team
       </button>
     {/if}
   </form>
 
   {#if !$playerIsLeader}
-    <div class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center" in:fade>
+    <div class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center" in:fly="{{ y: 200, duration: 600 }}">
       <Spinner color="text-success-700" margins="mr-md" />
       <h2 class="text-lg text-success-900">
         <span class="font-extrabold">{$leader.name}</span> is picking {$currentRound.teamSize} players for the {$currentRound.name} mission.

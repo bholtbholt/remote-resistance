@@ -3,6 +3,7 @@
   const socket = getContext('socketIORoom');
 
   import { fade, fly } from 'svelte/transition';
+  import { rotate } from './custom-transitions';
 
   import {
     allPlayersHaveVoted,
@@ -30,6 +31,8 @@
       border: 'border-fail-500',
       svgClass: 'transform scale-x-flip',
       y: '80%',
+      rotateDeg: -18,
+      rotateX: -60,
     },
     {
       value: '👍',
@@ -40,6 +43,8 @@
       border: 'border-success-500',
       svgClass: '',
       y: '74%',
+      rotateDeg: 18,
+      rotateX: 60,
     },
   ];
 
@@ -48,7 +53,7 @@
   }
 </script>
 
-<div id="TeamBuildingVote">
+<div id="TeamBuildingVote" in:fade>
   <h2 class="heading text-gray-100 text-center">
     Vote for team
     <span class="text-success-300">
@@ -64,6 +69,7 @@
       <div class="grid grid-cols-2 mb-xl gap-lg">
         {#each voteOptions as vote }
           <label for="{vote.id}"
+            in:rotate="{{ deg: vote.rotateDeg, x: vote.rotateX, y: 20 }}"
             class:opacity-50="{playerVote && !vote.selected}"
             class="relative text-center cursor-pointer">
             <input id="{vote.id}"
@@ -97,7 +103,8 @@
       {/if}
     </form>
   {:else}
-    <div class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center">
+    <div in:fly="{{ y: 200, duration: 600 }}"
+      class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center">
       <Spinner color="text-success-700" margins="mr-md" />
       <h2 class="text-lg text-success-900">
         Waiting for vote results
