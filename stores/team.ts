@@ -1,4 +1,4 @@
-import type { PlayerId } from '../types';
+import type { PlayerId, TeamVote } from '../types';
 import { writable } from 'svelte/store';
 
 export const team = (() => {
@@ -20,6 +20,21 @@ export const team = (() => {
         teamSet.has(playerId) ? teamSet.delete(playerId) : teamSet.add(playerId);
         return (team = Array.from(teamSet.values()));
       });
+    },
+  };
+})();
+
+export const teamVotes = (() => {
+  const { set, subscribe, update } = writable([]);
+
+  return {
+    subscribe,
+    set,
+    'teamvote:reset': () => {
+      set([]);
+    },
+    'teamvote::cast': (vote: TeamVote) => {
+      update((teamVotes) => (teamVotes = [...teamVotes, vote]));
     },
   };
 })();
