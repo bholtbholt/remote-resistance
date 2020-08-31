@@ -1,6 +1,8 @@
 <script type="text/typescript" lang="ts">
   import { fly, fade } from 'svelte/transition';
 
+  import { playerIsLoggedIn } from '../stores/player';
+
   import RoundTracker from './RoundTracker.svelte';
   import RevealRole from './RevealRole.svelte';
   import RoleCard from './RoleCard.svelte';
@@ -21,17 +23,19 @@
 
 <div id="LobbyGame" class="{blurredClasses}" in:fade>
   <RoundTracker />
-  {#if hideRoleReveal}
-    <TeamBuilding />
-  {:else}
+  {#if !hideRoleReveal && $playerIsLoggedIn}
     <RevealRole />
     <div class="mx-lg" in:fly="{{ y: 200, duration: 600, delay: 3000 }}">
       <button on:click|preventDefault="{hideRoles}"
         class="btn-primary font-bold text-lg w-full">Start first round</button>
     </div>
   {/if}
+
+  {#if hideRoleReveal || !$playerIsLoggedIn}
+    <TeamBuilding />
+  {/if}
 </div>
 
-{#if hideRoleReveal}
+{#if $playerIsLoggedIn && hideRoleReveal}
   <RoleCard on:click="{toggleCardVisibility}" showCard={showPlayerCard} />
 {/if}
