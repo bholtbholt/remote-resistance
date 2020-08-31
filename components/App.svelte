@@ -20,6 +20,7 @@
   import LobbyGame from './LobbyGame.svelte';
   import LobbyPostGame from './LobbyPostGame.svelte';
   import Credits from './Credits.svelte';
+  import AppController from './AppController.svelte';
 
   const state = {
     PRE_GAME: LobbyPreGame,
@@ -34,3 +35,4 @@
 <div class="loading-dots mx-auto my-xl"></div>
 {/if}
 <Credits />
+<AppController />
