@@ -39,7 +39,7 @@ const votesPending = [
   createHistoryEvent('teamvote::cast', { playerId: spy1.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy2.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy3.id, vote: '👍' }),
-  createHistoryEvent('teamvote::cast', { playerId: p4.id, vote: '👍' }),
+  createHistoryEvent('teamvote::cast', { playerId: p4.id, vote: '👎' }),
   createHistoryEvent('teamvote::cast', { playerId: p5.id, vote: '👎' }),
   createHistoryEvent('teamvote::cast', { playerId: p6.id, vote: '👎' }),
 ];
