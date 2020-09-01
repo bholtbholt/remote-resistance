@@ -6,6 +6,7 @@
     "build": "npm run clean && parcel build ./client/index.html",
     "clean": "rm -rf dist && rm -rf .cache",
     "lint": "svelte-check",
+    "setup": "cp .env.sample .env && npm install",
     "start": "ts-node ./server/index.ts & parcel ./client/index.html",
     "prestart": "rm -rf dist",
     "test": "jest --watch"
