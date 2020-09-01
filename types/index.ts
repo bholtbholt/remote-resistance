@@ -64,5 +64,5 @@ export interface TeamBuildingPhase {
 
 export interface TeamVote {
   playerId: PlayerId;
-  vote: 'approve' | 'reject';
+  vote: '👍' | '👎';
 }

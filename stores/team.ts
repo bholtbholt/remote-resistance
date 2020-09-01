@@ -1,5 +1,5 @@
-import type { PlayerId } from '../types';
-import { writable } from 'svelte/store';
+import type { PlayerId, TeamVote } from '../types';
+import { derived, writable } from 'svelte/store';
 
 export const team = (() => {
   const initTeam = [];
@@ -23,3 +23,25 @@ export const team = (() => {
     },
   };
 })();
+
+export const teamVotes = (() => {
+  const { set, subscribe, update } = writable([]);
+
+  return {
+    subscribe,
+    set,
+    'teamvote:reset': () => {
+      set([]);
+    },
+    'teamvote::cast': (vote: TeamVote) => {
+      update((teamVotes) => (teamVotes = [...teamVotes, vote]));
+    },
+  };
+})();
+
+export const teamVoteApproved = derived(teamVotes, ($teamVotes): boolean => {
+  const approved = $teamVotes.filter((teamVote) => teamVote.vote === '👍').length;
+  const rejected = $teamVotes.length - approved;
+
+  return approved > rejected;
+});

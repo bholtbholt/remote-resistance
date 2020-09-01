@@ -9,20 +9,27 @@ import {
   playerIsLoggedIn,
   players,
   spies,
+  teamMembers,
+  playerHasVoted,
+  allPlayersHaveVoted,
 } from '../stores/player';
 import { generateRuleset, ruleset } from '../stores/rules';
 import { leader } from '../stores/leader';
+import { team, teamVotes } from '../stores/team';
 
-afterEach(() => {
-  return players.set([]);
+beforeEach(() => {
+  repeat(5, () => {
+    players['player::add'](createPlayer());
+  });
+  return;
 });
 
 afterEach(() => {
-  return currentPlayerId.set('');
-});
-
-afterEach(() => {
-  return ruleset.set({
+  players.set([]);
+  currentPlayerId.set('');
+  teamVotes.set([]);
+  team.set([]);
+  ruleset.set({
     playerCount: undefined,
     spyCount: undefined,
     playerIds: [],
@@ -32,9 +39,15 @@ afterEach(() => {
     roundsToWin: undefined,
     permittedTeamVoteFails: undefined,
   });
+  return;
 });
 
 describe('#players', () => {
+  beforeEach(() => {
+    players.set([]);
+    return;
+  });
+
   test('should init with no players', () => {
     expect(get(players)).toEqual([]);
   });
@@ -49,54 +62,37 @@ describe('#players', () => {
 
 describe('#currentPlayer', () => {
   test('should return the current player', () => {
-    const player = createPlayer();
-    players['player::add'](player);
-    players['player::add'](createPlayer());
-    players['player::add'](createPlayer());
+    const [player] = get(players);
     currentPlayerId.set(player.id);
 
     expect(get(currentPlayer)).toEqual(player);
   });
 
   test("should return nothing when the player isn't logged in", () => {
-    players['player::add'](createPlayer());
-    players['player::add'](createPlayer());
-
     expect(get(currentPlayer)).toEqual(undefined);
   });
 });
 
 describe('#playerIsLoggedIn', () => {
   test('should return true when player is logged in', () => {
-    const player = createPlayer();
-    players['player::add'](player);
-    players['player::add'](createPlayer());
-    players['player::add'](createPlayer());
+    const [player] = get(players);
     currentPlayerId.set(player.id);
 
     expect(get(playerIsLoggedIn)).toEqual(true);
   });
 
   test("should return false when player isn't logged in", () => {
-    players['player::add'](createPlayer());
-    players['player::add'](createPlayer());
-
     expect(get(playerIsLoggedIn)).toEqual(false);
   });
 });
 
 describe('#playerIsASpy', () => {
   test('should return true when player is a spy', () => {
-    const player = createPlayer();
-    players['player::add'](player);
+    const [player, spy2] = get(players);
     currentPlayerId.set(player.id);
-    repeat(4, () => {
-      players['player::add'](createPlayer());
-    });
 
     let rules = generateRuleset(get(players));
-    // Manually override spies to include player
-    rules.spyIds = [player.id, get(players)[1].id];
+    rules.spyIds = [player.id, spy2.id];
     ruleset.set(rules);
 
     expect(get(ruleset).spyIds).toContain(player.id);
@@ -104,16 +100,11 @@ describe('#playerIsASpy', () => {
   });
 
   test('should return false when player is resistance', () => {
-    const player = createPlayer();
-    players['player::add'](player);
+    const [spy1, spy2, player] = get(players);
     currentPlayerId.set(player.id);
-    repeat(4, () => {
-      players['player::add'](createPlayer());
-    });
 
     let rules = generateRuleset(get(players));
-    // Manually override spies to get the last two players
-    rules.spyIds = [get(players)[3].id, get(players)[4].id];
+    rules.spyIds = [spy1.id, spy2.id];
     ruleset.set(rules);
 
     expect(get(ruleset).spyIds).not.toContain(player.id);
@@ -123,13 +114,7 @@ describe('#playerIsASpy', () => {
 
 describe('#spies', () => {
   test('should return the spies in a game', () => {
-    const spy1 = createPlayer();
-    const spy2 = createPlayer();
-    players['player::add'](spy1);
-    players['player::add'](spy2);
-    repeat(3, () => {
-      players['player::add'](createPlayer());
-    });
+    const [spy1, spy2] = get(players);
 
     let rules = generateRuleset(get(players));
     rules.spyIds = [spy1.id, spy2.id];
@@ -145,9 +130,6 @@ describe('#spies', () => {
 
 describe('#playerIsLeader', () => {
   test('should return true when the current player is the leader', () => {
-    repeat(5, () => {
-      players['player::add'](createPlayer());
-    });
     const [p1] = get(players);
     currentPlayerId.set(p1.id);
 
@@ -156,13 +138,68 @@ describe('#playerIsLeader', () => {
   });
 
   test("should return false when the current player isn't the leader", () => {
-    repeat(5, () => {
-      players['player::add'](createPlayer());
-    });
     const [p1, p2] = get(players);
     currentPlayerId.set(p2.id);
 
     leader['leader::change']([get(players), undefined]);
     expect(get(playerIsLeader)).toEqual(false);
+  });
+});
+
+describe('#teamMembers', () => {
+  test('should return the team members', () => {
+    const [p1, p2] = get(players);
+    team['team::confirmation']([p1.id, p2.id]);
+
+    expect(get(teamMembers)).toEqual([p1, p2]);
+  });
+
+  test('should init with []', () => {
+    expect(get(teamMembers)).toEqual([]);
+  });
+});
+
+describe('#playerHasVoted', () => {
+  test('should return true when the player has voted', () => {
+    const [p1, p2] = get(players);
+    currentPlayerId.set(p1.id);
+
+    team['team::confirmation']([p1.id, p2.id]);
+    expect(get(playerHasVoted)).toEqual(false);
+    teamVotes['teamvote::cast']({ playerId: p1.id, vote: '👍' });
+    expect(get(playerHasVoted)).toEqual(true);
+  });
+
+  test('should return false when the player has not voted', () => {
+    const [p1, p2] = get(players);
+    currentPlayerId.set(p1.id);
+
+    team['team::confirmation']([p1.id, p2.id]);
+    teamVotes['teamvote::cast']({ playerId: p2.id, vote: '👍' });
+    expect(get(playerHasVoted)).toEqual(false);
+  });
+});
+
+describe('#allPlayersHaveVoted', () => {
+  test('should return true when all players have voted', () => {
+    const [p1, p2, p3, p4, p5] = get(players);
+
+    team['team::confirmation']([p1.id, p2.id]);
+    expect(get(allPlayersHaveVoted)).toEqual(false);
+    teamVotes['teamvote::cast']({ playerId: p1.id, vote: '👍' });
+    teamVotes['teamvote::cast']({ playerId: p2.id, vote: '👍' });
+    teamVotes['teamvote::cast']({ playerId: p3.id, vote: '👍' });
+    teamVotes['teamvote::cast']({ playerId: p4.id, vote: '👍' });
+    teamVotes['teamvote::cast']({ playerId: p5.id, vote: '👍' });
+    expect(get(allPlayersHaveVoted)).toEqual(true);
+  });
+
+  test('should return false when players have not voted', () => {
+    const [p1, p2] = get(players);
+
+    team['team::confirmation']([p1.id, p2.id]);
+    teamVotes['teamvote::cast']({ playerId: p1.id, vote: '👍' });
+    teamVotes['teamvote::cast']({ playerId: p2.id, vote: '👍' });
+    expect(get(allPlayersHaveVoted)).toEqual(false);
   });
 });

@@ -6,6 +6,8 @@ import { history } from '../stores/history';
 import { appstate } from '../stores/app';
 import { generateRuleset, ruleset } from '../stores/rules';
 import { players } from '../stores/player';
+import { rounds } from '../stores/round';
+import { leader } from '../stores/leader';
 import { createHistoryEvent, createPlayer, repeat } from './test-helper';
 const socket = require('socket.io-client')('test');
 
@@ -28,6 +30,13 @@ test('should render pre_game component', () => {
 
 test('should render in_game component', () => {
   history['history::init']([]);
+  repeat(5, () => {
+    players['player::add'](createPlayer());
+  });
+  const rules = generateRuleset(get(players));
+  ruleset['ruleset::generate'](rules);
+  rounds['rounds::init'](rules);
+  leader['leader::change']([get(players), undefined]);
   appstate['appstate::set']('IN_GAME');
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 

@@ -32,9 +32,6 @@
     "testPathIgnorePatterns": [
       "test-helper.ts"
     ],
-    "compilerOptions": {
-      "esModuleInterop": true
-    },
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
     "moduleFileExtensions": [
       "svelte",

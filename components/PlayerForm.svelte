@@ -70,7 +70,7 @@
         value={avatar}
         disabled={takenAvatars.includes(avatar)}>
       <svg viewBox="0 0 20 20">
-        <text x="51%" y="78%" class="align-middle overflow-visible" style="text-anchor: middle;">{avatar}</text>
+        <text x="51%" y="78%" class="align-middle overflow-visible text-anchor-middle">{avatar}</text>
       </svg>
     </label>
     {/each}
