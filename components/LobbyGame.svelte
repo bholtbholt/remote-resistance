@@ -2,11 +2,14 @@
   import { fly, fade } from 'svelte/transition';
 
   import { playerIsLoggedIn } from '../stores/player';
+  import { roundstate } from '../stores/round';
 
   import RoundTracker from './RoundTracker.svelte';
   import RevealRole from './RevealRole.svelte';
   import RoleCard from './RoleCard.svelte';
-  import TeamBuilding from './TeamBuilding.svelte';
+  import TeamBuildingForm from './TeamBuildingForm.svelte';
+  import TeamBuildingVote from './TeamBuildingVote.svelte';
+  import TeamBuildingReveal from './TeamBuildingReveal.svelte';
 
   let hideRoleReveal = window.sessionStorage.getItem('hideRoleReveal');
   function hideRoles() {
@@ -19,6 +22,12 @@
   function toggleCardVisibility() {
     showPlayerCard = !showPlayerCard;
   }
+
+  const phase = {
+    TEAM_SELECTION: TeamBuildingForm,
+    TEAM_VOTE: TeamBuildingVote,
+    TEAM_REVEAL: TeamBuildingReveal,
+  };
 </script>
 
 <div id="LobbyGame" class="{blurredClasses}" in:fade>
@@ -32,7 +41,7 @@
   {/if}
 
   {#if hideRoleReveal || !$playerIsLoggedIn}
-    <TeamBuilding />
+    <svelte:component this="{phase[$roundstate]}" />
   {/if}
 </div>
 

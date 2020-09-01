@@ -1,7 +1,7 @@
 import 'ts-jest';
-import { createPlayer, repeat } from './test-helper';
+import { repeat } from './test-helper';
 import { get } from 'svelte/store';
-import { team, teamVotes } from '../stores/team';
+import { team, teamVoteApproved, teamVotes } from '../stores/team';
 import { v4 as uuid } from 'uuid';
 
 afterEach(() => {
@@ -40,4 +40,33 @@ test('should cast a vote', () => {
 
   expect(get(teamVotes).length).toEqual(1);
   expect(get(teamVotes)[0]).toEqual({ playerId: id, vote: '👍' });
+});
+
+describe('#teamVoteApproved', () => {
+  test('should return true when vote is approved', () => {
+    repeat(6, () => {
+      teamVotes['teamvote::cast']({ playerId: uuid(), vote: '👍' });
+    });
+
+    expect(get(teamVoteApproved)).toEqual(true);
+  });
+
+  test('should return false when vote is rejected', () => {
+    repeat(6, () => {
+      teamVotes['teamvote::cast']({ playerId: uuid(), vote: '👎' });
+    });
+
+    expect(get(teamVoteApproved)).toEqual(false);
+  });
+
+  test('should return false when vote is tied', () => {
+    repeat(3, () => {
+      teamVotes['teamvote::cast']({ playerId: uuid(), vote: '👍' });
+    });
+    repeat(3, () => {
+      teamVotes['teamvote::cast']({ playerId: uuid(), vote: '👎' });
+    });
+
+    expect(get(teamVoteApproved)).toEqual(false);
+  });
 });

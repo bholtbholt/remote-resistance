@@ -1,5 +1,5 @@
 import type { PlayerId, TeamVote } from '../types';
-import { writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 
 export const team = (() => {
   const initTeam = [];
@@ -38,3 +38,10 @@ export const teamVotes = (() => {
     },
   };
 })();
+
+export const teamVoteApproved = derived(teamVotes, ($teamVotes): boolean => {
+  const approved = $teamVotes.filter((teamVote) => teamVote.vote === '👍').length;
+  const rejected = $teamVotes.length - approved;
+
+  return approved > rejected;
+});

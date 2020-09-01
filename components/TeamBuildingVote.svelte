@@ -51,6 +51,10 @@
   function submitVote() {
     socket.emit('teamvote::cast', { playerId: $currentPlayer.id, vote: playerVote });
   }
+
+  function revealVotes() {
+    socket.emit('roundstate::set', 'TEAM_REVEAL');
+  }
 </script>
 
 <div id="TeamBuildingVote" in:fade>
@@ -97,11 +101,22 @@
       </div>
 
       {#if playerVote}
-        <button class="btn-primary font-bold text-lg w-full" in:fly="{{ y: 200, duration: 600 }}" out:fade="{{ duration: 75 }}">
+        <button class="btn-primary font-bold text-lg w-full" in:fly="{{ y: 200, duration: 600 }}">
           {voteOptions.find((vote) => vote.value === playerVote).label} this team
         </button>
       {/if}
     </form>
+  {:else if $allPlayersHaveVoted && $playerIsLeader}
+    <div in:fly="{{ y: 200, duration: 600 }}"
+      class="bg-white rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 text-center">
+      <h2 class="heading text-primary-500 mb-lg">
+        Are votes are in!
+      </h2>
+      <button on:click="{revealVotes}"
+        class="btn-primary font-bold text-lg w-full">
+        Reveal votes
+      </button>
+    </div>
   {:else}
     <div in:fly="{{ y: 200, duration: 600 }}"
       class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center">
