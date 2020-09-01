@@ -1,6 +1,7 @@
 <script type="text/typescript" lang="ts">
   export let socket;
   export let currentPlayerIdSessionKey;
+  export let renderAppController = false;
 
   import { setContext } from 'svelte';
   setContext('socketIORoom', socket);
@@ -30,9 +31,10 @@
 </script>
 
 {#if $historyIsLoaded}
-<svelte:component this="{state[$appstate]}" />
+  <svelte:component this="{state[$appstate]}" />
 {:else}
-<div class="loading-dots mx-auto my-xl"></div>
+  <div class="loading-dots mx-auto my-xl"></div>
 {/if}
 <Credits />
-<AppController />
+
+{#if renderAppController}<AppController />{/if}

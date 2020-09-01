@@ -1,9 +1,10 @@
 import type { Action } from '../types';
 import * as socketIO from 'socket.io';
 import { server } from './routes';
-import { historyEvents, createHistory } from './history';
 import { actionNames } from '../actions';
-import { mockHistory } from './mock';
+import { historyEvents, createHistory } from './history';
+import * as historyState from '../tests/history-states';
+const initHistory = historyState[process.env.HISTORY] || [];
 
 // Rooms are actually "namespaces" in socket.io for better security
 // not to be confused with socket.io "rooms"
@@ -12,8 +13,7 @@ rooms.on('connection', (socket) => {
   const { nsp: room } = socket;
   // Share socket events through history. The app listens for
   // history::init once to replay events for new connections
-  historyEvents[room.name] = historyEvents[room.name] || mockHistory; // TODO: Remove
-  // historyEvents[room.name] = historyEvents[room.name] || [];
+  historyEvents[room.name] = historyEvents[room.name] || initHistory;
   room.emit('history::init', historyEvents[room.name]);
 
   // Initialize all socket events and use createHistory
