@@ -31,10 +31,12 @@
 </script>
 
 {#if $historyIsLoaded}
-  <svelte:component this="{state[$appstate]}" />
+  <svelte:component this={state[$appstate]} />
 {:else}
-  <div class="loading-dots mx-auto my-xl"></div>
+  <div class="loading-dots mx-auto my-xl" />
 {/if}
 <Credits />
 
-{#if renderAppController}<AppController />{/if}
+{#if renderAppController}
+  <AppController />
+{/if}

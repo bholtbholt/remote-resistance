@@ -31,7 +31,8 @@
       "^.+\\.ts$": "ts-jest"
     },
     "testPathIgnorePatterns": [
-      "test-helper.ts"
+      "test-helper.ts",
+      "history-states.ts"
     ],
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.ts$",
     "moduleFileExtensions": [
