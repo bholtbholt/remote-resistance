@@ -1,0 +1,17 @@
+// To enable project settings Open the Project via
+// Project Menu > Open Project
+{
+  "folders": [{ "path": "." }],
+  "settings": {
+    "js_prettier": {
+      "additional_cli_args": {
+        "--config": ".prettierrc",
+        "--config-precedence": "prefer-file"
+      },
+      "allow_inline_formatting": true,
+      "auto_format_on_save": true,
+      "auto_format_on_save_excludes": ["*/node_modules/*"],
+      "custom_file_extensions": ["svelte"]
+    }
+  }
+}
