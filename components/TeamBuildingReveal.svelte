@@ -25,35 +25,33 @@
 
 <div id="TeamBuildingForm" in:blur>
   <h2 class="heading text-gray-100 text-center">
-    Team
-    <span class="{teamNameColor} transition-colors duration-150">
-      {toSentance($teamMembers.map(teamMember => `${teamMember.avatar} ${teamMember.name}`))}
-    </span>
+    Team <span class="{teamNameColor} transition-colors duration-150"> {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))} </span>
   </h2>
   <h3 class="text-lg text-gray-500 text-center mb-lg">
     Picked by {$leader.name} for the {$currentRound.name} mission
   </h3>
   <ul id="playerList" class="grid {gridSize(playerVotes.length)} -mx-lg gap-xs">
     {#each playerVotes as player}
-      <li class="text-center bg-white rounded-sm pt-sm"
-        class:outline="{player.teamMember}">
-        <div class="truncate px-xs text-gray-700" class:font-extrabold="{player.teamMember}">
-          {player.avatar} {player.name}
+      <li class="text-center bg-white rounded-sm pt-sm" class:outline={player.teamMember}>
+        <div class="truncate px-xs text-gray-700" class:font-extrabold={player.teamMember}>
+          {player.avatar}
+          {player.name}
         </div>
         <svg viewBox="0 0 25 25" class="-mt-md {player.svgClass}">
-          <text x="50%" y="{player.svgY}" class="align-middle overflow-visible text-anchor-middle">
+          <text x="50%" y={player.svgY} class="align-middle overflow-visible text-anchor-middle">
             {player.vote}
           </text>
         </svg>
       </li>
     {/each}
   </ul>
-  <div in:fly="{{ y: 200, duration: 600, delay: 2000 }}"
-    on:introend="{() => teamNameColor = $teamVoteApproved ? 'text-success-300' :  'text-fail-300' }"
-    class="{ $teamVoteApproved ? 'bg-success-200' :  'bg-fail-200' }
-      rounded-lg shadow-xl mx-lg mb-xl -mt-lg p-md relative z-10 text-center">
-    <h2 class="heading { $teamVoteApproved ? 'text-success-900' :  'text-fail-900' }">
-      { $teamVoteApproved ? 'Approved' :  'Rejected' }
+  <div
+    in:fly={{ y: 200, duration: 600, delay: 2000 }}
+    on:introend={() => (teamNameColor = $teamVoteApproved ? 'text-success-300' : 'text-fail-300')}
+    class="{$teamVoteApproved ? 'bg-success-200' : 'bg-fail-200'} rounded-lg shadow-xl mx-lg mb-xl -mt-lg
+      p-md relative z-10 text-center">
+    <h2 class="heading {$teamVoteApproved ? 'text-success-900' : 'text-fail-900'}">
+      {$teamVoteApproved ? 'Approved' : 'Rejected'}
     </h2>
   </div>
 </div>

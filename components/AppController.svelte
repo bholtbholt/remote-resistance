@@ -22,7 +22,7 @@
   import Player from './Player.svelte';
 
   function changeLeader() {
-    socket.emit('leader::change', [$players, $leader?.id])
+    socket.emit('leader::change', [$players, $leader?.id]);
   }
 
   function changeCurrentPlayer() {
@@ -40,35 +40,46 @@
 </script>
 
 {#if showController}
-  <div class="fixed inset-x-0 bottom-0 z-50 p-lg bg-gray-900 bg-opacity-75 shadow text-gray-100"
-    transition:cardFlip="{{ flip: true }}">
+  <div
+    class="fixed inset-x-0 bottom-0 z-50 p-lg bg-gray-900 bg-opacity-75 shadow text-gray-100"
+    transition:cardFlip={{ flip: true }}>
     {#if $players.length > 0}
       <ul id="playerList" class="grid grid-cols-5 gap-xs mb-md">
-        {#each $players as {...player}}
+        {#each $players as { ...player }}
           <div class="relative -mb-sm">
             {#if $leader && $leader.id === player.id}
-              <div style="top: -.22em; font-size: 2.6em; text-shadow: 0 .05em .08em rgba(0,0,0,.6);"
-                class="absolute right-0">🏅</div>
+              <div
+                style="top: -.22em; font-size: 2.6em; text-shadow: 0 .05em .08em rgba(0,0,0,.6);"
+                class="absolute right-0">
+                🏅
+              </div>
             {/if}
-            {#if $ruleset && $ruleset.spyIds.includes(player.id) }
+            {#if $ruleset && $ruleset.spyIds.includes(player.id)}
               <div class="absolute left-0 top-0">🔻</div>
             {/if}
             <Player {...player} />
           </div>
         {/each}
       </ul>
-      <a class="mr-sm focus:underline hover:underline cursor-pointer" on:click="{changeCurrentPlayer}">
+      <a
+        class="mr-sm focus:underline hover:underline cursor-pointer"
+        on:click={changeCurrentPlayer}>
         Change player
       </a>
-      <a class="mr-sm focus:underline hover:underline cursor-pointer" on:click="{changeLeader}">
+      <a class="mr-sm focus:underline hover:underline cursor-pointer" on:click={changeLeader}>
         Change leader
       </a>
     {/if}
     {#if $playerIsLoggedIn}
-      <a class="mr-sm focus:underline hover:underline cursor-pointer" on:click="{logOut}">Log out</a>
+      <a class="mr-sm focus:underline hover:underline cursor-pointer" on:click={logOut}>Log out</a>
     {/if}
-    <a class="mr-sm focus:underline hover:underline cursor-pointer" on:click="{toggleController}">Close</a>
+    <a
+      class="mr-sm focus:underline hover:underline cursor-pointer"
+      on:click={toggleController}>Close</a>
   </div>
 {:else}
-  <button class="fixed right-0 bottom-0" style="font-size: 56px;" on:click="{toggleController}">🎚</button>
+  <button
+    class="fixed right-0 bottom-0"
+    style="font-size: 56px;"
+    on:click={toggleController}>🎚</button>
 {/if}

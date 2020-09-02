@@ -6,4 +6,4 @@
   setContext('socketIORoom', socket);
 </script>
 
-<svelte:component this={component}/>
+<svelte:component this={component} />
