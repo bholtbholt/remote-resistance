@@ -13,6 +13,7 @@ export const actions = {
   'leader::change': leader['leader::change'],
   'player::add': players['player::add'],
   'rounds::init': rounds['rounds::init'],
+  'rounds::update': rounds['rounds::update'],
   'roundstate::set': roundstate['roundstate::set'],
   'ruleset::generate': ruleset['ruleset::generate'],
   'team::confirmation': team['team::confirmation'],

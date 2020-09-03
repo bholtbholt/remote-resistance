@@ -8,13 +8,13 @@ const initMission: MissionPhase = {
 };
 
 function initRound(rules): Round {
-  const { name, teamSize, permittedMissionVoteFails, permittedTeamVoteFails } = rules;
+  const { name, index, teamSize, permittedMissionVoteFails, permittedTeamVoteFails } = rules;
 
   return {
     name,
+    index,
     teamSize,
     permittedMissionVoteFails,
-    teamBuildingPhase: [],
     missionPhase: initMission,
     permittedTeamVoteFails,
     failedTeamVotes: 0,
@@ -28,6 +28,12 @@ export const rounds = (() => {
   return {
     subscribe,
     set,
+    'rounds::update': ([roundIndex, props]: [number, Object]) => {
+      update(($rounds) => {
+        $rounds[roundIndex] = { ...$rounds[roundIndex], ...props };
+        return $rounds;
+      });
+    },
     'rounds::init': (ruleset: Ruleset) => {
       const { permittedTeamVoteFails } = ruleset;
       const names = {
@@ -39,7 +45,8 @@ export const rounds = (() => {
       };
       const initRounds = Object.entries(ruleset.missions).map(([missionId, missionRules]) => {
         const name: string = names[missionId];
-        return initRound({ name, permittedTeamVoteFails, ...missionRules });
+        const index: number = parseInt(missionId, 10) - 1;
+        return initRound({ name, index, permittedTeamVoteFails, ...missionRules });
       });
       set(initRounds);
     },

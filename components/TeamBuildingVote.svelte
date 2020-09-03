@@ -11,11 +11,12 @@
     playerHasVoted,
     playerIsLeader,
     playerIsLoggedIn,
+    players,
     teamMembers,
   } from '../stores/player';
   import { leader } from '../stores/leader';
   import { currentRound } from '../stores/round';
-  import { teamVotes } from '../stores/team';
+  import { teamVoteApproved } from '../stores/team';
 
   import Spinner from './Spinner.svelte';
   import { toSentance } from './view-helper';
@@ -53,6 +54,14 @@
   }
 
   function revealVotes() {
+    if (!$teamVoteApproved) {
+      const update = {
+        failedTeamVotes: $currentRound.failedTeamVotes + 1,
+      };
+
+      socket.emit('rounds::update', [$currentRound.index, update]);
+      socket.emit('leader::change', [$players, $leader.id]);
+    }
     socket.emit('roundstate::set', 'TEAM_REVEAL');
   }
 </script>
