@@ -35,8 +35,7 @@
   {#if !hideRoleReveal && $playerIsLoggedIn}
     <RevealRole />
     <div class="mx-lg" in:fly={{ y: 200, duration: 600, delay: 3000 }}>
-      <button on:click|preventDefault={hideRoles} class="btn-primary font-bold text-lg w-full">Start
-        first round</button>
+      <button class="btn-primary font-bold text-lg w-full" on:click={hideRoles}>Start first round</button>
     </div>
   {/if}
 

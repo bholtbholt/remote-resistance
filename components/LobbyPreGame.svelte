@@ -45,9 +45,7 @@
   {#if $playerIsLoggedIn}
     {#if enoughPlayers}
       <div class="mx-lg" in:fade>
-        <button
-          on:click|preventDefault={handleSubmit}
-          class="btn-primary font-bold text-lg w-full">Start the game!</button>
+        <button on:click={handleSubmit} class="btn-primary font-bold text-lg w-full">Start the game!</button>
       </div>
     {:else}
       <div
