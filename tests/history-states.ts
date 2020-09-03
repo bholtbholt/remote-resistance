@@ -85,3 +85,17 @@ export const roundOneTeamRejected = [
   ...votesRejected,
   createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
 ];
+
+export const roundOneNewVote = [
+  ...roundOneTeamRejected,
+  createHistoryEvent('rounds::update', [0, { failedTeamVotes: 1 }]),
+  createHistoryEvent('leader::change', [players, spy1.id]),
+  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+];
+
+export const roundOneLastVote = [
+  ...roundOneTeamRejected,
+  createHistoryEvent('rounds::update', [0, { failedTeamVotes: 4 }]),
+  createHistoryEvent('leader::change', [players, spy1.id]),
+  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+];
