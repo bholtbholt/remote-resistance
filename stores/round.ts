@@ -27,7 +27,7 @@ export const rounds = (() => {
 
   return {
     subscribe,
-    set,
+    reset: () => set([]),
     'rounds::update': ([roundIndex, props]: [number, Object]) => {
       update(($rounds) => {
         $rounds[roundIndex] = { ...$rounds[roundIndex], ...props };
@@ -65,7 +65,7 @@ export const roundstate = (() => {
 
   return {
     subscribe,
-    set,
+    reset: () => set('TEAM_SELECTION'),
     'roundstate::set': set,
   };
 })();

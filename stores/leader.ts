@@ -6,7 +6,7 @@ export const leader = (() => {
 
   return {
     subscribe,
-    set,
+    reset: () => set(undefined),
     'leader::change': ([players, currentLeaderId]: [Player[], PlayerId]) => {
       const currentLeaderIndex = players.findIndex((player) => player.id === currentLeaderId);
       const newLeader = players[currentLeaderIndex + 1] || players[0];
@@ -22,7 +22,7 @@ export const previousLeader = (() => {
 
   return {
     subscribe,
-    set,
+    reset: () => set(undefined),
     'leader::change': ([players, currentLeaderId]: [Player[], PlayerId]) => {
       const currentLeaderIndex = players.findIndex((player) => player.id === currentLeaderId);
       const currentLeader = players[currentLeaderIndex] || players[0];

@@ -9,7 +9,7 @@ export const players = (() => {
 
   return {
     subscribe,
-    set,
+    reset: () => set([]),
     'player::add': (player: Player) => {
       update((players) => (players = [...players, player]));
     },
@@ -29,6 +29,7 @@ export const currentPlayerId = (() => {
 
   return {
     subscribe,
+    reset: () => set(''),
     set: (playerId: PlayerId) => {
       set(playerId);
       window.sessionStorage.setItem('currentPlayerId', playerId);
@@ -60,7 +61,7 @@ export const playerIsASpy = derived(
 export const playerIsLeader = derived(
   [currentPlayerId, leader],
   ([$currentPlayerId, $leader]): Boolean => {
-    return $currentPlayerId === $leader.id;
+    return $currentPlayerId === $leader?.id;
   },
 );
 

@@ -7,7 +7,7 @@ export const history = (() => {
 
   return {
     subscribe,
-    set,
+    reset: () => set(undefined),
     'history::init': (historyEvents: HistoryEvent[]) => {
       // Replay all events in order then set history:
       historyEvents.forEach(({ action, data }) => {

@@ -5,7 +5,7 @@ export const appstate = (() => {
 
   return {
     subscribe,
-    set,
+    reset: () => set('PRE_GAME'),
     'appstate::set': set,
   };
 })();
