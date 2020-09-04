@@ -1,6 +1,6 @@
 import type { Action } from '../types';
 import { appstate } from '../stores/app';
-import { leader } from '../stores/leader';
+import { leader, previousLeader } from '../stores/leader';
 import { players } from '../stores/player';
 import { rounds, roundstate } from '../stores/round';
 import { ruleset } from '../stores/rules';
@@ -10,7 +10,10 @@ import { team, teamVotes } from '../stores/team';
 // circular dependencies when looping through the events
 export const actions = {
   'appstate::set': appstate['appstate::set'],
-  'leader::change': leader['leader::change'],
+  'leader::change': (data) => {
+    leader['leader::change'](data);
+    previousLeader['leader::change'](data);
+  },
   'player::add': players['player::add'],
   'rounds::init': rounds['rounds::init'],
   'rounds::update': rounds['rounds::update'],
