@@ -1,13 +1,11 @@
 import 'ts-jest';
-import { repeat } from './test-helper';
+import { repeat, resetTestState } from './test-helper';
 import { get } from 'svelte/store';
 import { team, teamVoteApproved, teamVotes } from '../stores/team';
 import { v4 as uuid } from 'uuid';
 
 afterEach(() => {
-  team['team::reset']();
-  teamVotes['teamvote::reset']();
-  return;
+  return resetTestState();
 });
 
 test('should add an id', () => {
@@ -28,7 +26,7 @@ test('should not add a duplicate id', () => {
 
 test('should remove an id', () => {
   const id = uuid();
-  team.set([id]);
+  team['team::selection'](id);
   team['team::selection'](id);
 
   expect(get(team)).toEqual([]);

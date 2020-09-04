@@ -5,7 +5,7 @@ export const maximumPlayerCount = 10;
 export const minimumPlayerCount = 5;
 
 export const ruleset = (() => {
-  const initRuleset: Ruleset = {
+  const init: Ruleset = {
     playerCount: undefined,
     spyCount: undefined,
     playerIds: [],
@@ -15,11 +15,11 @@ export const ruleset = (() => {
     roundsToWin: undefined,
     permittedTeamVoteFails: undefined,
   };
-  const { set, subscribe, update } = writable(initRuleset);
+  const { set, subscribe, update } = writable(init);
 
   return {
     subscribe,
-    reset: () => set(initRuleset),
+    reset: () => set(init),
     'ruleset::generate': (ruleset: Ruleset) => {
       set(ruleset);
     },

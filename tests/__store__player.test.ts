@@ -1,5 +1,5 @@
 import 'ts-jest';
-import { createPlayer, repeat } from './test-helper';
+import { createPlayer, repeat, resetTestState } from './test-helper';
 import { get } from 'svelte/store';
 import {
   currentPlayer,
@@ -26,26 +26,12 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  players.set([]);
-  currentPlayerId.set('');
-  teamVotes.set([]);
-  team.set([]);
-  ruleset.set({
-    playerCount: undefined,
-    spyCount: undefined,
-    playerIds: [],
-    spyIds: [],
-    missions: {},
-    failTies: undefined,
-    roundsToWin: undefined,
-    permittedTeamVoteFails: undefined,
-  });
-  return;
+  return resetTestState();
 });
 
 describe('#players', () => {
   beforeEach(() => {
-    players.set([]);
+    players.reset();
     return;
   });
 
@@ -94,7 +80,7 @@ describe('#playerIsASpy', () => {
 
     let rules = generateRuleset(get(players));
     rules.spyIds = [player.id, spy2.id];
-    ruleset.set(rules);
+    ruleset['ruleset::generate'](rules);
 
     expect(get(ruleset).spyIds).toContain(player.id);
     expect(get(playerIsASpy)).toEqual(true);
@@ -106,7 +92,7 @@ describe('#playerIsASpy', () => {
 
     let rules = generateRuleset(get(players));
     rules.spyIds = [spy1.id, spy2.id];
-    ruleset.set(rules);
+    ruleset['ruleset::generate'](rules);
 
     expect(get(ruleset).spyIds).not.toContain(player.id);
     expect(get(playerIsASpy)).toEqual(false);
@@ -119,7 +105,7 @@ describe('#spies', () => {
 
     let rules = generateRuleset(get(players));
     rules.spyIds = [spy1.id, spy2.id];
-    ruleset.set(rules);
+    ruleset['ruleset::generate'](rules);
 
     expect(get(spies)).toEqual([spy1, spy2]);
   });

@@ -23,11 +23,12 @@ function initRound(rules): Round {
 }
 
 export const rounds = (() => {
-  const { subscribe, set, update } = writable([]);
+  const init: Round[] = [];
+  const { subscribe, set, update } = writable(init);
 
   return {
     subscribe,
-    reset: () => set([]),
+    reset: () => set(init),
     'rounds::update': ([roundIndex, props]: [number, Object]) => {
       update(($rounds) => {
         $rounds[roundIndex] = { ...$rounds[roundIndex], ...props };
@@ -56,7 +57,7 @@ export const rounds = (() => {
 export const currentRound = derived(
   rounds,
   ($rounds): Round => {
-    return $rounds.find((round) => round.winner !== undefined) || $rounds[0];
+    return $rounds.find((round) => round.winner !== undefined) || $rounds[0] || initRound({});
   },
 );
 

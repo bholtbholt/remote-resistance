@@ -2,11 +2,12 @@ import type { PlayerId, TeamVote } from '../types';
 import { derived, writable } from 'svelte/store';
 
 export const team = (() => {
-  const { set, subscribe, update } = writable([]);
+  const init: PlayerId[] = [];
+  const { set, subscribe, update } = writable(init);
 
   return {
     subscribe,
-    'team::reset': () => set([]),
+    'team::reset': () => set(init),
     'team::confirmation': (playerIds: PlayerId[]) => {
       set(playerIds);
     },
@@ -21,11 +22,12 @@ export const team = (() => {
 })();
 
 export const teamVotes = (() => {
-  const { set, subscribe, update } = writable([]);
+  const init: TeamVote[] = [];
+  const { set, subscribe, update } = writable(init);
 
   return {
     subscribe,
-    'teamvote::reset': () => set([]),
+    'teamvote::reset': () => set(init),
     'teamvote::cast': (vote: TeamVote) => {
       update((teamVotes) => (teamVotes = [...teamVotes, vote]));
     },

@@ -1,5 +1,6 @@
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
+import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import TeamBuildingReveal from '../components/TeamBuildingReveal.svelte';
 import { currentPlayerId } from '../stores/player';
@@ -8,10 +9,7 @@ import { roundOneTeamApproved, roundOneTeamRejected, players } from './history-s
 const socket = require('socket.io-client')('test');
 
 afterEach(() => {
-  currentPlayerId.set('');
-  team['team::reset']();
-  teamVotes['teamvote::reset']();
-  return;
+  return resetTestState();
 });
 
 describe('when vote is rejected', () => {

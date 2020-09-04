@@ -1,19 +1,15 @@
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
+import { createPlayer, repeat, createHistoryEvent, resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import RevealRole from '../components/RevealRole.svelte';
 import { get } from 'svelte/store';
 import { currentPlayerId, players } from '../stores/player';
 import { generateRuleset, ruleset } from '../stores/rules';
-import { createPlayer, repeat } from './test-helper';
 const socket = require('socket.io-client')('test');
 
 afterEach(() => {
-  return players.set([]);
-});
-
-afterEach(() => {
-  return currentPlayerId.set('');
+  return resetTestState();
 });
 
 test('should show resistance', () => {
@@ -30,7 +26,7 @@ test('should show resistance', () => {
 
   let rules = generateRuleset(get(players));
   rules.spyIds = [spy1.id, spy2.id];
-  ruleset.set(rules);
+  ruleset['ruleset::generate'](rules);
 
   const { container, getByRole } = render(AppFixture, { socket, component: RevealRole });
 
@@ -54,7 +50,7 @@ test('should show spies if player is a spy', () => {
 
   let rules = generateRuleset(get(players));
   rules.spyIds = [player.id, spy2.id];
-  ruleset.set(rules);
+  ruleset['ruleset::generate'](rules);
 
   const { container, getByRole } = render(AppFixture, { socket, component: RevealRole });
 

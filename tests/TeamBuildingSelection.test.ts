@@ -1,6 +1,6 @@
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { createHistoryEvent } from './test-helper';
+import { createHistoryEvent, resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import TeamBuildingSelection from '../components/TeamBuildingSelection.svelte';
 import { currentPlayerId } from '../stores/player';
@@ -9,10 +9,7 @@ import { roundOneStart, players } from './history-states';
 const socket = require('socket.io-client')('test');
 
 afterEach(() => {
-  currentPlayerId.set('');
-  team['team::reset']();
-  teamVotes['teamvote::reset']();
-  return;
+  return resetTestState();
 });
 
 describe('when player is leader', () => {

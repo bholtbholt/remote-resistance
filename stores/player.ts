@@ -5,11 +5,12 @@ import { leader } from './leader';
 import { team, teamVotes } from './team';
 
 export const players = (() => {
-  const { subscribe, set, update } = writable([]);
+  const init: Player[] = [];
+  const { subscribe, set, update } = writable(init);
 
   return {
     subscribe,
-    reset: () => set([]),
+    reset: () => set(init),
     'player::add': (player: Player) => {
       update((players) => (players = [...players, player]));
     },
@@ -25,11 +26,12 @@ export const teamMembers = derived([team, players], ([$team, $players]): Player[
 });
 
 export const currentPlayerId = (() => {
-  const { subscribe, set } = writable('');
+  const init: PlayerId = '';
+  const { subscribe, set } = writable(init);
 
   return {
     subscribe,
-    reset: () => set(''),
+    reset: () => set(init),
     set: (playerId: PlayerId) => {
       set(playerId);
       window.sessionStorage.setItem('currentPlayerId', playerId);
@@ -61,7 +63,7 @@ export const playerIsASpy = derived(
 export const playerIsLeader = derived(
   [currentPlayerId, leader],
   ([$currentPlayerId, $leader]): Boolean => {
-    return $currentPlayerId === $leader?.id;
+    return $currentPlayerId === $leader.id;
   },
 );
 

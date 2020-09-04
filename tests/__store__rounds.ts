@@ -1,5 +1,5 @@
 import 'ts-jest';
-import { createPlayer, repeat } from './test-helper';
+import { createPlayer, repeat, resetTestState } from './test-helper';
 import { get } from 'svelte/store';
 import { players } from '../stores/player';
 import { ruleset, generateRuleset } from '../stores/rules';
@@ -14,19 +14,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  rounds.set([]);
-  ruleset.set({
-    playerCount: undefined,
-    spyCount: undefined,
-    playerIds: [],
-    spyIds: [],
-    missions: {},
-    failTies: undefined,
-    roundsToWin: undefined,
-    permittedTeamVoteFails: undefined,
-  });
-  players.set([]);
-  return;
+  return resetTestState();
 });
 
 test('should initialize all rounds', () => {

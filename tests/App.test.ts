@@ -1,5 +1,6 @@
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
+import { createHistoryEvent, createPlayer, repeat, resetTestState } from './test-helper';
 import { get } from 'svelte/store';
 import App from '../components/App.svelte';
 import { history } from '../stores/history';
@@ -8,8 +9,11 @@ import { generateRuleset, ruleset } from '../stores/rules';
 import { players } from '../stores/player';
 import { rounds } from '../stores/round';
 import { leader } from '../stores/leader';
-import { createHistoryEvent, createPlayer, repeat } from './test-helper';
 const socket = require('socket.io-client')('test');
+
+afterEach(() => {
+  return resetTestState();
+});
 
 // event emitting isn't working as it should, these
 // tests aren't entirely accurate
