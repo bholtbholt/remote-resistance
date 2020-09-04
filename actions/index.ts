@@ -20,8 +20,9 @@ export const actions = {
   'roundstate::set': roundstate['roundstate::set'],
   'ruleset::generate': ruleset['ruleset::generate'],
   'team::confirmation': team['team::confirmation'],
-  'team:reset': team['team:reset'],
+  'team::reset': team['team::reset'],
   'team::selection': team['team::selection'],
   'teamvote::cast': teamVotes['teamvote::cast'],
+  'teamvote::reset': teamVotes['teamvote::reset'],
 };
 export const actionNames: Action[] = Object.keys(actions);
