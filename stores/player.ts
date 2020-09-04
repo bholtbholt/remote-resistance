@@ -64,6 +64,13 @@ export const playerIsLeader = derived(
   },
 );
 
+export const playerIsTeamMember = derived(
+  [currentPlayerId, team],
+  ([$currentPlayerId, $team]): Boolean => {
+    return $team.includes($currentPlayerId);
+  },
+);
+
 export const playerHasVoted = derived(
   [teamVotes, currentPlayerId],
   ([$teamVotes, $currentPlayerId]): Boolean => {

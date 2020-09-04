@@ -24,7 +24,8 @@ export const previousLeader = (() => {
     subscribe,
     set,
     'leader::change': ([players, currentLeaderId]: [Player[], PlayerId]) => {
-      const currentLeader = players.find((player) => player.id === currentLeaderId);
+      const currentLeader =
+        players.find((player) => player.id === currentLeaderId) || players.pop();
       set(currentLeader);
     },
   };

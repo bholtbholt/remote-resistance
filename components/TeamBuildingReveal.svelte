@@ -2,11 +2,12 @@
   import { getContext } from 'svelte';
   const socket = getContext('socketIORoom');
 
-  import { fly } from 'svelte/transition';
+  import { quartIn } from 'svelte/easing';
+  import { fade, scale } from 'svelte/transition';
   import { blur } from './custom-transitions';
 
-  import { leader } from '../stores/leader';
-  import { players, teamMembers } from '../stores/player';
+  import { leader, previousLeader } from '../stores/leader';
+  import { players, playerIsLeader, playerIsTeamMember, teamMembers } from '../stores/player';
   import { currentRound } from '../stores/round';
   import { team, teamVoteApproved, teamVotes } from '../stores/team';
 
@@ -21,6 +22,17 @@
 
     return { vote: teamVote.vote, svgClass, svgY, teamMember, ...player };
   });
+  $: leaderName = $teamVoteApproved ? $leader.name : $previousLeader.name;
+
+  function pickNewTeam() {
+    socket.emit('teamvote::reset');
+    socket.emit('team::reset');
+    socket.emit('roundstate::set', 'TEAM_SELECTION');
+  }
+
+  function startMission() {
+    socket.emit('roundstate::set', 'MISSION_START');
+  }
 </script>
 
 <div id="TeamBuildingForm" in:blur>
@@ -28,7 +40,7 @@
     Team <span class="{teamNameColor} transition-colors duration-150"> {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))} </span>
   </h2>
   <h3 class="text-lg text-gray-500 text-center mb-lg">
-    Picked by {$leader.name} for the {$currentRound.name} mission
+    Picked by {leaderName} for the {$currentRound.name} mission
   </h3>
   <ul id="playerList" class="grid {gridSize(playerVotes.length)} -mx-lg gap-xs">
     {#each playerVotes as player}
@@ -45,13 +57,33 @@
       </li>
     {/each}
   </ul>
-  <div
-    in:fly={{ y: 200, duration: 600, delay: 2000 }}
-    on:introend={() => (teamNameColor = $teamVoteApproved ? 'text-success-300' : 'text-fail-300')}
-    class="{$teamVoteApproved ? 'bg-success-200' : 'bg-fail-200'} rounded-lg shadow-xl mx-lg mb-xl -mt-lg
-      p-md relative z-10 text-center">
-    <h2 class="heading {$teamVoteApproved ? 'text-success-900' : 'text-fail-900'}">
-      {$teamVoteApproved ? 'Approved' : 'Rejected'}
-    </h2>
-  </div>
+  {#if $teamVoteApproved}
+    <div
+      in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
+      on:introend={() => (teamNameColor = 'text-success-300')}
+      class="rounded-lg shadow-xl mx-lg mb-lg -mt-lg p-md relative z-10 text-center bg-success-200">
+      <h2 class="heading text-success-900">Approved</h2>
+    </div>
+    {#if $playerIsTeamMember}
+      <div class="mx-xl" in:fade={{ delay: 3000 }}>
+        <button class="btn-success text-lg w-full" on:click={startMission}>Start mission</button>
+      </div>
+    {/if}
+  {:else}
+    <div
+      in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
+      on:introend={() => (teamNameColor = 'text-fail-300')}
+      class="rounded-lg shadow-xl mx-lg mb-lg -mt-lg p-md relative z-10 text-center bg-fail-200">
+      <h2 class="heading text-fail-900">Rejected</h2>
+    </div>
+    {#if $playerIsLeader}
+      <div class="mx-xl" in:fade={{ delay: 3000 }}>
+        <button class="btn-fail text-lg w-full" on:click={pickNewTeam}>Pick a new team</button>
+      </div>
+    {:else}
+      <h3 class="heading text-gray-500 text-center" in:fade={{ delay: 3000 }}>
+        {$leader.name} is the new leader
+      </h3>
+    {/if}
+  {/if}
 </div>

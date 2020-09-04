@@ -7,6 +7,7 @@ import {
   playerIsASpy,
   playerIsLeader,
   playerIsLoggedIn,
+  playerIsTeamMember,
   players,
   spies,
   teamMembers,
@@ -143,6 +144,24 @@ describe('#playerIsLeader', () => {
 
     leader['leader::change']([get(players), undefined]);
     expect(get(playerIsLeader)).toEqual(false);
+  });
+});
+
+describe('#playerIsTeamMember', () => {
+  test('should return true when the current player in the team', () => {
+    const [p1, p2] = get(players);
+    currentPlayerId.set(p1.id);
+    team['team::confirmation']([p1.id, p2.id]);
+
+    expect(get(playerIsTeamMember)).toEqual(true);
+  });
+
+  test("should return false when the current player isn't in the team", () => {
+    const [p1, p2, p3] = get(players);
+    currentPlayerId.set(p3.id);
+    team['team::confirmation']([p1.id, p2.id]);
+
+    expect(get(playerIsTeamMember)).toEqual(false);
   });
 });
 
