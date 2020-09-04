@@ -35,7 +35,7 @@
   }
 </script>
 
-<div id="TeamBuildingForm" in:blur>
+<div id="TeamBuildingReveal" in:blur>
   <h2 class="heading text-gray-100 text-center">
     Team <span class="{teamNameColor} transition-colors duration-150"> {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))} </span>
   </h2>

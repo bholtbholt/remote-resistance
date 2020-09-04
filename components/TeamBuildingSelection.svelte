@@ -26,7 +26,7 @@
   }
 </script>
 
-<div id="TeamBuildingForm" in:fade>
+<div id="TeamBuildingSelection" in:fade>
   {#if $playerIsLeader}
     <h2 class="heading text-gray-100 mb-lg text-center">
       Pick <span class="text-success-300">{$currentRound.teamSize} players</span> for the {$currentRound.name}
