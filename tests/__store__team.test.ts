@@ -5,8 +5,8 @@ import { team, teamVoteApproved, teamVotes } from '../stores/team';
 import { v4 as uuid } from 'uuid';
 
 afterEach(() => {
-  team['team:reset']();
-  teamVotes['teamvote:reset']();
+  team['team::reset']();
+  teamVotes['teamvote::reset']();
   return;
 });
 

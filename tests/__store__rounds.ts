@@ -9,18 +9,13 @@ beforeEach(() => {
   repeat(5, () => {
     players['player::add'](createPlayer());
   });
+  const rules = generateRuleset(get(players));
+  rounds['rounds::init'](rules);
 });
 
 afterEach(() => {
-  return players.set([]);
-});
-
-afterEach(() => {
-  return rounds.set([]);
-});
-
-afterEach(() => {
-  return ruleset.set({
+  rounds.set([]);
+  ruleset.set({
     playerCount: undefined,
     spyCount: undefined,
     playerIds: [],
@@ -30,22 +25,30 @@ afterEach(() => {
     roundsToWin: undefined,
     permittedTeamVoteFails: undefined,
   });
+  players.set([]);
+  return;
 });
 
 test('should initialize all rounds', () => {
-  const rules = generateRuleset(get(players));
-  rounds['rounds::init'](rules);
-
   expect(get(rounds).length).toEqual(5);
 });
 
 test('should return the current round', () => {
-  const rules = generateRuleset(get(players));
-  rounds['rounds::init'](rules);
   const round = get(currentRound);
 
   expect(round).toEqual(get(rounds)[0]);
   expect(round).not.toEqual(get(rounds)[1]);
   expect(round.name).toEqual('first');
   expect(round.winner).toEqual(undefined);
+});
+
+test('should update the round', () => {
+  const currentRoundData = get(currentRound);
+  const roundId = currentRoundData.id;
+  const expectedResult = {
+    failedTeamVotes: 1,
+  };
+
+  rounds['rounds::update']([roundId, expectedResult]);
+  expect(get(rounds)[roundId]).toEqual(expectedResult);
 });

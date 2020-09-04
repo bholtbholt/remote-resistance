@@ -35,11 +35,11 @@ export interface Player {
 
 export interface Round {
   name: string;
+  index: number;
   teamSize: number;
   failedTeamVotes: number;
   permittedTeamVoteFails: number;
   permittedMissionVoteFails: number;
-  teamBuildingPhase: TeamBuildingPhase[];
   missionPhase: MissionPhase;
   winner: 'resistance' | 'spies';
 }
@@ -53,13 +53,6 @@ export interface Ruleset {
   failTies: boolean;
   roundsToWin: number;
   permittedTeamVoteFails: number;
-}
-
-export interface TeamBuildingPhase {
-  leader: PlayerId;
-  team: PlayerId[];
-  votes: TeamVote[];
-  result: 'approved' | 'rejected';
 }
 
 export interface TeamVote {

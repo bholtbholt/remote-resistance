@@ -11,7 +11,7 @@ export const team = (() => {
     'team::confirmation': (playerIds: PlayerId[]) => {
       set(playerIds);
     },
-    'team:reset': () => {
+    'team::reset': () => {
       set(initTeam);
     },
     'team::selection': (playerId: PlayerId) => {
@@ -30,7 +30,7 @@ export const teamVotes = (() => {
   return {
     subscribe,
     set,
-    'teamvote:reset': () => {
+    'teamvote::reset': () => {
       set([]);
     },
     'teamvote::cast': (vote: TeamVote) => {
