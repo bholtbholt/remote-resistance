@@ -57,7 +57,7 @@ export const rounds = (() => {
 export const currentRound = derived(
   rounds,
   ($rounds): Round => {
-    return $rounds.find((round) => round.winner !== undefined) || $rounds[0] || initRound({});
+    return $rounds.find((round) => round.winner === undefined) || initRound({});
   },
 );
 
