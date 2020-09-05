@@ -23,6 +23,7 @@
     return { vote: teamVote.vote, svgClass, svgY, teamMember, ...player };
   });
   $: leaderName = $teamVoteApproved ? $leader.name : $previousLeader.name;
+  $: spiesWin = $currentRound.failedTeamVotes > $currentRound.permittedTeamVoteFails;
 
   function pickNewTeam() {
     socket.emit('teamvote::reset');
@@ -57,7 +58,14 @@
       </li>
     {/each}
   </ul>
-  {#if $teamVoteApproved}
+  {#if spiesWin}
+    <div
+      in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
+      on:introend={() => (teamNameColor = 'text-fail-300')}
+      class="rounded-lg shadow-xl mx-lg mb-lg -mt-lg p-md relative z-10 text-center bg-fail-200">
+      <h2 class="heading text-fail-900">Spies win</h2>
+    </div>
+  {:else if $teamVoteApproved}
     <div
       in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
       on:introend={() => (teamNameColor = 'text-success-300')}
@@ -77,13 +85,18 @@
       <h2 class="heading text-fail-900">Rejected</h2>
     </div>
     {#if $playerIsLeader}
-      <div class="mx-xl" in:fade={{ delay: 3000 }}>
+      <div class="mx-xl mb-lg" in:fade={{ delay: 3000 }}>
         <button class="btn-fail text-lg w-full" on:click={pickNewTeam}>Pick a new team</button>
       </div>
     {:else}
       <h3 class="heading text-gray-500 text-center" in:fade={{ delay: 3000 }}>
         {$leader.name} is the new leader
       </h3>
+    {/if}
+    {#if $currentRound.failedTeamVotes === $currentRound.permittedTeamVoteFails}
+      <h4 class="text-gray-500 text-center" in:fade={{ delay: 3000 }}>
+        <strong class="text-fail-300 font-bold">Spies win</strong> if the next team is rejected
+      </h4>
     {/if}
   {/if}
 </div>
