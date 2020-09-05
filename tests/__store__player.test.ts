@@ -8,6 +8,7 @@ import {
   playerIsLeader,
   playerIsLoggedIn,
   playerIsTeamMember,
+  playerHasCompletedMission,
   players,
   spies,
   teamMembers,
@@ -16,6 +17,7 @@ import {
 } from '../stores/player';
 import { generateRuleset, ruleset } from '../stores/rules';
 import { leader } from '../stores/leader';
+import { missionVotes } from '../stores/mission';
 import { team, teamVotes } from '../stores/team';
 
 beforeEach(() => {
@@ -206,5 +208,26 @@ describe('#allPlayersHaveVoted', () => {
     teamVotes['teamvote::cast']({ playerId: p1.id, vote: '👍' });
     teamVotes['teamvote::cast']({ playerId: p2.id, vote: '👍' });
     expect(get(allPlayersHaveVoted)).toEqual(false);
+  });
+});
+
+describe('#playerHasCompletedMission', () => {
+  test('should return true when the player has voted', () => {
+    const [p1, p2] = get(players);
+    currentPlayerId.set(p1.id);
+
+    team['team::confirmation']([p1.id, p2.id]);
+    expect(get(playerHasCompletedMission)).toEqual(false);
+    missionVotes['missionvote::cast']({ playerId: p1.id, vote: 'pass' });
+    expect(get(playerHasCompletedMission)).toEqual(true);
+  });
+
+  test('should return false when the player has not voted', () => {
+    const [p1, p2] = get(players);
+    currentPlayerId.set(p1.id);
+
+    team['team::confirmation']([p1.id, p2.id]);
+    missionVotes['missionvote::cast']({ playerId: p2.id, vote: 'pass' });
+    expect(get(playerHasCompletedMission)).toEqual(false);
   });
 });
