@@ -100,14 +100,34 @@ Most tests need the following boilerplate:
 
 ```typescript
 import 'ts-jest';
+import { render } from '@testing-library/svelte';
 import { get } from 'svelte/store';
-import { repeat } from './test-helper';
-
-// For component tests:
-import { render, fireEvent } from '@testing-library/svelte';
+import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
+import Component from './Component.svelte';
+import { currentPlayerId } from '../stores/player';
+import { historyState, players } from './history-states';
 const socket = require('socket.io-client')('test');
+
+afterEach(() => {
+  return resetTestState();
+});
+
+test('should do a thing', () => {
+  const [player] = players;
+  currentPlayerId.set(player.id);
+
+  const { getByRole } = render(AppFixture, {
+    socket,
+    component: Component,
+    historyState: historyState,
+  });
+
+  const element = getByRole();
+});
 ```
+
+Using `history-states` is the easiest way to build up a true state in the application with little effort. Import the history events needed to land at any given state.
 
 ## Troubleshooting
 

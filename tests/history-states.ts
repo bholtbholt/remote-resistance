@@ -1,7 +1,7 @@
 import { createPlayer, createHistoryEvent } from './test-helper';
 import { generateRuleset } from '../stores/rules';
 
-const players = [
+export const players = [
   createPlayer(),
   createPlayer(),
   createPlayer(),

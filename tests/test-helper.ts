@@ -1,5 +1,12 @@
 import type { Action, HistoryEvent, Player } from '../types';
 import { v4 as uuid } from 'uuid';
+import { appstate } from '../stores/app';
+import { history } from '../stores/history';
+import { leader, previousLeader } from '../stores/leader';
+import { currentPlayerId, players } from '../stores/player';
+import { rounds, roundstate } from '../stores/round';
+import { ruleset } from '../stores/rules';
+import { team, teamVotes } from '../stores/team';
 
 export function repeat(number: number, callback) {
   return Array.from(Array(number)).map((i) => callback());
@@ -13,6 +20,20 @@ export function createPlayer(player = {}): Player {
   const defaultPlayer = { avatar: randomEmoji(), name: randomName(), id: uuid() };
 
   return { ...defaultPlayer, ...player };
+}
+
+export function resetTestState() {
+  appstate.reset();
+  currentPlayerId.reset();
+  history.reset();
+  leader.reset();
+  players.reset();
+  previousLeader.reset();
+  rounds.reset();
+  roundstate.reset();
+  ruleset.reset();
+  team['team::reset']();
+  teamVotes['teamvote::reset']();
 }
 
 function randomEmoji() {

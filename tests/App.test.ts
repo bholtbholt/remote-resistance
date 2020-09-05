@@ -1,54 +1,46 @@
 import 'ts-jest';
-import { render, fireEvent } from '@testing-library/svelte';
-import { get } from 'svelte/store';
+import { render } from '@testing-library/svelte';
+import { resetTestState } from './test-helper';
 import App from '../components/App.svelte';
 import { history } from '../stores/history';
-import { appstate } from '../stores/app';
-import { generateRuleset, ruleset } from '../stores/rules';
-import { players } from '../stores/player';
-import { rounds } from '../stores/round';
-import { leader } from '../stores/leader';
-import { createHistoryEvent, createPlayer, repeat } from './test-helper';
+import { appstate } from '../stores/app'; // TODO Remove when real history exists
+import { roundOneStart } from './history-states';
 const socket = require('socket.io-client')('test');
 
-// event emitting isn't working as it should, these
-// tests aren't entirely accurate
-// history['history::init']([]); should be socket.emit('history::init')
+afterEach(() => {
+  return resetTestState();
+});
 
 test('should show a loading state before history inits', () => {
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  expect(container.querySelector('.loading-dots')).not.toBeNull();
+  const component = container.querySelector('.loading-dots');
+  expect(component);
 });
 
 test('should render pre_game component', () => {
   history['history::init']([]);
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  expect(container.querySelector('#LobbyPreGame')).not.toBeNull();
+  const component = container.querySelector('#LobbyPreGame');
+  expect(component);
 });
 
 test('should render in_game component', () => {
-  history['history::init']([]);
-  repeat(5, () => {
-    players['player::add'](createPlayer());
-  });
-  const rules = generateRuleset(get(players));
-  ruleset['ruleset::generate'](rules);
-  rounds['rounds::init'](rules);
-  leader['leader::change']([get(players), undefined]);
-  appstate['appstate::set']('IN_GAME');
+  history['history::init'](roundOneStart);
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  expect(container.querySelector('#LobbyGame')).not.toBeNull();
+  const component = container.querySelector('#LobbyGame');
+  expect(component);
 });
 
 test('should render post_game component', () => {
-  history['history::init']([]);
-  appstate['appstate::set']('POST_GAME');
+  history['history::init'](roundOneStart);
+  appstate['appstate::set']('POST_GAME'); // TODO Remove when real history exists
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  expect(container.querySelector('#LobbyPostGame')).not.toBeNull();
+  const component = container.querySelector('#LobbyPostGame');
+  expect(component);
 });
 
 test('should only init history once', () => {
