@@ -24,7 +24,7 @@ export interface MissionPhase {
 
 export interface MissionVote {
   playerId: PlayerId;
-  vote: 'success' | 'fail';
+  vote: 'pass' | 'fail';
 }
 
 export interface Player {
