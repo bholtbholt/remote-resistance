@@ -42,7 +42,7 @@
   <h3 class="text-lg text-gray-500 text-center mb-lg">
     Picked by {leaderName} for the {$currentRound.name} mission
   </h3>
-  <ul id="playerList" class="grid {gridSize(playerVotes.length)} -mx-lg gap-xs">
+  <ul id="playerList" class="grid {gridSize(playerVotes.length)} -mx-md gap-xs">
     {#each playerVotes as player}
       <li class="text-center bg-white rounded-sm pt-sm" class:outline={player.teamMember}>
         <div class="truncate px-xs text-gray-700" class:font-extrabold={player.teamMember}>

@@ -35,8 +35,7 @@
   {/if}
 
   <form on:submit|preventDefault={confirmTeam}>
-    <div
-      class="grid {gridSize($ruleset.playerCount)} -mx-lg mb-xl gap-xs border solid border-gray-800">
+    <div class="grid {gridSize($ruleset.playerCount)} -mx-md mb-xl gap-xs">
       {#each $players.map((player) => {
         return { selected: $team.includes(player.id), ...player };
       }) as player}
