@@ -64,7 +64,7 @@ Rounds use the following pattern:
 - `round{Number}TeamRejected`, as in `roundOneTeamRejected`
 - `round{Number}NewVote`, as in `roundOneNewVote`
 - `round{Number}LastVote`, as in `roundOneLastVote`
-- `round{Number}MissionApproved`, as in `roundOneMissionApproved`
+- `round{Number}MissionPassed`, as in `roundOneMissionPassed`
 - `round{Number}MissionFailed`, as in `roundOneMissionFailed`
 
 History states outside of rounds:
