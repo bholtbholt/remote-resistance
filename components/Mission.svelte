@@ -1,1 +1,157 @@
-<p>Mission is in process</p>
+<script type="text/typescript" lang="ts">
+  import { getContext } from 'svelte';
+  const socket = getContext('socketIORoom');
+
+  import { fade, fly } from 'svelte/transition';
+  import { rotate } from './custom-transitions';
+
+  import { leader } from '../stores/leader';
+  import { missionIsComplete, missionPassed, missionVotes } from '../stores/mission';
+  import {
+    currentPlayer,
+    playerHasCompletedMission,
+    playerIsASpy,
+    playerIsLeader,
+    playerIsTeamMember,
+    players,
+    teamMembers,
+  } from '../stores/player';
+  import { currentRound } from '../stores/round';
+  import { team } from '../stores/team';
+
+  import Player from './Player.svelte';
+  import Spinner from './Spinner.svelte';
+  import { gridSize, toSentance } from './view-helper';
+
+  let playerVote;
+  $: voteOptions = [
+    {
+      value: 'fail',
+      id: 'vote-fail',
+      label: 'Fail',
+      defaultColor: 'text-fail-600 bg-fail-200',
+      selectedColor: 'bg-fail-600 text-fail-200',
+      selected: playerVote === 'fail',
+      disabled: !$playerIsASpy,
+      rotateDeg: -18,
+      rotateX: -60,
+      origin: 'origin-left',
+    },
+    {
+      value: 'pass',
+      id: 'vote-pass',
+      label: 'Pass',
+      defaultColor: 'text-success-700 bg-success-200',
+      selectedColor: 'bg-success-600 text-success-200',
+      selected: playerVote === 'pass',
+      disabled: false,
+      rotateDeg: 18,
+      rotateX: 60,
+      origin: 'origin-right',
+    },
+  ];
+
+  function submitVote() {
+    socket.emit('missionvote::cast', { playerId: $currentPlayer.id, vote: playerVote });
+  }
+
+  function revealVotes() {
+    const update = {
+      missionPhase: {
+        team: $team,
+        votes: $missionVotes,
+        result: $missionPassed ? 'successful' : 'failed',
+      },
+    };
+    socket.emit('rounds::update', [$currentRound.index, update]);
+    socket.emit('leader::change', [$players, $leader.id]);
+    socket.emit('roundstate::set', 'MISSION_REVEAL');
+  }
+</script>
+
+<div id="Mission" in:fade>
+  {#if $playerIsTeamMember}
+    <h2 class="heading text-gray-100 text-center">Pass or fail this mission</h2>
+    <h3 class="text-lg text-gray-500 text-center mb-xl">
+      <!-- prettier-ignore -->
+      {#if $playerIsASpy}
+        Spies may pass or fail
+      {:else}
+        Resistance must pass
+      {/if}
+    </h3>
+    {#if !$playerHasCompletedMission}
+      <form on:submit|preventDefault={submitVote}>
+        <div class="grid grid-cols-2 mb-xl gap-lg">
+          {#each voteOptions as vote}
+            <label
+              for={vote.id}
+              in:rotate={{ deg: vote.rotateDeg, x: vote.rotateX, y: 20 }}
+              class:opacity-25={(playerVote && !vote.selected) || vote.disabled}
+              class:cursor-pointer={!vote.disabled}
+              class:cursor-not-allowed={vote.disabled}
+              class:scale-110={vote.selected}
+              class:scale-90={playerVote && !vote.selected}
+              class="{vote.selected ? vote.selectedColor : vote.defaultColor} transition duration-150
+                transform relative rounded-lg shadow py-xl text-center text-xl font-extrabold uppercase
+                tracking-widest {vote.origin}">
+              <input
+                id={vote.id}
+                class="absolute bottom-0 right-0 opacity-0"
+                type="radio"
+                name="vote"
+                bind:group={playerVote}
+                disabled={vote.disabled}
+                value={vote.value} />
+              {vote.label}
+            </label>
+          {/each}
+        </div>
+
+        {#if playerVote}
+          <button class="btn-primary font-bold text-lg w-full" in:fly={{ y: 200, duration: 600 }}>
+            {voteOptions.find((vote) => vote.value === playerVote).label} this mission
+          </button>
+        {/if}
+      </form>
+    {/if}
+  {:else}
+    <ul id="playerList" class="grid {gridSize($teamMembers.length)} -mx-md mb-md gap-xs">
+      {#each $teamMembers as { ...player }}
+        <Player {...player} />
+      {/each}
+    </ul>
+    <h2 class="text-lg text-gray-500 text-center mb-xl">
+      {toSentance($teamMembers.map((teamMember) => teamMember.name))} are on the {$currentRound.name}
+      mission
+    </h2>
+  {/if}
+
+  {#if $playerIsLeader && $missionIsComplete}
+    <div
+      in:fly={{ y: 200, duration: 600 }}
+      class="bg-white rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 text-center">
+      <h2 class="heading text-primary-500 mb-lg">The mission is complete!</h2>
+      <button on:click={revealVotes} class="btn-primary font-bold text-lg w-full">
+        Reveal results
+      </button>
+    </div>
+  {:else if ($playerIsTeamMember && $playerHasCompletedMission) || !$playerIsTeamMember}
+    <div
+      in:fly={{ y: 200, duration: 600 }}
+      class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center">
+      <Spinner color="text-success-700" margins="mr-md" />
+      <div>
+        <h2 class="subheading text-success-900">Waiting for mission results</h2>
+        <p class="text-success-700">
+          <!-- prettier-ignore -->
+          {#if $currentRound.permittedMissionVoteFails}
+            Spies must play 2 fails to win this mission
+          {:else}
+            All players must pass to win this mission
+          {/if}
+        </p>
+      </div>
+    </div>
+  {/if}
+</div>
