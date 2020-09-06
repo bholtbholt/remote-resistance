@@ -1,6 +1,7 @@
 import type { Action } from '../types';
 import { appstate } from '../stores/app';
 import { leader, previousLeader } from '../stores/leader';
+import { missionVotes } from '../stores/mission';
 import { players } from '../stores/player';
 import { rounds, roundstate } from '../stores/round';
 import { ruleset } from '../stores/rules';
@@ -14,6 +15,8 @@ export const actions = {
     leader['leader::change'](data);
     previousLeader['leader::change'](data);
   },
+  'missionvote::cast': missionVotes['missionvote::cast'],
+  'missionvote::reset': missionVotes['missionvote::reset'],
   'player::add': players['player::add'],
   'rounds::init': rounds['rounds::init'],
   'rounds::update': rounds['rounds::update'],

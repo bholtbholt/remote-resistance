@@ -36,12 +36,12 @@ const votesRejected = [
 ];
 
 const votesPending = [
-  createHistoryEvent('teamvote::cast', { playerId: spy1.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy2.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy3.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: p4.id, vote: '👎' }),
   createHistoryEvent('teamvote::cast', { playerId: p5.id, vote: '👎' }),
   createHistoryEvent('teamvote::cast', { playerId: p6.id, vote: '👎' }),
+  createHistoryEvent('teamvote::cast', { playerId: p7.id, vote: '👍' }),
 ];
 
 export const withPlayers = [
@@ -98,4 +98,48 @@ export const roundOneLastVote = [
   createHistoryEvent('rounds::update', [0, { failedTeamVotes: 4 }]),
   createHistoryEvent('leader::change', [players, spy1.id]),
   createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+];
+
+export const roundOneMissionPassed = [
+  ...roundOneTeamApproved,
+  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'pass' }),
+  createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
+  createHistoryEvent('rounds::update', [
+    0,
+    {
+      missionPhase: {
+        team: [spy1.id, p6.id],
+        votes: [
+          { playerId: spy1.id, vote: 'pass' },
+          { playerId: p6.id, vote: 'pass' },
+        ],
+        result: 'successful',
+      },
+    },
+  ]),
+  createHistoryEvent('leader::change', [players, spy1.id]),
+  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+];
+
+export const roundOneMissionFailed = [
+  ...roundOneTeamApproved,
+  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'fail' }),
+  createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
+  createHistoryEvent('rounds::update', [
+    0,
+    {
+      missionPhase: {
+        team: [spy1.id, p6.id],
+        votes: [
+          { playerId: spy1.id, vote: 'fail' },
+          { playerId: p6.id, vote: 'pass' },
+        ],
+        result: 'failed',
+      },
+    },
+  ]),
+  createHistoryEvent('leader::change', [players, spy1.id]),
+  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
 ];

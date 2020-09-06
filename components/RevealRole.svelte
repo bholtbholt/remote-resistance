@@ -13,10 +13,7 @@
     {playerNamesToSentance( $spies.map((spy) => spy.name), $currentPlayer.name, )} are <span
       class="text-fail-300">spies</span> amongst the resistance!
   </h2>
-  <ul
-    id="playerList"
-    class="grid {gridSize($ruleset.spyCount)} -mx-lg mb-xl gap-xs border solid border-gray-800"
-    in:blur>
+  <ul id="playerList" class="grid {gridSize($ruleset.spyCount)} -mx-md mb-xl gap-xs" in:blur>
     {#each $spies as { ...player }}
       <Player {...player} />
     {/each}
@@ -26,10 +23,7 @@
     You're part of the <span class="text-success-300">resistance</span>, but there are {$ruleset.spyCount}
     spies in your midst.
   </h2>
-  <ul
-    id="playerList"
-    class="grid {gridSize($ruleset.playerCount)} -mx-lg mb-xl gap-xs border solid border-gray-800"
-    in:blur>
+  <ul id="playerList" class="grid {gridSize($ruleset.playerCount)} -mx-md mb-xl gap-xs" in:blur>
     {#each $players as { ...player }}
       <Player {...player} />
     {/each}

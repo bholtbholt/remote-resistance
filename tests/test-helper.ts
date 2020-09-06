@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { appstate } from '../stores/app';
 import { history } from '../stores/history';
 import { leader, previousLeader } from '../stores/leader';
+import { missionVotes } from '../stores/mission';
 import { currentPlayerId, players } from '../stores/player';
 import { rounds, roundstate } from '../stores/round';
 import { ruleset } from '../stores/rules';
@@ -27,6 +28,7 @@ export function resetTestState() {
   currentPlayerId.reset();
   history.reset();
   leader.reset();
+  missionVotes['missionvote::reset']();
   players.reset();
   previousLeader.reset();
   rounds.reset();

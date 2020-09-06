@@ -1,36 +1,21 @@
 import 'ts-jest';
-import { createPlayer, repeat, resetTestState } from './test-helper';
+import { createHistoryEvent, resetTestState } from './test-helper';
 import { get } from 'svelte/store';
-import { players } from '../stores/player';
-import { ruleset, generateRuleset } from '../stores/rules';
 import { rounds, currentRound } from '../stores/round';
-
-beforeEach(() => {
-  repeat(5, () => {
-    players['player::add'](createPlayer());
-  });
-  const rules = generateRuleset(get(players));
-  rounds['rounds::init'](rules);
-});
+import { history } from '../stores/history';
+import { roundOneTeamApproved } from './history-states';
 
 afterEach(() => {
   return resetTestState();
 });
 
 test('should initialize all rounds', () => {
+  history['history::init'](roundOneTeamApproved);
   expect(get(rounds).length).toEqual(5);
 });
 
-test('should return the current round', () => {
-  const round = get(currentRound);
-
-  expect(round).toEqual(get(rounds)[0]);
-  expect(round).not.toEqual(get(rounds)[1]);
-  expect(round.name).toEqual('first');
-  expect(round.winner).toEqual(undefined);
-});
-
 test('should update the round', () => {
+  history['history::init'](roundOneTeamApproved);
   const currentRoundData = get(currentRound);
   const roundId = currentRoundData.id;
   const expectedResult = {
@@ -39,4 +24,31 @@ test('should update the round', () => {
 
   rounds['rounds::update']([roundId, expectedResult]);
   expect(get(rounds)[roundId]).toEqual(expectedResult);
+});
+
+describe('#currentRound', () => {
+  test('should return the first round', () => {
+    history['history::init'](roundOneTeamApproved);
+    const round = get(currentRound);
+
+    expect(round).toEqual(get(rounds)[0]);
+    expect(round).not.toEqual(get(rounds)[1]);
+    expect(round.name).toEqual('first');
+    expect(round.winner).toEqual(undefined);
+  });
+
+  test('should return the fourth round', () => {
+    history['history::init']([
+      ...roundOneTeamApproved,
+      createHistoryEvent('rounds::update', [0, { winner: 'resistance' }]),
+      createHistoryEvent('rounds::update', [1, { winner: 'spies' }]),
+      createHistoryEvent('rounds::update', [2, { winner: 'resistance' }]),
+    ]);
+    const round = get(currentRound);
+
+    expect(round).toEqual(get(rounds)[3]);
+    expect(round).not.toEqual(get(rounds)[0]);
+    expect(round.name).toEqual('fourth');
+    expect(round.winner).toEqual(undefined);
+  });
 });

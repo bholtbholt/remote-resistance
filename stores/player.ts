@@ -2,6 +2,7 @@ import type { Player, PlayerId, Ruleset } from '../types';
 import { writable, derived } from 'svelte/store';
 import { ruleset } from './rules';
 import { leader } from './leader';
+import { missionVotes } from './mission';
 import { team, teamVotes } from './team';
 
 export const players = (() => {
@@ -85,5 +86,12 @@ export const allPlayersHaveVoted = derived(
   [teamVotes, players],
   ([$teamVotes, $players]): Boolean => {
     return $teamVotes.length === $players.length;
+  },
+);
+
+export const playerHasCompletedMission = derived(
+  [missionVotes, currentPlayerId],
+  ([missionVotes, $currentPlayerId]): Boolean => {
+    return !!missionVotes.find((vote) => vote.playerId === $currentPlayerId);
   },
 );
