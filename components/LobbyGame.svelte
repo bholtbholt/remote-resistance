@@ -11,6 +11,7 @@
   import TeamBuildingVote from './TeamBuildingVote.svelte';
   import TeamBuildingReveal from './TeamBuildingReveal.svelte';
   import Mission from './Mission.svelte';
+  import MissionReveal from './MissionReveal.svelte';
 
   let hideRoleReveal = window.sessionStorage.getItem('hideRoleReveal');
   function hideRoles() {
@@ -29,6 +30,7 @@
     TEAM_VOTE: TeamBuildingVote,
     TEAM_REVEAL: TeamBuildingReveal,
     MISSION_START: Mission,
+    MISSION_REVEAL: MissionReveal,
   };
 </script>
 
