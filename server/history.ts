@@ -5,15 +5,15 @@ import { v4 as uuid } from 'uuid';
 const historyEvents = {};
 // A wrapper for socket.io emit that stores the event in local memory
 // as a HistoryEvent. Used to sync client states and replay events
-function createHistory(room: Namespace, action: Action, data) {
+function createHistory(namespace: Namespace, action: Action, data) {
   const event: HistoryEvent = {
     action,
     data,
     timestamp: Date.now(),
     id: uuid(),
   };
-  historyEvents[room.name].push(event);
-  room.emit(action, data);
+  historyEvents[namespace.name].push(event);
+  namespace.emit(action, data);
   console.log('HistoryEvent', action, data);
 }
 
