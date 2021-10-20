@@ -1,8 +1,8 @@
 const plugin = require('tailwindcss/plugin');
-const { colors } = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 
 module.exports = {
-  purge: ['./components/**/*.svelte'],
+  content: ['./index.html', './components/**/*.svelte'],
   theme: {
     borderRadius: {
       none: '0',
