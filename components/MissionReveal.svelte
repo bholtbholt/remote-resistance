@@ -1,4 +1,4 @@
-<script type="text/typescript" lang="ts">
+<script>
   import { blur } from './custom-transitions';
 </script>
 

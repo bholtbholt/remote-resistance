@@ -1,4 +1,4 @@
-<script type="text/typescript" lang="ts">
+<script>
   export let showCard = false;
   import { fly } from 'svelte/transition';
   import { cardFlip } from './custom-transitions';

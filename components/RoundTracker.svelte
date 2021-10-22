@@ -1,4 +1,4 @@
-<script type="text/typescript" lang="ts">
+<script>
   import { backOut } from 'svelte/easing';
   import { scale } from 'svelte/transition';
 
