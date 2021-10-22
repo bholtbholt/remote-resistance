@@ -71,7 +71,7 @@
 
 <div id="Mission" in:fade>
   {#if $playerIsTeamMember}
-    <h2 class="heading text-gray-100 text-center">Pass or fail this mission</h2>
+    <h2 class="text-gray-100 text-center">Pass or fail this mission</h2>
     <h3 class="text-lg text-gray-500 text-center mb-xl">
       <!-- prettier-ignore -->
       {#if $playerIsASpy}
@@ -131,7 +131,7 @@
     <div
       in:fly={{ y: 200, duration: 600 }}
       class="bg-white rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 text-center">
-      <h2 class="heading text-primary-500 mb-lg">The mission is complete!</h2>
+      <h2 class="text-primary-500 mb-lg">The mission is complete!</h2>
       <button on:click={revealVotes} class="btn-primary font-bold text-lg w-full">
         Reveal results
       </button>
@@ -142,7 +142,7 @@
       class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center">
       <Spinner color="text-success-700" margins="mr-md" />
       <div>
-        <h2 class="subheading text-success-900">Waiting for mission results</h2>
+        <h2 class="text-success-900">Waiting for mission results</h2>
         <p class="text-success-700">
           <!-- prettier-ignore -->
           {#if $currentRound.permittedMissionVoteFails}

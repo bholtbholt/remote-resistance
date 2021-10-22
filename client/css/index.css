@@ -1,6 +1,5 @@
 @import './variables';
 @import './button';
-@import './heading';
 @import './loading-dots';
 
 @tailwind base;

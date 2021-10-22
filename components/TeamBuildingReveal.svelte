@@ -36,7 +36,7 @@
 </script>
 
 <div id="TeamBuildingReveal" in:blur>
-  <h2 class="heading text-gray-100 text-center">
+  <h2 class="text-gray-100 text-center">
     Team <span class="{teamNameColor} transition-colors duration-150"> {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))} </span>
   </h2>
   <h3 class="text-lg text-gray-500 text-center mb-lg">
@@ -62,7 +62,7 @@
       in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
       on:introend={() => (teamNameColor = 'text-success-300')}
       class="rounded-lg shadow-xl mx-lg mb-lg -mt-lg p-md relative z-10 text-center bg-success-200">
-      <h2 class="heading text-success-900">Approved</h2>
+      <h2 class="text-success-900">Approved</h2>
     </div>
     {#if $playerIsTeamMember}
       <div class="mx-xl" in:fade={{ delay: 3000 }}>
@@ -74,14 +74,14 @@
       in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
       on:introend={() => (teamNameColor = 'text-fail-300')}
       class="rounded-lg shadow-xl mx-lg mb-lg -mt-lg p-md relative z-10 text-center bg-fail-200">
-      <h2 class="heading text-fail-900">Rejected</h2>
+      <h2 class="text-fail-900">Rejected</h2>
     </div>
     {#if $playerIsLeader}
       <div class="mx-xl" in:fade={{ delay: 3000 }}>
         <button class="btn-fail text-lg w-full" on:click={pickNewTeam}>Pick a new team</button>
       </div>
     {:else}
-      <h3 class="heading text-gray-500 text-center" in:fade={{ delay: 3000 }}>
+      <h3 class="text-gray-500 text-center" in:fade={{ delay: 3000 }}>
         {$leader.name} is the new leader
       </h3>
     {/if}

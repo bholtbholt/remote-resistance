@@ -1,9 +1,0 @@
-.heading {
-  font-size: var(--font-heading);
-  @apply font-bold;
-}
-
-.subheading {
-  font-size: var(--font-subheading);
-  @apply font-bold;
-}

@@ -9,7 +9,7 @@
 </script>
 
 {#if $playerIsASpy}
-  <h2 class="heading text-gray-100 mb-lg text-center" in:blur>
+  <h2 class="text-gray-100 mb-lg text-center" in:blur>
     {playerNamesToSentance( $spies.map((spy) => spy.name), $currentPlayer.name, )} are <span
       class="text-fail-300">spies</span> amongst the resistance!
   </h2>
@@ -19,7 +19,7 @@
     {/each}
   </ul>
 {:else}
-  <h2 class="heading text-gray-100 mb-lg text-center" in:blur>
+  <h2 class="text-gray-100 mb-lg text-center" in:blur>
     You're part of the <span class="text-success-300">resistance</span>, but there are {$ruleset.spyCount}
     spies in your midst.
   </h2>

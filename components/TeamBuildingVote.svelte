@@ -67,7 +67,7 @@
 </script>
 
 <div id="TeamBuildingVote" in:fade>
-  <h2 class="heading text-gray-100 text-center">
+  <h2 class="text-gray-100 text-center">
     Vote for team <span class="text-success-300"> {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))} </span>
   </h2>
   <h3 class="text-lg text-gray-500 text-center mb-xl">
@@ -117,7 +117,7 @@
     <div
       in:fly={{ y: 200, duration: 600 }}
       class="bg-white rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 text-center">
-      <h2 class="heading text-primary-500 mb-lg">Are votes are in!</h2>
+      <h2 class="text-primary-500 mb-lg">Are votes are in!</h2>
       <button on:click={revealVotes} class="btn-primary font-bold text-lg w-full">
         Reveal votes
       </button>
