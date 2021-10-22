@@ -1,4 +1,4 @@
-<script type="text/typescript" lang="ts">
+<script>
   import { redirect } from '../client/js/redirect';
 
   import { players, playerIsLoggedIn } from '../stores/player';

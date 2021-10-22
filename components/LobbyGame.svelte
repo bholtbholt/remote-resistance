@@ -1,4 +1,4 @@
-<script type="text/typescript" lang="ts">
+<script>
   import { fly, fade } from 'svelte/transition';
 
   import { playerIsLoggedIn } from '../stores/player';

@@ -1,5 +1,4 @@
-<script type="text/typescript" lang="ts">
-  import type { Player } from '../types';
+<script>
   import { currentPlayerId } from '../stores/player';
 
   export let avatar;

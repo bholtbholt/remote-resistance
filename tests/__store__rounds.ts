@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { createHistoryEvent, resetTestState } from './test-helper';
 import { get } from 'svelte/store';
@@ -17,13 +18,13 @@ test('should initialize all rounds', () => {
 test('should update the round', () => {
   history['history::init'](roundOneTeamApproved);
   const currentRoundData = get(currentRound);
-  const roundId = currentRoundData.id;
+  const roundIndex = currentRoundData.index;
   const expectedResult = {
     failedTeamVotes: 1,
   };
 
-  rounds['rounds::update']([roundId, expectedResult]);
-  expect(get(rounds)[roundId]).toEqual(expectedResult);
+  rounds['rounds::update']([roundIndex, expectedResult]);
+  expect(get(rounds)[roundIndex]).toEqual(expect.objectContaining(expectedResult));
 });
 
 describe('#currentRound', () => {

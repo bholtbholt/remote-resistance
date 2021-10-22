@@ -1,4 +1,4 @@
-<script type="text/typescript" lang="ts">
+<script>
   export let socket;
   export let currentPlayerIdSessionKey;
   export let renderAppController = false;

@@ -1,4 +1,4 @@
-<script type="text/typescript" lang="ts">
+<script>
   import { currentPlayer, players, playerIsASpy, spies } from '../stores/player';
   import { ruleset } from '../stores/rules';
 

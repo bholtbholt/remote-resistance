@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { createHistoryEvent, resetTestState } from './test-helper';
@@ -19,7 +20,7 @@ afterEach(() => {
 
 describe('when player is logged in', () => {
   test('should cast a vote', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [player] = players;
     currentPlayerId.set(player.id);
     const { container, getByText } = render(AppFixture, {
@@ -70,7 +71,7 @@ test('should restrict viewers from voting', () => {
 
 describe('when all votes have been cast', () => {
   test('should let leader reveal votes', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [leader] = players;
     currentPlayerId.set(leader.id);
     const { getByText } = render(AppFixture, {
@@ -88,7 +89,7 @@ describe('when all votes have been cast', () => {
 
 describe('when team is rejected', () => {
   test('should increment failedTeamVotes', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [leader] = players;
     currentPlayerId.set(leader.id);
     const { getByText } = render(AppFixture, {
@@ -104,7 +105,7 @@ describe('when team is rejected', () => {
   });
 
   test('should change the leader', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [leader] = players;
     currentPlayerId.set(leader.id);
     const { getByText } = render(AppFixture, {

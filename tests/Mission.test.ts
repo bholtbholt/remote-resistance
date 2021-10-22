@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { createHistoryEvent, resetTestState } from './test-helper';
@@ -18,7 +19,7 @@ afterEach(() => {
 
 describe('when player is a team member', () => {
   test('should cast a passing vote', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [player] = players;
     currentPlayerId.set(player.id);
     const { getByText, getByRole } = render(AppFixture, {
@@ -42,7 +43,7 @@ describe('when player is a team member', () => {
   });
 
   test('should cast a failing vote', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [player] = players;
     currentPlayerId.set(player.id);
     const { getByText, getByRole } = render(AppFixture, {
@@ -173,7 +174,7 @@ describe('when mission is complete', () => {
 
 describe('when mission is revealed', () => {
   test('should save the round data', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [player, spy2, spy3, p4, p5, p6] = players;
     currentPlayerId.set(player.id);
     const { queryByText } = render(AppFixture, {
@@ -210,7 +211,7 @@ describe('when mission is revealed', () => {
   });
 
   test('should change the leader', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [player, spy2, spy3, p4, p5, p6] = players;
     currentPlayerId.set(player.id);
     const { queryByText } = render(AppFixture, {
@@ -236,7 +237,7 @@ describe('when mission is revealed', () => {
   });
 
   test('should change the round state', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [player, spy2, spy3, p4, p5, p6] = players;
     currentPlayerId.set(player.id);
     const { queryByText } = render(AppFixture, {

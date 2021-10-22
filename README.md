@@ -15,13 +15,13 @@ Play Resistance with your friends anywhere – a real-time remote version of the
 - [TypeScript](https://www.typescriptlang.org).
 - [Express Server](https://expressjs.com).
 - [Socket.io](https://socket.io).
-- [Parcel](https://parceljs.org).
+- [Vite](https://vitejs.dev).
 
 ## Structure and Content
 
 - `./actions`: Public events emitted and listened for with socket.io.
-- `./client`: Parcel entry files.
-- `./client/css`: CSS Variable definitions and custom CSS components outside of Tailwind. Bundled with PostCSS by Parcel. See `tailwind.config.js` for definitions and extensions.
+- `./client`: Vite entry files.
+- `./client/css`: CSS Variable definitions and custom CSS components outside of Tailwind. Bundled with PostCSS by Vite. See `tailwind.config.js` for definitions and extensions.
 - `./components`: App UI, written in Svelte.
 - `./server`: App server.
 - `./stores`: Reactive Svelte stores used by the UI. Stores are similar to _Models_ in design. _Anything that should submit an public action should use a store_.
@@ -75,7 +75,7 @@ History states outside of rounds:
 
 ## Admin Control with App Controller
 
-`AppController.svelte` is an admin tool for controlling player state. Change the logged-in player or the leader, see the spies, and log-out. It's controlled by `ADMIN` environment variable in your `.env` setting. It can't be set by CLI because Parcel doesn't support that.
+`AppController.svelte` is an admin tool for controlling player state. Change the logged-in player or the leader, see the spies, and log-out. It's controlled by `ADMIN` environment variable in your `.env` setting. It can't be set by CLI because Vite doesn't support that.
 
 ```
 # In your .env file
@@ -99,6 +99,7 @@ Run `npm run test` for the Jest watcher.
 Most tests need the following boilerplate:
 
 ```typescript
+import 'core-js';
 import 'ts-jest';
 import { render } from '@testing-library/svelte';
 import { get } from 'svelte/store';
@@ -133,9 +134,9 @@ Using `history-states` is the easiest way to build up a true state in the applic
 
 <dl>
   <dt>Tailwind changes aren't taking affect</dt>
-  <dd>Parcel keeps a long-lived cache. Run <code>npm run clean</code> to delete the cache and built files.</dd>
+  <dd>Vite keeps a long-lived cache. Run <code>npm run clean</code> to delete the cache and built files.</dd>
   <dt>.env settings aren't taking affect</dt>
-  <dd>Parcel keeps a long-lived cache. Run <code>npm run clean</code> to delete the cache and re-load it.</dd>
+  <dd>Vite keeps a long-lived cache. Run <code>npm run clean</code> to delete the cache and re-load it.</dd>
   <dt>Tests are failing as a group, but pass individually</dt>
   <dd>Jest runs tests with shared state, so you need to add <code>afterEach(() => { …; return; })</code> to undo the state.</dd>
 </dl>

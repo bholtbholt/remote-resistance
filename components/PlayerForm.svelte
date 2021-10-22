@@ -1,5 +1,4 @@
-<script type="text/typescript" lang="ts">
-  import type { Player } from '../types';
+<script>
   import { currentPlayerId, players } from '../stores/player';
   import { v4 as uuid } from 'uuid';
 
@@ -26,7 +25,7 @@
 
   function handleSubmit() {
     enableForm = false;
-    const player: Player = {
+    const player = {
       id: uuid(),
       name: this.elements['name'].value,
       avatar: this.elements['avatar'].value,

@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { resetTestState } from './test-helper';
@@ -30,7 +31,7 @@ test('should disable the button on submit', async () => {
 });
 
 test('should set the current player', async () => {
-  spyOn(currentPlayerId, 'set');
+  jest.spyOn(currentPlayerId, 'set');
   const { getByText, getByLabelText } = render(AppFixture, { socket, component: PlayerForm });
 
   const nameField = getByLabelText('Name:') as HTMLInputElement;
@@ -42,7 +43,7 @@ test('should set the current player', async () => {
 });
 
 test('should add the player to the room', async () => {
-  spyOn(socket, 'emit');
+  jest.spyOn(socket, 'emit');
   const { getByText, getByLabelText } = render(AppFixture, { socket, component: PlayerForm });
 
   const nameField = getByLabelText('Name:') as HTMLInputElement;

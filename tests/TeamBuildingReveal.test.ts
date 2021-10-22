@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { resetTestState } from './test-helper';
@@ -14,7 +15,7 @@ afterEach(() => {
 
 describe('when vote is rejected', () => {
   test('should allow the new leader to re-start the team building phase', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [leader] = players;
     currentPlayerId.set(leader.id);
 
@@ -64,7 +65,7 @@ describe('when vote is rejected', () => {
 
 describe('when vote is approved', () => {
   test('should let a team member start the mission phase', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [teamMember] = players;
     currentPlayerId.set(teamMember.id);
 

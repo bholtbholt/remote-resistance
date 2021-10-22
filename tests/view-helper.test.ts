@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { createPlayer, repeat } from './test-helper';
 import { gridSize, playerNamesToSentance, toSentance } from '../components/view-helper';

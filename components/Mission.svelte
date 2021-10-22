@@ -1,4 +1,4 @@
-<script type="text/typescript" lang="ts">
+<script>
   import { getContext } from 'svelte';
   const socket = getContext('socketIORoom');
 
