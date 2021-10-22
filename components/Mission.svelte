@@ -93,7 +93,7 @@
               class:scale-110={vote.selected}
               class:scale-90={playerVote && !vote.selected}
               class="{vote.selected ? vote.selectedColor : vote.defaultColor} transition duration-150
-                transform relative rounded-lg shadow py-xl text-center text-xl font-extrabold uppercase
+                transform relative rounded-lg shadow text-center text-xl font-extrabold uppercase
                 tracking-widest {vote.origin}">
               <input
                 id={vote.id}

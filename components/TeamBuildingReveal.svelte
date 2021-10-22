@@ -44,8 +44,8 @@
   </h3>
   <ul id="playerList" class="grid {gridSize(playerVotes.length)} gap-xs">
     {#each playerVotes as player}
-      <li class="text-center bg-white rounded-sm pt-sm" class:outline={player.teamMember}>
-        <div class="truncate px-xs text-gray-700" class:font-extrabold={player.teamMember}>
+      <li class="text-center bg-white rounded-sm" class:outline={player.teamMember}>
+        <div class="truncate text-gray-700" class:font-extrabold={player.teamMember}>
           {player.avatar}
           {player.name}
         </div>

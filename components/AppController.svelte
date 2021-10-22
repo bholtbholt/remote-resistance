@@ -41,7 +41,7 @@
 
 {#if showController}
   <div
-    class="fixed inset-x-0 bottom-0 z-50 p-lg bg-gray-900 bg-opacity-75 shadow text-gray-100"
+    class="fixed inset-x-0 bottom-0 z-50 bg-gray-900 bg-opacity-75 shadow text-gray-100"
     transition:cardFlip={{ flip: true }}>
     {#if $players.length > 0}
       <ul id="playerList" class="grid grid-cols-5 gap-xs">

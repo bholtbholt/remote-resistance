@@ -17,7 +17,7 @@
     <div
       class="fixed top-0 inset-x-0 rounded-lg shadow-xl border-solid border-xl {borderColor}"
       transition:cardFlip>
-      <div class="text-center bg-white rounded-lg p-lg pt-xl {outlineColor}">
+      <div class="text-center bg-white rounded-lg {outlineColor}">
         <h2 class="text-xl font-extrabold {headingColor}">{headingText}</h2>
         <svg viewBox="0 0 20 20">
           <text x="50%" y="80%" class="align-middle overflow-visible text-anchor-middle">

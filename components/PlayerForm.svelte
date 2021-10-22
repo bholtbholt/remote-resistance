@@ -44,7 +44,7 @@
   on:submit|preventDefault={handleSubmit}>
   <label
     for="name"
-    class="border-b border-gray-400 focus-within:border-primary-500 pb-sm block
+    class="border-b border-gray-400 focus-within:border-primary-500 block
       transition-colors duration-200 ease-in">
     <div class="text-sm uppercase text-gray-500 font-bold ">Name:</div>
     <input
