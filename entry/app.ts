@@ -6,12 +6,12 @@ const socket = io(window.location.pathname);
 // the first time they've been on the app – so we clear storage and redirect
 if (window.location.pathname === '/') redirect();
 
-import App from '../../components/App.svelte';
+import App from '../components/App.svelte';
 export default new App({
   target: document.body,
   props: {
     socket,
     currentPlayerIdSessionKey: window.sessionStorage.getItem('currentPlayerId'),
-    renderAppController: import.meta.env.ADMIN || false,
+    renderAppController: true,
   },
 });

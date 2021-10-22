@@ -1,5 +1,5 @@
 <script>
-  import { redirect } from '../client/js/redirect';
+  import { redirect } from '../entry/redirect';
 
   import { players, playerIsLoggedIn } from '../stores/player';
   import { generateRuleset, maximumPlayerCount, minimumPlayerCount } from '../stores/rules';
