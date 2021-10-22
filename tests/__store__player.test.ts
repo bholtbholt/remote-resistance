@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { createPlayer, repeat, resetTestState } from './test-helper';
 import { get } from 'svelte/store';

@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { render } from '@testing-library/svelte';
 import { resetTestState } from './test-helper';
@@ -44,7 +45,7 @@ test('should render post_game component', () => {
 });
 
 test('should only init history once', () => {
-  spyOn(socket, 'once');
+  jest.spyOn(socket, 'once');
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
   socket.emit('history::init', []);

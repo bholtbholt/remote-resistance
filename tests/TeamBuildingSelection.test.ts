@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { createHistoryEvent, resetTestState } from './test-helper';
@@ -33,7 +34,7 @@ describe('when player is leader', () => {
   });
 
   test('should let leader select players', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const { container } = render(AppFixture, {
       socket,
       component: TeamBuildingSelection,
@@ -54,7 +55,7 @@ describe('when player is leader', () => {
   });
 
   test('should let leader confirm a team', async () => {
-    spyOn(socket, 'emit');
+    jest.spyOn(socket, 'emit');
     const [p1, p2] = players;
     const { getByText } = render(AppFixture, {
       socket,

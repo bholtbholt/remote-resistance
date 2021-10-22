@@ -99,6 +99,7 @@ Run `npm run test` for the Jest watcher.
 Most tests need the following boilerplate:
 
 ```typescript
+import 'core-js';
 import 'ts-jest';
 import { render } from '@testing-library/svelte';
 import { get } from 'svelte/store';

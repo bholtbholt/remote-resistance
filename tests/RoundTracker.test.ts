@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { render } from '@testing-library/svelte';
 import { resetTestState } from './test-helper';

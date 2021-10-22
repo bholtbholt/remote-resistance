@@ -1,3 +1,4 @@
+import 'core-js';
 import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { createPlayer, repeat, createHistoryEvent, resetTestState } from './test-helper';
@@ -83,7 +84,7 @@ test('should generate a ruleset when the game is started', async () => {
     players['player::add'](player);
   });
 
-  spyOn(socket, 'emit');
+  jest.spyOn(socket, 'emit');
   const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
 
   const button = getByText('Start the game!');
@@ -103,7 +104,7 @@ test('should set the game state to IN_GAME', async () => {
     players['player::add'](player);
   });
 
-  spyOn(socket, 'emit');
+  jest.spyOn(socket, 'emit');
   const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
 
   const button = getByText('Start the game!');
@@ -123,7 +124,7 @@ test('should set the first team builder leader', async () => {
     players['player::add'](player);
   });
 
-  spyOn(socket, 'emit');
+  jest.spyOn(socket, 'emit');
   const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
 
   const button = getByText('Start the game!');
@@ -143,7 +144,7 @@ test('should initialize rounds', async () => {
     players['player::add'](player);
   });
 
-  spyOn(socket, 'emit');
+  jest.spyOn(socket, 'emit');
   const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
 
   const button = getByText('Start the game!');
