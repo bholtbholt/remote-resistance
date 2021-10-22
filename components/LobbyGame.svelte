@@ -38,7 +38,7 @@
   <RoundTracker />
   {#if !hideRoleReveal && $playerIsLoggedIn}
     <RevealRole />
-    <div class="mx-lg" in:fly={{ y: 200, duration: 600, delay: 3000 }}>
+    <div in:fly={{ y: 200, duration: 600, delay: 3000 }}>
       <button class="btn-primary font-bold text-lg w-full" on:click={hideRoles}>Start first round</button>
     </div>
   {/if}

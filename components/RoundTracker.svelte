@@ -9,7 +9,7 @@
   import RoundTracker from './RoundTracker.svelte';
 </script>
 
-<ul id="RoundTracker" class="mb-xl flex justify-between">
+<ul id="RoundTracker" class="flex justify-between">
   {#each $rounds as round}
     <li
       class="h-lg w-lg rounded-round relative text-center {round === $currentRound ? 'bg-warning-400 transform scale-150' : 'bg-gray-600'}">

@@ -33,7 +33,7 @@
 {#if $historyIsLoaded}
   <svelte:component this={state[$appstate]} />
 {:else}
-  <div class="loading-dots mx-auto my-xl" />
+  <div class="loading-dots" />
 {/if}
 <Credits />
 

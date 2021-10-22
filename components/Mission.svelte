@@ -72,7 +72,7 @@
 <div id="Mission" in:fade>
   {#if $playerIsTeamMember}
     <h2 class="text-gray-100 text-center">Pass or fail this mission</h2>
-    <h3 class="text-lg text-gray-500 text-center mb-xl">
+    <h3 class="text-lg text-gray-500 text-center">
       <!-- prettier-ignore -->
       {#if $playerIsASpy}
         Spies may pass or fail
@@ -82,7 +82,7 @@
     </h3>
     {#if !$playerHasCompletedMission}
       <form on:submit|preventDefault={submitVote}>
-        <div class="grid grid-cols-2 mb-xl gap-lg">
+        <div class="grid grid-cols-2 gap-lg">
           {#each voteOptions as vote}
             <label
               for={vote.id}
@@ -116,12 +116,12 @@
       </form>
     {/if}
   {:else}
-    <ul id="playerList" class="grid {gridSize($teamMembers.length)} -mx-md mb-md gap-xs">
+    <ul id="playerList" class="grid {gridSize($teamMembers.length)} gap-xs">
       {#each $teamMembers as { ...player }}
         <Player {...player} />
       {/each}
     </ul>
-    <h2 class="text-lg text-gray-500 text-center mb-xl">
+    <h2 class="text-lg text-gray-500 text-center">
       {toSentance($teamMembers.map((teamMember) => teamMember.name))} are on the {$currentRound.name}
       mission
     </h2>
@@ -130,8 +130,8 @@
   {#if $playerIsLeader && $missionIsComplete}
     <div
       in:fly={{ y: 200, duration: 600 }}
-      class="bg-white rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 text-center">
-      <h2 class="text-primary-500 mb-lg">The mission is complete!</h2>
+      class="bg-white rounded-lg shadow-xl relative z-10 text-center">
+      <h2 class="text-primary-500">The mission is complete!</h2>
       <button on:click={revealVotes} class="btn-primary font-bold text-lg w-full">
         Reveal results
       </button>
@@ -139,8 +139,8 @@
   {:else if ($playerIsTeamMember && $playerHasCompletedMission) || !$playerIsTeamMember}
     <div
       in:fly={{ y: 200, duration: 600 }}
-      class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center">
-      <Spinner color="text-success-700" margins="mr-md" />
+      class="bg-success-200 rounded-lg shadow-xl relative z-10 flex items-center">
+      <Spinner color="text-success-700" />
       <div>
         <h2 class="text-success-900">Waiting for mission results</h2>
         <p class="text-success-700">

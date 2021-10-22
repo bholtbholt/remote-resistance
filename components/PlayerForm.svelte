@@ -38,15 +38,15 @@
 </script>
 
 <form
-  class="bg-white rounded-lg shadow-xl mx-lg mb-xl -mt-xl p-lg relative z-10"
+  class="bg-white rounded-lg shadow-xl relative z-10"
   in:fly={{ y: -200, duration: 900 }}
   out:fade={{ duration: 150 }}
   on:submit|preventDefault={handleSubmit}>
   <label
     for="name"
-    class="border-b border-gray-400 focus-within:border-primary-500 pb-sm mb-lg block
+    class="border-b border-gray-400 focus-within:border-primary-500 pb-sm block
       transition-colors duration-200 ease-in">
-    <div class="text-sm uppercase text-gray-500 font-bold mb-xs">Name:</div>
+    <div class="text-sm uppercase text-gray-500 font-bold ">Name:</div>
     <input
       id="name"
       name="name"
@@ -58,8 +58,8 @@
       autofocus />
   </label>
 
-  <div class="text-sm uppercase text-gray-500 font-bold mb-sm">Avatar:</div>
-  <div class="grid grid-cols-5 grid-rows-2 mb-lg">
+  <div class="text-sm uppercase text-gray-500 font-bold ">Avatar:</div>
+  <div class="grid grid-cols-5 grid-rows-2">
     {#each avatars as avatar, i}
       <label
         for="avatar_{i}"
@@ -87,7 +87,7 @@
     {#if enableForm}
       Join game
     {:else}
-      <div class="loading-dots mx-auto my-sm" />
+      <div class="loading-dots mx-auto" />
     {/if}
   </button>
 </form>
