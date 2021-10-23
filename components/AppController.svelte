@@ -2,8 +2,6 @@
   //////////////////////////////////////////
   // Controller Setup
   //////////////////////////////////////////
-  import { cardFlip } from './custom-transitions';
-
   let showController = false;
   function toggleController() {
     showController = !showController;
@@ -40,10 +38,7 @@
 </script>
 
 {#if showController}
-  <div
-    class="fixed inset-x-0 bottom-0 z-50 bg-gray-900 bg-opacity-75 shadow text-gray-100"
-    transition:cardFlip={{ flip: true }}
-  >
+  <div class="z-50 py-5">
     {#if $players.length > 0}
       <ul id="playerList" class="grid grid-cols-5 gap-xs">
         {#each $players as { ...player }}
