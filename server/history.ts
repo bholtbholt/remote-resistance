@@ -12,9 +12,9 @@ function createHistory(namespace: Namespace, action: Action, data) {
     timestamp: Date.now(),
     id: uuid(),
   };
-  historyEvents[namespace.name].push(event);
+  historyEvents[namespace.name] = [...historyEvents[namespace.name], event];
   namespace.emit(action, data);
-  console.log('HistoryEvent', action, data);
+  console.log('HistoryEvent', action, data, namespace.name);
 }
 
 export { historyEvents, createHistory };
