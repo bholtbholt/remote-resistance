@@ -42,7 +42,8 @@
 {#if showController}
   <div
     class="fixed inset-x-0 bottom-0 z-50 bg-gray-900 bg-opacity-75 shadow text-gray-100"
-    transition:cardFlip={{ flip: true }}>
+    transition:cardFlip={{ flip: true }}
+  >
     {#if $players.length > 0}
       <ul id="playerList" class="grid grid-cols-5 gap-xs">
         {#each $players as { ...player }}
@@ -50,7 +51,8 @@
             {#if $leader && $leader.id === player.id}
               <div
                 style="top: -.22em; font-size: 2.6em; text-shadow: 0 .05em .08em rgba(0,0,0,.6);"
-                class="absolute right-0">
+                class="absolute right-0"
+              >
                 🏅
               </div>
             {/if}
@@ -61,25 +63,22 @@
           </div>
         {/each}
       </ul>
-      <a
-        class="focus:underline hover:underline cursor-pointer"
-        on:click={changeCurrentPlayer}>
+      <span class="focus:underline hover:underline cursor-pointer" on:click={changeCurrentPlayer}>
         Change player
-      </a>
-      <a class="focus:underline hover:underline cursor-pointer" on:click={changeLeader}>
+      </span>
+      <span class="focus:underline hover:underline cursor-pointer" on:click={changeLeader}>
         Change leader
-      </a>
+      </span>
     {/if}
     {#if $playerIsLoggedIn}
-      <a class="focus:underline hover:underline cursor-pointer" on:click={logOut}>Log out</a>
+      <span class="focus:underline hover:underline cursor-pointer" on:click={logOut}>Log out</span>
     {/if}
-    <a
-      class="focus:underline hover:underline cursor-pointer"
-      on:click={toggleController}>Close</a>
+    <span class="focus:underline hover:underline cursor-pointer" on:click={toggleController}
+      >Close</span
+    >
   </div>
 {:else}
-  <button
-    class="fixed right-0 bottom-0"
-    style="font-size: 56px;"
-    on:click={toggleController}>🎚</button>
+  <button class="fixed right-0 bottom-0" style="font-size: 56px;" on:click={toggleController}
+    >🎚</button
+  >
 {/if}

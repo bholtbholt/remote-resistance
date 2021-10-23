@@ -31,26 +31,28 @@
     id="playerList"
     class="grid grid-cols-5 grid-rows-2 gap-xs transition-all duration-1000 ease-out"
     class:blur={!$playerIsLoggedIn}
-    class:opacity-50={!$playerIsLoggedIn}>
+    class:opacity-50={!$playerIsLoggedIn}
+  >
     {#each $players as { ...player }}
       <Player {...player} />
     {/each}
     {#each playerSlots as playerSlot, i}
       <li
         class="bg-gray-900 animate-pulse rounded-sm min-h-xl"
-        style="animation-delay: {i * 100}ms" />
+        style="animation-delay: {i * 100}ms"
+      />
     {/each}
   </ul>
 
   {#if $playerIsLoggedIn}
     {#if enoughPlayers}
       <div in:fade>
-        <button on:click={handleSubmit} class="btn-primary font-bold text-lg w-full">Start the game!</button>
+        <button on:click={handleSubmit} class="btn-primary font-bold text-lg w-full"
+          >Start the game!</button
+        >
       </div>
     {:else}
-      <div
-        class="bg-success-200 rounded-lg shadow-xl relative z-10 flex items-center"
-        in:fade>
+      <div class="bg-success-200 rounded-lg shadow-xl relative z-10 flex items-center" in:fade>
         <Spinner color="text-success-900" />
         <h2 class="text-success-900">Waiting for more players to join…</h2>
       </div>
@@ -60,11 +62,17 @@
   {:else}
     <div
       in:fly={{ y: -200, duration: 600 }}
-      class="bg-warning-200 rounded-lg shadow-xl relative z-10">
+      class="bg-warning-200 rounded-lg shadow-xl relative z-10"
+    >
       <h2 class="text-warning-900">Too late!</h2>
       <p class="text-warning-700">
-        There are already {maximumPlayerCount} players in this game. Wait here to watch, or <a class="underline
-            cursor-pointer" on:click={redirect}>start a new one instead.</a>
+        There are already {maximumPlayerCount} players in this game. Wait here to watch, or
+        <a
+          href="/"
+          class="underline
+            cursor-pointer"
+          on:click|preventDefault={redirect}>start a new one instead.</a
+        >
       </p>
     </div>
   {/if}
