@@ -62,10 +62,10 @@
   {:else}
     <div
       in:fly={{ y: -200, duration: 600 }}
-      class="bg-warning-200 rounded-lg shadow-xl relative z-10"
+      class="bg-yellow-200 rounded-lg shadow-xl relative z-10"
     >
-      <h2 class="text-warning-900">Too late!</h2>
-      <p class="text-warning-700">
+      <h2 class="text-yellow-900">Too late!</h2>
+      <p class="text-yellow-700">
         There are already {maximumPlayerCount} players in this game. Wait here to watch, or
         <a
           href="/"
