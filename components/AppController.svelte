@@ -38,7 +38,7 @@
 </script>
 
 {#if showController}
-  <div class="z-50 py-5">
+  <div class="fixed bottom-0 z-50 py-5">
     {#if $players.length > 0}
       <ul id="playerList" class="grid grid-cols-5 gap-xs">
         {#each $players as { ...player }}
