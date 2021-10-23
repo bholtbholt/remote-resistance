@@ -1,6 +1,7 @@
 import 'core-js';
 import 'ts-jest';
 import { render } from '@testing-library/svelte';
+import '@testing-library/jest-dom';
 import { resetTestState } from './test-helper';
 import App from '../components/App.svelte';
 import { history } from '../stores/history';
@@ -13,10 +14,10 @@ afterEach(() => {
 });
 
 test('should show a loading state before history inits', () => {
-  const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
+  const { getByTestId } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  const component = container.querySelector('.loading-dots');
-  expect(component);
+  const component = getByTestId('Spinner');
+  expect(component).toBeInTheDocument();
 });
 
 test('should render pre_game component', () => {
@@ -24,7 +25,7 @@ test('should render pre_game component', () => {
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
   const component = container.querySelector('#LobbyPreGame');
-  expect(component);
+  expect(component).toBeInTheDocument();
 });
 
 test('should render in_game component', () => {
@@ -32,7 +33,7 @@ test('should render in_game component', () => {
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
   const component = container.querySelector('#LobbyGame');
-  expect(component);
+  expect(component).toBeInTheDocument();
 });
 
 test('should render post_game component', () => {
@@ -41,7 +42,7 @@ test('should render post_game component', () => {
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
   const component = container.querySelector('#LobbyPostGame');
-  expect(component);
+  expect(component).toBeInTheDocument();
 });
 
 test('should only init history once', () => {

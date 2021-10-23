@@ -4,6 +4,7 @@
 </script>
 
 <svg
+  data-testid="Spinner"
   class="animate-spin {color} {margins}"
   xmlns="http://www.w3.org/2000/svg"
   fill="none"
