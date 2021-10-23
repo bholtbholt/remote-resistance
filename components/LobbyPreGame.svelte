@@ -11,6 +11,7 @@
   import Player from './Player.svelte';
   import PlayerForm from './PlayerForm.svelte';
   import Spinner from './Spinner.svelte';
+  import ButtonCopy from './ButtonCopy.svelte';
 
   $: playerSlots = Array(Math.max(0, maximumPlayerCount - $players.length));
   $: enoughPlayers = $players.length >= minimumPlayerCount;
@@ -57,6 +58,7 @@
         <h2 class="text-blue-900">Waiting for more players to join…</h2>
       </div>
     {/if}
+    <ButtonCopy>Share Game URL</ButtonCopy>
   {:else if availableSlots}
     <PlayerForm />
   {:else}
