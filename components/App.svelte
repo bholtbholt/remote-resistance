@@ -20,7 +20,6 @@
   import LobbyPreGame from './LobbyPreGame.svelte';
   import LobbyGame from './LobbyGame.svelte';
   import LobbyPostGame from './LobbyPostGame.svelte';
-  import Credits from './Credits.svelte';
   import AppController from './AppController.svelte';
 
   const state = {
@@ -35,7 +34,6 @@
 {:else}
   <div class="loading-dots" />
 {/if}
-<Credits />
 
 {#if renderAppController}
   <AppController />
