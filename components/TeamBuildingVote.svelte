@@ -27,9 +27,9 @@
       value: '👎',
       id: 'vote-reject',
       label: 'Reject',
-      labelClass: 'text-fail-400',
+      labelClass: 'text-red-400',
       selected: playerVote === '👎',
-      border: 'border-fail-500',
+      border: 'border-red-500',
       svgClass: 'transform scale-x-flip',
       y: '80%',
       rotateDeg: -18,
@@ -39,9 +39,9 @@
       value: '👍',
       id: 'vote-approve',
       label: 'Approve',
-      labelClass: 'text-success-400',
+      labelClass: 'text-blue-400',
       selected: playerVote === '👍',
-      border: 'border-success-500',
+      border: 'border-blue-500',
       svgClass: '',
       y: '74%',
       rotateDeg: 18,
@@ -68,7 +68,9 @@
 
 <div id="TeamBuildingVote" in:fade>
   <h2 class="text-gray-100 text-center">
-    Vote for team <span class="text-success-300"> {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))} </span>
+    Vote for team <span class="text-blue-300">
+      {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))}
+    </span>
   </h2>
   <h3 class="text-lg text-gray-500 text-center">
     Picked by {$leader.name} for the {$currentRound.name} mission
@@ -82,20 +84,26 @@
             for={vote.id}
             in:rotate={{ deg: vote.rotateDeg, x: vote.rotateX, y: 20 }}
             class:opacity-50={playerVote && !vote.selected}
-            class="relative text-center cursor-pointer">
+            class="relative text-center cursor-pointer"
+          >
             <input
               id={vote.id}
               class="absolute bottom-0 right-0 opacity-0"
               type="radio"
               name="vote"
               bind:group={playerVote}
-              value={vote.value} />
+              value={vote.value}
+            />
             <div
-              class="rounded-round transition-border duration-150 ease-out border-solid {vote.selected ? `${vote.border} border-lg` : 'border-transparent border'}">
+              class="rounded-round transition-border duration-150 ease-out border-solid {vote.selected
+                ? `${vote.border} border-lg`
+                : 'border-transparent border'}"
+            >
               <svg
                 viewBox="0 0 20 20"
                 class="shadow rounded-round bg-gray-900 {vote.svgClass} transition-border duration-150
-                  ease-out border-solid border-transparent {vote.selected ? 'border' : 'border-lg'}">
+                  ease-out border-solid border-transparent {vote.selected ? 'border' : 'border-lg'}"
+              >
                 <text x="50%" y={vote.y} class="align-middle overflow-visible text-anchor-middle">
                   {vote.value}
                 </text>
@@ -116,7 +124,8 @@
   {:else if $allPlayersHaveVoted && $playerIsLeader}
     <div
       in:fly={{ y: 200, duration: 600 }}
-      class="bg-white rounded-lg shadow-xl relative z-10 text-center">
+      class="bg-white rounded-lg shadow-xl relative z-10 text-center"
+    >
       <h2 class="text-primary-500 ">Are votes are in!</h2>
       <button on:click={revealVotes} class="btn-primary font-bold text-lg w-full">
         Reveal votes
@@ -125,9 +134,10 @@
   {:else}
     <div
       in:fly={{ y: 200, duration: 600 }}
-      class="bg-success-200 rounded-lg shadow-xl relative z-10 flex items-center">
-      <Spinner color="text-success-700" />
-      <h2 class="text-lg text-success-900">Waiting for vote results</h2>
+      class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
+    >
+      <Spinner color="text-blue-700" />
+      <h2 class="text-lg text-blue-900">Waiting for vote results</h2>
     </div>
   {/if}
 </div>

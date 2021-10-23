@@ -52,9 +52,9 @@
         >
       </div>
     {:else}
-      <div class="bg-success-200 rounded-lg shadow-xl relative z-10 flex items-center" in:fade>
-        <Spinner color="text-success-900" />
-        <h2 class="text-success-900">Waiting for more players to join…</h2>
+      <div class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center" in:fade>
+        <Spinner color="text-blue-900" />
+        <h2 class="text-blue-900">Waiting for more players to join…</h2>
       </div>
     {/if}
   {:else if availableSlots}

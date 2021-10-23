@@ -29,7 +29,7 @@
 <div id="TeamBuildingSelection" in:fade>
   {#if $playerIsLeader}
     <h2 class="text-gray-100 text-center">
-      Pick <span class="text-success-300">{$currentRound.teamSize} players</span> for the {$currentRound.name}
+      Pick <span class="text-blue-300">{$currentRound.teamSize} players</span> for the {$currentRound.name}
       mission.
     </h2>
   {/if}
@@ -45,7 +45,8 @@
             cursor-pointer"
           class:outline={player.selected}
           class:cursor-not-allowed={!$playerIsLeader || (disableSelection && !player.selected)}
-          class:opacity-25={disableSelection && !player.selected}>
+          class:opacity-25={disableSelection && !player.selected}
+        >
           <input
             id="player_{player.id}"
             class="absolute bottom-0 right-0 opacity-0"
@@ -53,7 +54,8 @@
             on:click={selectPlayer}
             name="players[]"
             value={player.id}
-            disabled={!$playerIsLeader || (disableSelection && !player.selected)} />
+            disabled={!$playerIsLeader || (disableSelection && !player.selected)}
+          />
           <svg viewBox="0 0 20 20">
             <text x="50%" y="80%" class="align-middle overflow-visible text-anchor-middle">
               {player.avatar}
@@ -75,10 +77,11 @@
 
   {#if !$playerIsLeader}
     <div
-      class="bg-success-200 rounded-lg shadow-xl relative z-10 flex items-center"
-      in:fly={{ y: 200, duration: 600 }}>
-      <Spinner color="text-success-700" />
-      <h2 class="text-lg text-success-900">
+      class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
+      in:fly={{ y: 200, duration: 600 }}
+    >
+      <Spinner color="text-blue-700" />
+      <h2 class="text-lg text-blue-900">
         <span class="font-extrabold">{$leader.name}</span> is picking {$currentRound.teamSize} players
         for the {$currentRound.name} mission.
       </h2>

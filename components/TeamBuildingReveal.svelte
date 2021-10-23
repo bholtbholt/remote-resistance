@@ -37,7 +37,9 @@
 
 <div id="TeamBuildingReveal" in:blur>
   <h2 class="text-gray-100 text-center">
-    Team <span class="{teamNameColor} transition-colors duration-150"> {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))} </span>
+    Team <span class="{teamNameColor} transition-colors duration-150">
+      {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))}
+    </span>
   </h2>
   <h3 class="text-lg text-gray-500 text-center">
     Picked by {leaderName} for the {$currentRound.name} mission
@@ -60,9 +62,10 @@
   {#if $teamVoteApproved}
     <div
       in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
-      on:introend={() => (teamNameColor = 'text-success-300')}
-      class="rounded-lg shadow-xl relative z-10 text-center bg-success-200">
-      <h2 class="text-success-900">Approved</h2>
+      on:introend={() => (teamNameColor = 'text-blue-300')}
+      class="rounded-lg shadow-xl relative z-10 text-center bg-blue-200"
+    >
+      <h2 class="text-blue-900">Approved</h2>
     </div>
     {#if $playerIsTeamMember}
       <div in:fade={{ delay: 3000 }}>
@@ -72,9 +75,10 @@
   {:else}
     <div
       in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
-      on:introend={() => (teamNameColor = 'text-fail-300')}
-      class="rounded-lg shadow-xl relative z-10 text-center bg-fail-200">
-      <h2 class="text-fail-900">Rejected</h2>
+      on:introend={() => (teamNameColor = 'text-red-300')}
+      class="rounded-lg shadow-xl relative z-10 text-center bg-red-200"
+    >
+      <h2 class="text-red-900">Rejected</h2>
     </div>
     {#if $playerIsLeader}
       <div in:fade={{ delay: 3000 }}>

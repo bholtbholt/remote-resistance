@@ -29,8 +29,8 @@
       value: 'fail',
       id: 'vote-fail',
       label: 'Fail',
-      defaultColor: 'text-fail-600 bg-fail-200',
-      selectedColor: 'bg-fail-600 text-fail-200',
+      defaultColor: 'text-red-600 bg-red-200',
+      selectedColor: 'bg-red-600 text-red-200',
       selected: playerVote === 'fail',
       disabled: !$playerIsASpy,
       rotateDeg: -18,
@@ -41,8 +41,8 @@
       value: 'pass',
       id: 'vote-pass',
       label: 'Pass',
-      defaultColor: 'text-success-700 bg-success-200',
-      selectedColor: 'bg-success-600 text-success-200',
+      defaultColor: 'text-blue-700 bg-blue-200',
+      selectedColor: 'bg-blue-600 text-blue-200',
       selected: playerVote === 'pass',
       disabled: false,
       rotateDeg: 18,
@@ -92,9 +92,12 @@
               class:cursor-not-allowed={vote.disabled}
               class:scale-110={vote.selected}
               class:scale-90={playerVote && !vote.selected}
-              class="{vote.selected ? vote.selectedColor : vote.defaultColor} transition duration-150
+              class="{vote.selected
+                ? vote.selectedColor
+                : vote.defaultColor} transition duration-150
                 transform relative rounded-lg shadow text-center text-xl font-extrabold uppercase
-                tracking-widest {vote.origin}">
+                tracking-widest {vote.origin}"
+            >
               <input
                 id={vote.id}
                 class="absolute bottom-0 right-0 opacity-0"
@@ -102,7 +105,8 @@
                 name="vote"
                 bind:group={playerVote}
                 disabled={vote.disabled}
-                value={vote.value} />
+                value={vote.value}
+              />
               {vote.label}
             </label>
           {/each}
@@ -130,7 +134,8 @@
   {#if $playerIsLeader && $missionIsComplete}
     <div
       in:fly={{ y: 200, duration: 600 }}
-      class="bg-white rounded-lg shadow-xl relative z-10 text-center">
+      class="bg-white rounded-lg shadow-xl relative z-10 text-center"
+    >
       <h2 class="text-primary-500">The mission is complete!</h2>
       <button on:click={revealVotes} class="btn-primary font-bold text-lg w-full">
         Reveal results
@@ -139,11 +144,12 @@
   {:else if ($playerIsTeamMember && $playerHasCompletedMission) || !$playerIsTeamMember}
     <div
       in:fly={{ y: 200, duration: 600 }}
-      class="bg-success-200 rounded-lg shadow-xl relative z-10 flex items-center">
-      <Spinner color="text-success-700" />
+      class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
+    >
+      <Spinner color="text-blue-700" />
       <div>
-        <h2 class="text-success-900">Waiting for mission results</h2>
-        <p class="text-success-700">
+        <h2 class="text-blue-900">Waiting for mission results</h2>
+        <p class="text-blue-700">
           <!-- prettier-ignore -->
           {#if $currentRound.permittedMissionVoteFails}
             Spies must play 2 fails to win this mission

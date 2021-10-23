@@ -41,10 +41,10 @@ module.exports = {
         '.outline': {
           boxShadow: `0 0 0 ${theme('borderWidth.default')} ${theme('colors.teal.500')}`,
         },
-        '.outline-success-700': {
+        '.outline-blue-700': {
           boxShadow: `0 0 0 ${theme('borderWidth.lg')} ${theme('colors.blue.700')}`,
         },
-        '.outline-fail-700': {
+        '.outline-red-700': {
           boxShadow: `0 0 0 ${theme('borderWidth.lg')} ${theme('colors.red.700')}`,
         },
         '.text-anchor-middle': {
