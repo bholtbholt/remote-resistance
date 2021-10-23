@@ -20,9 +20,8 @@ Play Resistance with your friends anywhere – a real-time remote version of the
 ## Structure and Content
 
 - `./actions`: Public events emitted and listened for with socket.io.
-- `./client`: Vite entry files.
-- `./client/css`: CSS Variable definitions and custom CSS components outside of Tailwind. Bundled with PostCSS by Vite. See `tailwind.config.js` for definitions and extensions.
 - `./components`: App UI, written in Svelte.
+- `./entry`: CSS + JavaScript entry files.
 - `./server`: App server.
 - `./stores`: Reactive Svelte stores used by the UI. Stores are similar to _Models_ in design. _Anything that should submit an public action should use a store_.
 - `./tests`: Jest tests. All tests live in a flat directory so import statements match elsewhere. Store tests are prefixed with `__store__*` by convention.

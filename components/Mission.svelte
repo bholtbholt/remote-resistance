@@ -29,8 +29,8 @@
       value: 'fail',
       id: 'vote-fail',
       label: 'Fail',
-      defaultColor: 'text-fail-600 bg-fail-200',
-      selectedColor: 'bg-fail-600 text-fail-200',
+      defaultColor: 'text-red-600 bg-red-200',
+      selectedColor: 'bg-red-600 text-red-200',
       selected: playerVote === 'fail',
       disabled: !$playerIsASpy,
       rotateDeg: -18,
@@ -41,8 +41,8 @@
       value: 'pass',
       id: 'vote-pass',
       label: 'Pass',
-      defaultColor: 'text-success-700 bg-success-200',
-      selectedColor: 'bg-success-600 text-success-200',
+      defaultColor: 'text-blue-700 bg-blue-200',
+      selectedColor: 'bg-blue-600 text-blue-200',
       selected: playerVote === 'pass',
       disabled: false,
       rotateDeg: 18,
@@ -71,8 +71,8 @@
 
 <div id="Mission" in:fade>
   {#if $playerIsTeamMember}
-    <h2 class="heading text-gray-100 text-center">Pass or fail this mission</h2>
-    <h3 class="text-lg text-gray-500 text-center mb-xl">
+    <h2 class="text-gray-100 text-center">Pass or fail this mission</h2>
+    <h3 class="text-lg text-gray-500 text-center">
       <!-- prettier-ignore -->
       {#if $playerIsASpy}
         Spies may pass or fail
@@ -82,7 +82,7 @@
     </h3>
     {#if !$playerHasCompletedMission}
       <form on:submit|preventDefault={submitVote}>
-        <div class="grid grid-cols-2 mb-xl gap-lg">
+        <div class="grid grid-cols-2 gap-lg">
           {#each voteOptions as vote}
             <label
               for={vote.id}
@@ -92,9 +92,12 @@
               class:cursor-not-allowed={vote.disabled}
               class:scale-110={vote.selected}
               class:scale-90={playerVote && !vote.selected}
-              class="{vote.selected ? vote.selectedColor : vote.defaultColor} transition duration-150
-                transform relative rounded-lg shadow py-xl text-center text-xl font-extrabold uppercase
-                tracking-widest {vote.origin}">
+              class="{vote.selected
+                ? vote.selectedColor
+                : vote.defaultColor} transition duration-150
+                transform relative rounded-lg shadow text-center text-xl font-extrabold uppercase
+                tracking-widest {vote.origin}"
+            >
               <input
                 id={vote.id}
                 class="absolute bottom-0 right-0 opacity-0"
@@ -102,7 +105,8 @@
                 name="vote"
                 bind:group={playerVote}
                 disabled={vote.disabled}
-                value={vote.value} />
+                value={vote.value}
+              />
               {vote.label}
             </label>
           {/each}
@@ -116,12 +120,12 @@
       </form>
     {/if}
   {:else}
-    <ul id="playerList" class="grid {gridSize($teamMembers.length)} -mx-md mb-md gap-xs">
+    <ul id="playerList" class="grid {gridSize($teamMembers.length)} gap-xs">
       {#each $teamMembers as { ...player }}
         <Player {...player} />
       {/each}
     </ul>
-    <h2 class="text-lg text-gray-500 text-center mb-xl">
+    <h2 class="text-lg text-gray-500 text-center">
       {toSentance($teamMembers.map((teamMember) => teamMember.name))} are on the {$currentRound.name}
       mission
     </h2>
@@ -130,8 +134,9 @@
   {#if $playerIsLeader && $missionIsComplete}
     <div
       in:fly={{ y: 200, duration: 600 }}
-      class="bg-white rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 text-center">
-      <h2 class="heading text-primary-500 mb-lg">The mission is complete!</h2>
+      class="bg-white rounded-lg shadow-xl relative z-10 text-center"
+    >
+      <h2 class="text-primary-500">The mission is complete!</h2>
       <button on:click={revealVotes} class="btn-primary font-bold text-lg w-full">
         Reveal results
       </button>
@@ -139,11 +144,12 @@
   {:else if ($playerIsTeamMember && $playerHasCompletedMission) || !$playerIsTeamMember}
     <div
       in:fly={{ y: 200, duration: 600 }}
-      class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center">
-      <Spinner color="text-success-700" margins="mr-md" />
+      class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
+    >
+      <Spinner color="text-blue-700" />
       <div>
-        <h2 class="subheading text-success-900">Waiting for mission results</h2>
-        <p class="text-success-700">
+        <h2 class="text-blue-900">Waiting for mission results</h2>
+        <p class="text-blue-700">
           <!-- prettier-ignore -->
           {#if $currentRound.permittedMissionVoteFails}
             Spies must play 2 fails to win this mission

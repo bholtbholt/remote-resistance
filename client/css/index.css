@@ -1,8 +1,0 @@
-@import './variables';
-@import './button';
-@import './heading';
-@import './loading-dots';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

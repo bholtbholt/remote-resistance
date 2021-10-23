@@ -33,8 +33,8 @@ test('should highlight the current round', () => {
   const tracker = container.querySelectorAll('#RoundTracker > li');
   const [round1, round2] = tracker;
 
-  expect(round1.classList).toContain('bg-warning-400');
-  expect(round2.classList).not.toContain('bg-warning-400');
+  expect(round1.classList).toContain('bg-yellow-400');
+  expect(round2.classList).not.toContain('bg-yellow-400');
 });
 
 test('should show failed team votes for the currrent round', () => {
@@ -46,6 +46,6 @@ test('should show failed team votes for the currrent round', () => {
 
   const round1 = container.querySelector('#RoundTracker > li:first-of-type');
 
-  expect(round1.classList).toContain('bg-warning-400');
-  expect(round1.innerHTML).toContain('<div class="font-bold text-sm text-warning-800">1</div>');
+  expect(round1.classList).toContain('bg-yellow-400');
+  expect(round1.innerHTML).toContain('<div class="font-bold text-sm text-yellow-800">1</div>');
 });

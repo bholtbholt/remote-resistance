@@ -28,14 +28,14 @@
 
 <div id="TeamBuildingSelection" in:fade>
   {#if $playerIsLeader}
-    <h2 class="heading text-gray-100 mb-lg text-center">
-      Pick <span class="text-success-300">{$currentRound.teamSize} players</span> for the {$currentRound.name}
+    <h2 class="text-gray-100 text-center">
+      Pick <span class="text-blue-300">{$currentRound.teamSize} players</span> for the {$currentRound.name}
       mission.
     </h2>
   {/if}
 
   <form on:submit|preventDefault={confirmTeam}>
-    <div class="grid {gridSize($ruleset.playerCount)} -mx-md mb-xl gap-xs">
+    <div class="grid {gridSize($ruleset.playerCount)} gap-xs">
       {#each $players.map((player) => {
         return { selected: $team.includes(player.id), ...player };
       }) as player}
@@ -45,7 +45,8 @@
             cursor-pointer"
           class:outline={player.selected}
           class:cursor-not-allowed={!$playerIsLeader || (disableSelection && !player.selected)}
-          class:opacity-25={disableSelection && !player.selected}>
+          class:opacity-25={disableSelection && !player.selected}
+        >
           <input
             id="player_{player.id}"
             class="absolute bottom-0 right-0 opacity-0"
@@ -53,13 +54,14 @@
             on:click={selectPlayer}
             name="players[]"
             value={player.id}
-            disabled={!$playerIsLeader || (disableSelection && !player.selected)} />
+            disabled={!$playerIsLeader || (disableSelection && !player.selected)}
+          />
           <svg viewBox="0 0 20 20">
             <text x="50%" y="80%" class="align-middle overflow-visible text-anchor-middle">
               {player.avatar}
             </text>
           </svg>
-          <div class="truncate px-xs mb-sm text-gray-700" class:font-extrabold={player.selected}>
+          <div class="truncate text-gray-700" class:font-extrabold={player.selected}>
             {player.name}
           </div>
         </label>
@@ -75,10 +77,11 @@
 
   {#if !$playerIsLeader}
     <div
-      class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center"
-      in:fly={{ y: 200, duration: 600 }}>
-      <Spinner color="text-success-700" margins="mr-md" />
-      <h2 class="text-lg text-success-900">
+      class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
+      in:fly={{ y: 200, duration: 600 }}
+    >
+      <Spinner color="text-blue-700" />
+      <h2 class="text-lg text-blue-900">
         <span class="font-extrabold">{$leader.name}</span> is picking {$currentRound.teamSize} players
         for the {$currentRound.name} mission.
       </h2>

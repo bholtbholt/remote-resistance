@@ -1,5 +1,5 @@
 <script>
-  import { redirect } from '../client/js/redirect';
+  import { redirect } from '../entry/redirect';
 
   import { players, playerIsLoggedIn } from '../stores/player';
   import { generateRuleset, maximumPlayerCount, minimumPlayerCount } from '../stores/rules';
@@ -29,30 +29,32 @@
 <div id="LobbyPreGame" in:fade>
   <ul
     id="playerList"
-    class="grid grid-cols-5 grid-rows-2 mb-lg gap-xs transition-all duration-1000 ease-out"
+    class="grid grid-cols-5 grid-rows-2 gap-xs transition-all duration-1000 ease-out"
     class:blur={!$playerIsLoggedIn}
-    class:opacity-50={!$playerIsLoggedIn}>
+    class:opacity-50={!$playerIsLoggedIn}
+  >
     {#each $players as { ...player }}
       <Player {...player} />
     {/each}
     {#each playerSlots as playerSlot, i}
       <li
         class="bg-gray-900 animate-pulse rounded-sm min-h-xl"
-        style="animation-delay: {i * 100}ms" />
+        style="animation-delay: {i * 100}ms"
+      />
     {/each}
   </ul>
 
   {#if $playerIsLoggedIn}
     {#if enoughPlayers}
-      <div class="mx-lg" in:fade>
-        <button on:click={handleSubmit} class="btn-primary font-bold text-lg w-full">Start the game!</button>
+      <div in:fade>
+        <button on:click={handleSubmit} class="btn-primary font-bold text-lg w-full"
+          >Start the game!</button
+        >
       </div>
     {:else}
-      <div
-        class="bg-success-200 rounded-lg shadow-xl mx-lg mb-xl p-md relative z-10 flex items-center"
-        in:fade>
-        <Spinner color="text-success-900" margins="mr-sm" />
-        <h2 class="subheading text-success-900">Waiting for more players to join…</h2>
+      <div class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center" in:fade>
+        <Spinner color="text-blue-900" />
+        <h2 class="text-blue-900">Waiting for more players to join…</h2>
       </div>
     {/if}
   {:else if availableSlots}
@@ -60,11 +62,17 @@
   {:else}
     <div
       in:fly={{ y: -200, duration: 600 }}
-      class="bg-warning-200 rounded-lg shadow-xl mx-lg mb-xl -mt-xl p-md relative z-10">
-      <h2 class="subheading text-warning-900">Too late!</h2>
-      <p class="text-warning-700">
-        There are already {maximumPlayerCount} players in this game. Wait here to watch, or <a class="underline
-            cursor-pointer" on:click={redirect}>start a new one instead.</a>
+      class="bg-yellow-200 rounded-lg shadow-xl relative z-10"
+    >
+      <h2 class="text-yellow-900">Too late!</h2>
+      <p class="text-yellow-700">
+        There are already {maximumPlayerCount} players in this game. Wait here to watch, or
+        <a
+          href="/"
+          class="underline
+            cursor-pointer"
+          on:click|preventDefault={redirect}>start a new one instead.</a
+        >
       </p>
     </div>
   {/if}

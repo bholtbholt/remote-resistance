@@ -9,21 +9,23 @@
 </script>
 
 {#if $playerIsASpy}
-  <h2 class="heading text-gray-100 mb-lg text-center" in:blur>
-    {playerNamesToSentance( $spies.map((spy) => spy.name), $currentPlayer.name, )} are <span
-      class="text-fail-300">spies</span> amongst the resistance!
+  <h2 class="text-gray-100 text-center" in:blur>
+    {playerNamesToSentance(
+      $spies.map((spy) => spy.name),
+      $currentPlayer.name,
+    )} are <span class="text-red-300">spies</span> amongst the resistance!
   </h2>
-  <ul id="playerList" class="grid {gridSize($ruleset.spyCount)} -mx-md mb-xl gap-xs" in:blur>
+  <ul id="playerList" class="grid {gridSize($ruleset.spyCount)} gap-xs" in:blur>
     {#each $spies as { ...player }}
       <Player {...player} />
     {/each}
   </ul>
 {:else}
-  <h2 class="heading text-gray-100 mb-lg text-center" in:blur>
-    You're part of the <span class="text-success-300">resistance</span>, but there are {$ruleset.spyCount}
+  <h2 class="text-gray-100 text-center" in:blur>
+    You're part of the <span class="text-blue-300">resistance</span>, but there are {$ruleset.spyCount}
     spies in your midst.
   </h2>
-  <ul id="playerList" class="grid {gridSize($ruleset.playerCount)} -mx-md mb-xl gap-xs" in:blur>
+  <ul id="playerList" class="grid {gridSize($ruleset.playerCount)} gap-xs" in:blur>
     {#each $players as { ...player }}
       <Player {...player} />
     {/each}

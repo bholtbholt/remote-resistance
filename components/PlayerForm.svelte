@@ -38,15 +38,17 @@
 </script>
 
 <form
-  class="bg-white rounded-lg shadow-xl mx-lg mb-xl -mt-xl p-lg relative z-10"
+  class="bg-white rounded-lg shadow-xl relative z-10"
   in:fly={{ y: -200, duration: 900 }}
   out:fade={{ duration: 150 }}
-  on:submit|preventDefault={handleSubmit}>
+  on:submit|preventDefault={handleSubmit}
+>
   <label
     for="name"
-    class="border-b border-gray-400 focus-within:border-primary-500 pb-sm mb-lg block
-      transition-colors duration-200 ease-in">
-    <div class="text-sm uppercase text-gray-500 font-bold mb-xs">Name:</div>
+    class="border-b border-gray-400 focus-within:border-primary-500 block
+      transition-colors duration-200 ease-in"
+  >
+    <div class="text-sm uppercase text-gray-500 font-bold ">Name:</div>
     <input
       id="name"
       name="name"
@@ -55,17 +57,19 @@
       autocomplete="off"
       disabled={!enableForm}
       required
-      autofocus />
+      autofocus
+    />
   </label>
 
-  <div class="text-sm uppercase text-gray-500 font-bold mb-sm">Avatar:</div>
-  <div class="grid grid-cols-5 grid-rows-2 mb-lg">
+  <div class="text-sm uppercase text-gray-500 font-bold ">Avatar:</div>
+  <div class="grid grid-cols-5 grid-rows-2">
     {#each avatars as avatar, i}
       <label
         for="avatar_{i}"
         class="relative text-center rounded-sm ease-in duration-75 transition-shadow"
         class:outline={avatar === playerAvatar}
-        class:opacity-25={takenAvatars.includes(avatar)}>
+        class:opacity-25={takenAvatars.includes(avatar)}
+      >
         <input
           id="avatar_{i}"
           class="absolute bottom-0 right-0 opacity-0"
@@ -73,7 +77,8 @@
           bind:group={playerAvatar}
           name="avatar"
           value={avatar}
-          disabled={takenAvatars.includes(avatar)} />
+          disabled={takenAvatars.includes(avatar)}
+        />
         <svg viewBox="0 0 20 20">
           <text x="51%" y="78%" class="align-middle overflow-visible text-anchor-middle">
             {avatar}
@@ -83,11 +88,5 @@
     {/each}
   </div>
 
-  <button disabled={!enableForm} class="btn-primary font-bold text-lg w-full">
-    {#if enableForm}
-      Join game
-    {:else}
-      <div class="loading-dots mx-auto my-sm" />
-    {/if}
-  </button>
+  <button disabled={!enableForm} class="btn-primary font-bold text-lg w-full"> Join game </button>
 </form>
