@@ -74,12 +74,7 @@ History states outside of rounds:
 
 ## Admin Control with App Controller
 
-`AppController.svelte` is an admin tool for controlling player state. Change the logged-in player or the leader, see the spies, and log-out. It's controlled by `ADMIN` environment variable in your `.env` setting. It can't be set by CLI because Vite doesn't support that.
-
-```
-# In your .env file
-ADMIN=true
-```
+`AppController.svelte` is an admin tool for controlling player state. Change the logged-in player or the leader, see the spies, and log-out. It's turned on for development.
 
 ## Testing
 

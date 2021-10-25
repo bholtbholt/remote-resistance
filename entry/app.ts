@@ -12,6 +12,6 @@ export default new App({
   props: {
     socket,
     currentPlayerIdSessionKey: window.sessionStorage.getItem('currentPlayerId'),
-    renderAppController: true,
+    renderAppController: import.meta.env.DEV || false,
   },
 });
