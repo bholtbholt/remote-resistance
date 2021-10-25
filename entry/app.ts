@@ -1,6 +1,6 @@
 import { redirect } from './redirect';
 import { io } from 'socket.io-client';
-const socket = io(window.location.pathname);
+const socket = io(`${import.meta.env.VITE_SOCKETS_URL}${window.location.pathname}`);
 
 // Hitting the root sends the player to a brand new room and should feel like
 // the first time they've been on the app – so we clear storage and redirect
@@ -12,6 +12,6 @@ export default new App({
   props: {
     socket,
     currentPlayerIdSessionKey: window.sessionStorage.getItem('currentPlayerId'),
-    renderAppController: true,
+    renderAppController: import.meta.env.DEV || false,
   },
 });

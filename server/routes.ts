@@ -1,15 +1,15 @@
 import express from 'express';
-import path from 'path';
 import http from 'http';
 
 const app = express();
 const expressServer = http.createServer(app);
-const port = process.env.PORT || 3000;
+const port = process.env.EXPRESS_PORT || 4000;
 
-// Default paths render static file and support route parameter for :room_id
-app.use(express.static(path.join(process.env.PWD, 'dist')));
-app.get('/:room_id', function (req, res, next) {
-  return res.sendFile(path.join(process.env.PWD, 'dist', 'index.html'));
+// serves the assets directory
+app.use(express.static('dist'));
+// supports :room_id param
+app.get('/:room_id', (req, res) => {
+  res.sendFile('index.html', { root: './dist' });
 });
 expressServer.listen(port, () => {
   // prettier-ignore
@@ -31,7 +31,7 @@ expressServer.listen(port, () => {
   ' 888     888    .o o.  )88b  888  o.  )88b   888 . d8(  888   888   888  888   .o8 888    .o \n',
   'd888b     Y8bod8P  8""888P  o888o 8""888P    "888"  Y888""8o o888o o888o  Y8bod8P   Y8bod8P  \n',
   '\n\n',
-  `PORT:${port}      HISTORY:${process.env.HISTORY || 'CLEAN'}      ADMIN:${process.env.ADMIN || 'FALSE'}\n`,
+  `URL:${process.env.ORIGIN_URL}      SOCKETS:${port}      HISTORY:${process.env.HISTORY || 'CLEAN'}\n`,
   '_____________________________________________________________________________________________\n\n',
   );
 });

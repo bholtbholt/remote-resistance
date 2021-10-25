@@ -4,13 +4,12 @@
   "description": "Play Resistance with your friends anywhere – a real-time remote version of the game.",
   "scripts": {
     "build": "npm run clean && vite build",
-    "clean": "rm -rf dist && rm -rf .cache && rm package-lock.json",
-    "dev": "vite",
+    "clean": "rm -rf dist && rm -rf .cache",
     "lint": "svelte-check",
     "prestart": "rm -rf dist",
     "setup": "cp .env.sample .env && npm install",
     "server": "ts-node ./server/index.ts",
-    "start": "ts-node ./server/index.ts & vite build --watch --mode development",
+    "start": "vite & ts-node ./server/index.ts",
     "test": "jest --watch"
   },
   "author": "bholtbholt",

@@ -74,12 +74,7 @@ History states outside of rounds:
 
 ## Admin Control with App Controller
 
-`AppController.svelte` is an admin tool for controlling player state. Change the logged-in player or the leader, see the spies, and log-out. It's controlled by `ADMIN` environment variable in your `.env` setting. It can't be set by CLI because Vite doesn't support that.
-
-```
-# In your .env file
-ADMIN=true
-```
+`AppController.svelte` is an admin tool for controlling player state. Change the logged-in player or the leader, see the spies, and log-out. It's turned on for development.
 
 ## Testing
 
@@ -132,10 +127,6 @@ Using `history-states` is the easiest way to build up a true state in the applic
 ## Troubleshooting
 
 <dl>
-  <dt>Tailwind changes aren't taking affect</dt>
-  <dd>Vite keeps a long-lived cache. Run <code>npm run clean</code> to delete the cache and built files.</dd>
-  <dt>.env settings aren't taking affect</dt>
-  <dd>Vite keeps a long-lived cache. Run <code>npm run clean</code> to delete the cache and re-load it.</dd>
   <dt>Tests are failing as a group, but pass individually</dt>
   <dd>Jest runs tests with shared state, so you need to add <code>afterEach(() => { …; return; })</code> to undo the state.</dd>
 </dl>
