@@ -10,7 +10,7 @@
     "prestart": "rm -rf dist",
     "setup": "cp .env.sample .env && npm install",
     "server": "ts-node ./server/index.ts",
-    "start": "ts-node ./server/index.ts & vite build --watch --mode development",
+    "start": "vite & ts-node ./server/index.ts",
     "test": "jest --watch"
   },
   "author": "bholtbholt",
