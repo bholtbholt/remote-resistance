@@ -8,8 +8,8 @@ const port = process.env.PORT || 3000;
 
 // Default paths render static file and support route parameter for :room_id
 app.use(express.static(path.join(process.env.PWD, 'dist')));
-app.get('/:room_id', function (req, res, next) {
-  return res.sendFile(path.join(process.env.PWD, 'dist', 'index.html'));
+app.get('/:room_id', (req, res) => {
+  res.sendFile(path.join(process.env.PWD, 'dist', 'index.html'));
 });
 expressServer.listen(port, () => {
   // prettier-ignore
