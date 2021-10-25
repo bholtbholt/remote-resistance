@@ -1,15 +1,15 @@
 import express from 'express';
-import path from 'path';
 import http from 'http';
 
 const app = express();
 const expressServer = http.createServer(app);
 const port = process.env.EXPRESS_PORT || 4000;
 
-// Default paths render static file and support route parameter for :room_id
-app.use(express.static(path.join(process.env.PWD, 'dist')));
+// serves the assets directory
+app.use(express.static('dist'));
+// supports :room_id param
 app.get('/:room_id', (req, res) => {
-  res.sendFile(path.join(process.env.PWD, 'dist', 'index.html'));
+  res.sendFile('index.html', { root: './dist' });
 });
 expressServer.listen(port, () => {
   // prettier-ignore

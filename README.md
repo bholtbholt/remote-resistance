@@ -127,10 +127,6 @@ Using `history-states` is the easiest way to build up a true state in the applic
 ## Troubleshooting
 
 <dl>
-  <dt>Tailwind changes aren't taking affect</dt>
-  <dd>Vite keeps a long-lived cache. Run <code>npm run clean</code> to delete the cache and built files.</dd>
-  <dt>.env settings aren't taking affect</dt>
-  <dd>Vite keeps a long-lived cache. Run <code>npm run clean</code> to delete the cache and re-load it.</dd>
   <dt>Tests are failing as a group, but pass individually</dt>
   <dd>Jest runs tests with shared state, so you need to add <code>afterEach(() => { …; return; })</code> to undo the state.</dd>
 </dl>
