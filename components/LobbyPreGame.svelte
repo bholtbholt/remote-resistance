@@ -10,8 +10,8 @@
 
   import Player from './Player.svelte';
   import PlayerForm from './PlayerForm.svelte';
-  import ButtonCopy from './ButtonCopy.svelte';
   import UISpinner from './UISpinner.svelte';
+  import UIButtonCopy from './UIButtonCopy.svelte';
 
   $: playerSlots = Array(Math.max(0, maximumPlayerCount - $players.length));
   $: enoughPlayers = $players.length >= minimumPlayerCount;
@@ -58,7 +58,7 @@
         <h2 class="text-blue-900">Waiting for more players to join…</h2>
       </div>
     {/if}
-    <ButtonCopy>Share Game URL</ButtonCopy>
+    <UIButtonCopy>Share Game URL</UIButtonCopy>
   {:else if availableSlots}
     <PlayerForm />
   {:else}
