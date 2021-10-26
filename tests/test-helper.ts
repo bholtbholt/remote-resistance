@@ -53,9 +53,9 @@ function randomEmoji() {
 function randomName() {
   // prettier-ignore
   const names = [
-    'Long Feng', 'P’Li', 'Suyin Beifong', 'Zuko', 'Kuvira', 'Yakone',
-    'Pakku', 'Ming-Hua', 'Zaheer', 'Jeong Jeong', 'Amon', 'Tenzin',
-    'Azula', 'Bhumi', 'Katara', 'Toph', 'Iroh', 'Korra', 'Ozai', 'Aang'
+    'Aang', 'Zuko', 'Katara', 'Toph', 'Azula', 'Sokka', 'Appa',
+    'Iroh', 'Firelord Ozai', 'Suki', 'Ty Lee', 'Princess Yue',
+    'Long Feng', 'Roku', 'Admiral Zhao', 'Smellerbee', 'Hakoda',
   ];
   return pickRandom(names);
 }
