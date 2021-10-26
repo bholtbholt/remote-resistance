@@ -1,16 +1,17 @@
 <script>
-  export let color;
-  export let margins = '';
+  let className = '';
+  export { className as class };
+  export let size = '2em';
 </script>
 
 <svg
-  data-testid="Spinner"
-  class="animate-spin {color} {margins}"
+  data-testid="UISpinner"
+  class="animate-spin {className}"
   xmlns="http://www.w3.org/2000/svg"
   fill="none"
   viewBox="0 0 24 24"
-  width="2em"
-  height="2em"
+  width={size}
+  height={size}
 >
   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
   <path

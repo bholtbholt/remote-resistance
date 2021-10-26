@@ -16,7 +16,7 @@ afterEach(() => {
 test('should show a loading state before history inits', () => {
   const { getByTestId } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  const component = getByTestId('Spinner');
+  const component = getByTestId('UISpinner');
   expect(component).toBeInTheDocument();
 });
 

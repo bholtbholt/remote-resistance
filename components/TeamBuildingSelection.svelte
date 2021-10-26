@@ -10,7 +10,7 @@
   import { ruleset } from '../stores/rules';
   import { team } from '../stores/team';
 
-  import Spinner from './Spinner.svelte';
+  import UISpinner from './UISpinner.svelte';
   import { gridSize } from './view-helper';
 
   $: disableSelection = $team.length >= $currentRound.teamSize;
@@ -80,7 +80,7 @@
       class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
       in:fly={{ y: 200, duration: 600 }}
     >
-      <Spinner color="text-blue-700" />
+      <UISpinner color="text-blue-700" />
       <h2 class="text-lg text-blue-900">
         <span class="font-extrabold">{$leader.name}</span> is picking {$currentRound.teamSize} players
         for the {$currentRound.name} mission.

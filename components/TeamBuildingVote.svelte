@@ -18,7 +18,7 @@
   import { currentRound } from '../stores/round';
   import { teamVoteApproved } from '../stores/team';
 
-  import Spinner from './Spinner.svelte';
+  import UISpinner from './UISpinner.svelte';
   import { toSentance } from './view-helper';
 
   let playerVote;
@@ -136,7 +136,7 @@
       in:fly={{ y: 200, duration: 600 }}
       class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
     >
-      <Spinner color="text-blue-700" />
+      <UISpinner color="text-blue-700" />
       <h2 class="text-lg text-blue-900">Waiting for vote results</h2>
     </div>
   {/if}

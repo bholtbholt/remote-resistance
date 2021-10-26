@@ -10,8 +10,8 @@
 
   import Player from './Player.svelte';
   import PlayerForm from './PlayerForm.svelte';
-  import Spinner from './Spinner.svelte';
   import ButtonCopy from './ButtonCopy.svelte';
+  import UISpinner from './UISpinner.svelte';
 
   $: playerSlots = Array(Math.max(0, maximumPlayerCount - $players.length));
   $: enoughPlayers = $players.length >= minimumPlayerCount;
@@ -54,7 +54,7 @@
       </div>
     {:else}
       <div class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center" in:fade>
-        <Spinner color="text-blue-900" />
+        <UISpinner color="text-blue-900" />
         <h2 class="text-blue-900">Waiting for more players to join…</h2>
       </div>
     {/if}

@@ -20,7 +20,7 @@
   import { team } from '../stores/team';
 
   import Player from './Player.svelte';
-  import Spinner from './Spinner.svelte';
+  import UISpinner from './UISpinner.svelte';
   import { gridSize, toSentance } from './view-helper';
 
   let playerVote;
@@ -146,7 +146,7 @@
       in:fly={{ y: 200, duration: 600 }}
       class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
     >
-      <Spinner color="text-blue-700" />
+      <UISpinner color="text-blue-700" />
       <div>
         <h2 class="text-blue-900">Waiting for mission results</h2>
         <p class="text-blue-700">
