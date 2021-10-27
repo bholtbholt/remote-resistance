@@ -7,13 +7,19 @@
     showController = !showController;
   }
 
+  const btn = {
+    class:
+      'flex-none py-1 px-2 rounded bg-gray-700 text-gray-300 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-200 focus:text-gray-200',
+    tabindex: 1,
+  };
+
   //////////////////////////////////////////
   // App Functionality and Control
   //////////////////////////////////////////
   import { getContext } from 'svelte';
   const socket = getContext('socketIORoom');
 
-  import { currentPlayerId, currentPlayer, players, playerIsLoggedIn } from '../stores/player';
+  import { currentPlayerId, players, playerIsLoggedIn } from '../stores/player';
   import { leader } from '../stores/leader';
   import { ruleset } from '../stores/rules';
 
@@ -38,42 +44,40 @@
 </script>
 
 {#if showController}
-  <div class="fixed bottom-0 z-50 py-5">
-    {#if $players.length > 0}
-      <ul id="playerList" class="grid grid-cols-5 gap-xs">
-        {#each $players as { ...player }}
-          <div class="relative">
-            {#if $leader && $leader.id === player.id}
-              <div
-                style="top: -.22em; font-size: 2.6em; text-shadow: 0 .05em .08em rgba(0,0,0,.6);"
-                class="absolute right-0"
-              >
-                🏅
-              </div>
-            {/if}
-            {#if $ruleset && $ruleset.spyIds.includes(player.id)}
-              <div class="absolute left-0 top-0">🔻</div>
-            {/if}
-            <Player {...player} />
-          </div>
-        {/each}
-      </ul>
-      <span class="focus:underline hover:underline cursor-pointer" on:click={changeCurrentPlayer}>
-        Change player
-      </span>
-      <span class="focus:underline hover:underline cursor-pointer" on:click={changeLeader}>
-        Change leader
-      </span>
-    {/if}
-    {#if $playerIsLoggedIn}
-      <span class="focus:underline hover:underline cursor-pointer" on:click={logOut}>Log out</span>
-    {/if}
-    <span class="focus:underline hover:underline cursor-pointer" on:click={toggleController}
-      >Close</span
-    >
+  <div class="fixed bottom-0 inset-x-0 mx-auto z-50 py-5" style="width: min(28rem, 95vw);">
+    <ul id="playerList" class="grid grid-cols-5 gap-2 mb-6">
+      {#each $players as { ...player }}
+        <div class="relative">
+          {#if $leader && $leader.id === player.id}
+            <div
+              style="text-shadow: 0 .05em .08em rgba(0,0,0,.6);"
+              class="absolute -top-0 -right-1.5 text-4xl"
+            >
+              🏅
+            </div>
+          {/if}
+          {#if $ruleset && $ruleset.spyIds.includes(player.id)}
+            <div class="absolute left-0 top-0">🔻</div>
+          {/if}
+          <Player {...player} />
+        </div>
+      {/each}
+    </ul>
+    <div class="flex gap-2">
+      {#if $players.length > 0}
+        <button {...btn} on:click={changeCurrentPlayer}>🔁 Player</button>
+        <button {...btn} on:click={changeLeader}>🔁 Leader</button>
+      {/if}
+      {#if $playerIsLoggedIn}
+        <button {...btn} on:click={logOut}>Log out</button>
+      {/if}
+      <button
+        tabindex="1"
+        class="flex-none text-gray-300 text-2xl ml-auto"
+        on:click={toggleController}>×</button
+      >
+    </div>
   </div>
 {:else}
-  <button class="fixed right-0 bottom-0" style="font-size: 56px;" on:click={toggleController}
-    >🎚</button
-  >
+  <button class="fixed right-0 bottom-0 text-6xl mb-3" on:click={toggleController}>🎚</button>
 {/if}
