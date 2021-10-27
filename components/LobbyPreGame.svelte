@@ -12,6 +12,8 @@
   import PlayerForm from './PlayerForm.svelte';
   import UISpinner from './UISpinner.svelte';
   import UIButtonCopy from './UIButtonCopy.svelte';
+  import UIButton from './UIButton.svelte';
+  import UIBanner from './UIBanner.svelte';
 
   $: playerSlots = Array(Math.max(0, maximumPlayerCount - $players.length));
   $: enoughPlayers = $players.length >= minimumPlayerCount;
@@ -30,7 +32,8 @@
 <div id="LobbyPreGame" in:fade>
   <ul
     id="playerList"
-    class="grid grid-cols-5 grid-rows-2 gap-xs transition-all duration-1000 ease-out"
+    class="grid grid-cols-5 gap-2 mb-8
+      transition-all duration-1000 ease-out"
     class:blur={!$playerIsLoggedIn}
     class:opacity-50={!$playerIsLoggedIn}
   >
@@ -39,7 +42,9 @@
     {/each}
     {#each playerSlots as playerSlot, i}
       <li
-        class="bg-gray-900 animate-pulse rounded-sm min-h-xl"
+        class="animate-pulse
+          py-12 rounded-lg shadow
+          bg-white dark:bg-gray-800 bg-opacity-30"
         style="animation-delay: {i * 100}ms"
       />
     {/each}
@@ -48,33 +53,33 @@
   {#if $playerIsLoggedIn}
     {#if enoughPlayers}
       <div in:fade>
-        <button on:click={handleSubmit} class="btn-primary font-bold text-lg w-full"
-          >Start the game!</button
-        >
+        <UIButton on:click={handleSubmit}>Start the game!</UIButton>
       </div>
     {:else}
-      <div class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center" in:fade>
-        <UISpinner color="text-blue-900" />
-        <h2 class="text-blue-900">Waiting for more players to join…</h2>
-      </div>
+      <UIBanner>Waiting for more players to join…</UIBanner>
     {/if}
-    <UIButtonCopy>Share Game URL</UIButtonCopy>
+    <UIButtonCopy class="mx-auto my-8">Share Game URL</UIButtonCopy>
   {:else if availableSlots}
     <PlayerForm />
   {:else}
     <div
       in:fly={{ y: -200, duration: 600 }}
-      class="bg-yellow-200 rounded-lg shadow-xl relative z-10"
+      class="bg-orange-200 dark:bg-gray-800
+      text-orange-900 dark:text-gray-300
+      p-6 rounded-lg shadow-xl"
     >
-      <h2 class="text-yellow-900">Too late!</h2>
-      <p class="text-yellow-700">
-        There are already {maximumPlayerCount} players in this game. Wait here to watch, or
+      <h2 class="text-xl font-bold mb-2">Too late!</h2>
+      <p>
+        There are already {maximumPlayerCount} players in the room. Wait here to watch, or
         <a
           href="/"
-          class="underline
-            cursor-pointer"
-          on:click|preventDefault={redirect}>start a new one instead.</a
+          on:click|preventDefault={redirect}
+          class="font-bold cursor-pointer hover:underline
+            text-indigo-700 dark:text-purple-300"
         >
+          start a new game
+        </a>
+        instead.
       </p>
     </div>
   {/if}

@@ -33,7 +33,9 @@
 {#if $historyIsLoaded}
   <svelte:component this={state[$appstate]} />
 {:else}
-  <UISpinner classes="mx-auto mb-20 flex-1 text-indigo-900 dark:text-gray-200 text-2xl" />
+  <div class="grid place-items-center h-screen">
+    <UISpinner class="mx-auto text-indigo-900 dark:text-gray-200 text-2xl" />
+  </div>
 {/if}
 
 {#if renderAppController}
