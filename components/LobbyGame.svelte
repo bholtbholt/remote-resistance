@@ -12,6 +12,7 @@
   import TeamBuildingReveal from './TeamBuildingReveal.svelte';
   import Mission from './Mission.svelte';
   import MissionReveal from './MissionReveal.svelte';
+  import UIButton from './UIButton.svelte';
 
   let hideRoleReveal = window.sessionStorage.getItem('hideRoleReveal');
   function hideRoles() {
@@ -19,6 +20,7 @@
     window.sessionStorage.setItem('hideRoleReveal', true);
   }
 
+  // toggleCardVisibility is in LobbyGame so everything behind the card is blurred
   $: blurredClasses = showPlayerCard ? 'transition-all duration-1000 ease-out blur opacity-50' : '';
   $: showPlayerCard = false;
   function toggleCardVisibility() {
@@ -38,8 +40,8 @@
   <RoundTracker />
   {#if !hideRoleReveal && $playerIsLoggedIn}
     <RevealRole />
-    <div in:fly={{ y: 200, duration: 600, delay: 3000 }}>
-      <button class="btn-primary font-bold text-lg w-full" on:click={hideRoles}>Start first round</button>
+    <div class="mt-8" in:fly={{ y: 200, duration: 600, delay: 3000 }}>
+      <UIButton on:click={hideRoles}>Got it!</UIButton>
     </div>
   {/if}
 
