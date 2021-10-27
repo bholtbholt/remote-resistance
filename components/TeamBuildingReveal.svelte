@@ -11,16 +11,17 @@
   import { currentRound } from '../stores/round';
   import { team, teamVoteApproved, teamVotes } from '../stores/team';
 
+  import PlayerInline from './PlayerInline.svelte';
+  import UIHeading from './UIHeading.svelte';
+  import UIButton from './UIButton.svelte';
   import { gridSize, toSentance } from './view-helper';
 
   let teamNameColor;
   $: playerVotes = $teamVotes.map((teamVote) => {
     const player = $players.find((player) => player.id === teamVote.playerId);
     const teamMember = $team.includes(player.id);
-    const svgClass = teamVote.vote === '👎' ? 'transform scale-x-flip' : '';
-    const svgY = teamVote.vote === '👎' ? '78%' : '74%';
 
-    return { vote: teamVote.vote, svgClass, svgY, teamMember, ...player };
+    return { vote: teamVote.vote, teamMember, ...player };
   });
   $: leaderName = $teamVoteApproved ? $leader.name : $previousLeader.name;
 
@@ -36,56 +37,58 @@
 </script>
 
 <div id="TeamBuildingReveal" in:blur>
-  <h2 class="text-gray-100 text-center">
+  <UIHeading>
     Team <span class="{teamNameColor} transition-colors duration-150">
       {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))}
     </span>
-  </h2>
-  <h3 class="text-lg text-gray-500 text-center">
-    Picked by {leaderName} for the {$currentRound.name} mission
-  </h3>
-  <ul id="playerList" class="grid {gridSize(playerVotes.length)} gap-xs">
+    <span slot="subheading">
+      Picked by {leaderName} for the {$currentRound.name} mission
+    </span>
+  </UIHeading>
+  <ul id="playerList" class="grid {gridSize(playerVotes.length)} gap-2 mb-10">
     {#each playerVotes as player}
-      <li class="text-center bg-white rounded-sm" class:outline={player.teamMember}>
-        <div class="truncate text-gray-700" class:font-extrabold={player.teamMember}>
-          {player.avatar}
-          {player.name}
-        </div>
-        <svg viewBox="0 0 25 25" class={player.svgClass}>
-          <text x="50%" y={player.svgY} class="align-middle overflow-visible text-anchor-middle">
-            {player.vote}
-          </text>
-        </svg>
+      <li
+        class="p-1 rounded-lg text-center
+          bg-white dark:bg-gray-700 shadow"
+        class:ring-teal-400={player.teamMember}
+        class:ring={player.teamMember}
+      >
+        <div class="py-2 text-5xl">{player.vote}</div>
+        <PlayerInline {...player} truncate={true} />
       </li>
     {/each}
   </ul>
   {#if $teamVoteApproved}
-    <div
+    <h2
       in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
       on:introend={() => (teamNameColor = 'text-blue-300')}
-      class="rounded-lg shadow-xl relative z-10 text-center bg-blue-200"
+      class="text-4xl font-semibold text-center text-white dark:text-purple-50 mb-2"
     >
-      <h2 class="text-blue-900">Approved</h2>
-    </div>
+      Approved
+    </h2>
     {#if $playerIsTeamMember}
-      <div in:fade={{ delay: 3000 }}>
-        <button class="btn-success text-lg w-full" on:click={startMission}>Start mission</button>
-      </div>
-    {/if}
-  {:else}
-    <div
-      in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
-      on:introend={() => (teamNameColor = 'text-red-300')}
-      class="rounded-lg shadow-xl relative z-10 text-center bg-red-200"
-    >
-      <h2 class="text-red-900">Rejected</h2>
-    </div>
-    {#if $playerIsLeader}
-      <div in:fade={{ delay: 3000 }}>
-        <button class="btn-fail text-lg w-full" on:click={pickNewTeam}>Pick a new team</button>
+      <div class="mt-6" in:fade={{ delay: 3000 }}>
+        <UIButton on:click={startMission}>Start mission</UIButton>
       </div>
     {:else}
-      <h3 class="text-gray-500 text-center" in:fade={{ delay: 3000 }}>
+      <h3 class="text-2xl text-center text-rose-100 dark:text-purple-50" in:fade={{ delay: 3000 }}>
+        Waiting for {toSentance($teamMembers.map((teamMember) => teamMember.name))} to start the mission
+      </h3>
+    {/if}
+  {:else}
+    <h2
+      in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
+      on:introend={() => (teamNameColor = 'text-red-300')}
+      class="text-4xl font-semibold text-center text-white dark:text-purple-50 mb-2"
+    >
+      Rejected
+    </h2>
+    {#if $playerIsLeader}
+      <div class="mt-6" in:fade={{ delay: 3000 }}>
+        <UIButton theme="fail" on:click={pickNewTeam}>Pick a new team</UIButton>
+      </div>
+    {:else}
+      <h3 class="text-2xl text-center text-rose-100 dark:text-purple-50" in:fade={{ delay: 3000 }}>
         {$leader.name} is the new leader
       </h3>
     {/if}
