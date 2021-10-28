@@ -85,7 +85,7 @@
     </h2>
     {#if $playerIsLeader}
       <div class="mt-6" in:fade={{ delay: 3000 }}>
-        <UIButton theme="rose" on:click={pickNewTeam}>Pick a new team</UIButton>
+        <UIButton on:click={pickNewTeam}>Pick a new team</UIButton>
       </div>
     {:else}
       <h3 class="text-2xl text-center text-rose-100 dark:text-purple-50" in:fade={{ delay: 3000 }}>
