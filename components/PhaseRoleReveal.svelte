@@ -9,7 +9,7 @@
   import { gridSize, playerNamesToSentance } from './view-helper';
 </script>
 
-<div id="RevealRole" in:blur>
+<div id="PhaseRoleReveal" in:blur>
   {#if $playerIsASpy}
     <UIHeading>
       {playerNamesToSentance(

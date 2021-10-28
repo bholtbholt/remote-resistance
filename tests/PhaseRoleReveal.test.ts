@@ -3,7 +3,7 @@ import 'ts-jest';
 import { render } from '@testing-library/svelte';
 import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
-import RevealRole from '../components/RevealRole.svelte';
+import PhaseRoleReveal from '../components/PhaseRoleReveal.svelte';
 import { currentPlayerId } from '../stores/player';
 import { roundOneStart, players } from './history-states';
 const socket = require('socket.io-client')('test');
@@ -19,7 +19,7 @@ describe('when player is resistance', () => {
 
     const { container, getByRole } = render(AppFixture, {
       socket,
-      component: RevealRole,
+      component: PhaseRoleReveal,
       historyState: roundOneStart,
     });
 
@@ -39,7 +39,7 @@ describe('when player is a spy', () => {
 
     const { container, getByRole } = render(AppFixture, {
       socket,
-      component: RevealRole,
+      component: PhaseRoleReveal,
       historyState: roundOneStart,
     });
 

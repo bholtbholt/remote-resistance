@@ -5,7 +5,7 @@
   import { roundstate } from '../stores/round';
 
   import RoundTracker from './RoundTracker.svelte';
-  import RevealRole from './RevealRole.svelte';
+  import PhaseRoleReveal from './PhaseRoleReveal.svelte';
   import RoleCard from './RoleCard.svelte';
   import PhaseTeamSelection from './PhaseTeamSelection.svelte';
   import PhaseTeamVote from './PhaseTeamVote.svelte';
@@ -39,7 +39,7 @@
 <div id="AppStateInGame" class={blurredClasses} in:fade>
   <RoundTracker />
   {#if !hideRoleReveal && $playerIsLoggedIn}
-    <RevealRole />
+    <PhaseRoleReveal />
     <div class="mt-8" in:fly={{ y: 200, duration: 600, delay: 3000 }}>
       <UIButton on:click={hideRoles}>Got it!</UIButton>
     </div>
