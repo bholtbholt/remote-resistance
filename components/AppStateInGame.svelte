@@ -8,7 +8,7 @@
   import RevealRole from './RevealRole.svelte';
   import RoleCard from './RoleCard.svelte';
   import PhaseTeamSelection from './PhaseTeamSelection.svelte';
-  import TeamBuildingVote from './TeamBuildingVote.svelte';
+  import PhaseTeamVote from './PhaseTeamVote.svelte';
   import TeamBuildingReveal from './TeamBuildingReveal.svelte';
   import Mission from './Mission.svelte';
   import MissionReveal from './MissionReveal.svelte';
@@ -29,7 +29,7 @@
 
   const phase = {
     TEAM_SELECTION: PhaseTeamSelection,
-    TEAM_VOTE: TeamBuildingVote,
+    TEAM_VOTE: PhaseTeamVote,
     TEAM_REVEAL: TeamBuildingReveal,
     MISSION_START: Mission,
     MISSION_REVEAL: MissionReveal,

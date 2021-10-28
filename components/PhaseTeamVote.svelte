@@ -67,7 +67,7 @@
   }
 </script>
 
-<div id="TeamBuildingVote" in:fade>
+<div id="PhaseTeamVote" in:fade>
   <UIHeading>
     Vote for team <span class="text-teal-400">
       {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))}
