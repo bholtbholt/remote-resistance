@@ -3,7 +3,7 @@ import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { createHistoryEvent, resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
-import TeamBuildingSelection from '../components/TeamBuildingSelection.svelte';
+import PhaseTeamSelection from '../components/PhaseTeamSelection.svelte';
 import { currentPlayerId } from '../stores/player';
 import { team, teamVotes } from '../stores/team';
 import { roundOneStart, players } from './history-states';
@@ -23,7 +23,7 @@ describe('when player is leader', () => {
   test('should show team size for round', () => {
     const { getByRole } = render(AppFixture, {
       socket,
-      component: TeamBuildingSelection,
+      component: PhaseTeamSelection,
       historyState: roundOneStart,
     });
 
@@ -37,7 +37,7 @@ describe('when player is leader', () => {
     jest.spyOn(socket, 'emit');
     const { container } = render(AppFixture, {
       socket,
-      component: TeamBuildingSelection,
+      component: PhaseTeamSelection,
       historyState: roundOneStart,
     });
 
@@ -59,7 +59,7 @@ describe('when player is leader', () => {
     const [p1, p2] = players;
     const { getByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingSelection,
+      component: PhaseTeamSelection,
       historyState: [
         ...roundOneStart,
         createHistoryEvent('team::selection', p1.id),
@@ -80,7 +80,7 @@ describe('when player is not leader', () => {
   test('should disable players', () => {
     const { container } = render(AppFixture, {
       socket,
-      component: TeamBuildingSelection,
+      component: PhaseTeamSelection,
       historyState: roundOneStart,
     });
 
@@ -95,7 +95,7 @@ describe('when player is not leader', () => {
     const [p1, p2] = players;
     const { container } = render(AppFixture, {
       socket,
-      component: TeamBuildingSelection,
+      component: PhaseTeamSelection,
       historyState: [
         ...roundOneStart,
         createHistoryEvent('team::selection', p1.id),

@@ -30,14 +30,14 @@ describe('when player is logged in', () => {
   });
 });
 
-test('should render TeamBuildingSelection', () => {
+test('should render PhaseTeamSelection', () => {
   const { container } = render(AppFixture, {
     socket,
     component: AppStateInGame,
     historyState: roundOneStart,
   });
 
-  const component = container.querySelector('#TeamBuildingSelection');
+  const component = container.querySelector('#PhaseTeamSelection');
   expect(component);
 });
 

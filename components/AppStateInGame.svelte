@@ -7,7 +7,7 @@
   import RoundTracker from './RoundTracker.svelte';
   import RevealRole from './RevealRole.svelte';
   import RoleCard from './RoleCard.svelte';
-  import TeamBuildingSelection from './TeamBuildingSelection.svelte';
+  import PhaseTeamSelection from './PhaseTeamSelection.svelte';
   import TeamBuildingVote from './TeamBuildingVote.svelte';
   import TeamBuildingReveal from './TeamBuildingReveal.svelte';
   import Mission from './Mission.svelte';
@@ -28,7 +28,7 @@
   }
 
   const phase = {
-    TEAM_SELECTION: TeamBuildingSelection,
+    TEAM_SELECTION: PhaseTeamSelection,
     TEAM_VOTE: TeamBuildingVote,
     TEAM_REVEAL: TeamBuildingReveal,
     MISSION_START: Mission,

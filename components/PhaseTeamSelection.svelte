@@ -28,7 +28,7 @@
   }
 </script>
 
-<div id="TeamBuildingSelection" in:fade>
+<div id="PhaseTeamSelection" in:fade>
   {#if $playerIsLeader}
     <UIHeading>
       Pick <span class="text-teal-400 font-bold">{$currentRound.teamSize} players</span> for the {$currentRound.name}
