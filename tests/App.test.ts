@@ -41,7 +41,7 @@ test('should render post_game component', () => {
   appstate['appstate::set']('POST_GAME'); // TODO Remove when real history exists
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  const component = container.querySelector('#LobbyPostGame');
+  const component = container.querySelector('#AppStatePostGame');
   expect(component).toBeInTheDocument();
 });
 
