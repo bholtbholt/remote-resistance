@@ -69,7 +69,7 @@
   }
 </script>
 
-<div id="Mission" in:fade>
+<div id="PhaseMission" in:fade>
   {#if $playerIsTeamMember}
     <h2 class="text-gray-100 text-center">Pass or fail this mission</h2>
     <h3 class="text-lg text-gray-500 text-center">

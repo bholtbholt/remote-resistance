@@ -3,7 +3,7 @@ import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { createHistoryEvent, resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
-import Mission from '../components/Mission.svelte';
+import PhaseMission from '../components/PhaseMission.svelte';
 import { currentPlayerId } from '../stores/player';
 import { roundOneTeamApproved, players } from './history-states';
 const socket = require('socket.io-client')('test');
@@ -25,7 +25,7 @@ describe('when player is a team member', () => {
     const { getByText, getByRole } = render(AppFixture, {
       socket,
       historyState,
-      component: Mission,
+      component: PhaseMission,
     });
 
     const input = getByRole('radio', { name: 'Pass' }) as HTMLInputElement;
@@ -49,7 +49,7 @@ describe('when player is a team member', () => {
     const { getByText, getByRole } = render(AppFixture, {
       socket,
       historyState,
-      component: Mission,
+      component: PhaseMission,
     });
 
     const input = getByRole('radio', { name: 'Fail' }) as HTMLInputElement;
@@ -72,7 +72,7 @@ describe('when player is a team member', () => {
     const { getByRole } = render(AppFixture, {
       socket,
       historyState,
-      component: Mission,
+      component: PhaseMission,
     });
 
     const input = getByRole('radio', { name: 'Fail' }) as HTMLInputElement;
@@ -84,7 +84,7 @@ describe('when player is a team member', () => {
     currentPlayerId.set(player.id);
     const { getByRole } = render(AppFixture, {
       socket,
-      component: Mission,
+      component: PhaseMission,
       historyState: [
         ...historyState,
         createHistoryEvent('missionvote::cast', {
@@ -104,7 +104,7 @@ describe('when player is a team member', () => {
     const { queryByText } = render(AppFixture, {
       socket,
       historyState,
-      component: Mission,
+      component: PhaseMission,
     });
 
     const waitingMessage = queryByText('Waiting for mission results');
@@ -116,7 +116,7 @@ test('should restrict non-team members from voting', () => {
   const { getByRole, container } = render(AppFixture, {
     socket,
     historyState,
-    component: Mission,
+    component: PhaseMission,
   });
 
   const h2 = getByRole('heading', { name: 'Waiting for mission results' });
@@ -130,7 +130,7 @@ describe('when mission is complete', () => {
     currentPlayerId.set(player.id);
     const { queryByText } = render(AppFixture, {
       socket,
-      component: Mission,
+      component: PhaseMission,
       historyState: [
         ...historyState,
         createHistoryEvent('missionvote::cast', {
@@ -153,7 +153,7 @@ describe('when mission is complete', () => {
     currentPlayerId.set(spy2.id);
     const { queryByText } = render(AppFixture, {
       socket,
-      component: Mission,
+      component: PhaseMission,
       historyState: [
         ...historyState,
         createHistoryEvent('missionvote::cast', {
@@ -179,7 +179,7 @@ describe('when mission is revealed', () => {
     currentPlayerId.set(player.id);
     const { queryByText } = render(AppFixture, {
       socket,
-      component: Mission,
+      component: PhaseMission,
       historyState: [
         ...historyState,
         createHistoryEvent('missionvote::cast', {
@@ -216,7 +216,7 @@ describe('when mission is revealed', () => {
     currentPlayerId.set(player.id);
     const { queryByText } = render(AppFixture, {
       socket,
-      component: Mission,
+      component: PhaseMission,
       historyState: [
         ...historyState,
         createHistoryEvent('missionvote::cast', {
@@ -242,7 +242,7 @@ describe('when mission is revealed', () => {
     currentPlayerId.set(player.id);
     const { queryByText } = render(AppFixture, {
       socket,
-      component: Mission,
+      component: PhaseMission,
       historyState: [
         ...historyState,
         createHistoryEvent('missionvote::cast', {

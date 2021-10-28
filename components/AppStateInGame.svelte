@@ -10,7 +10,7 @@
   import PhaseTeamSelection from './PhaseTeamSelection.svelte';
   import PhaseTeamVote from './PhaseTeamVote.svelte';
   import PhaseTeamReveal from './PhaseTeamReveal.svelte';
-  import Mission from './Mission.svelte';
+  import PhaseMission from './PhaseMission.svelte';
   import PhaseMissionReveal from './PhaseMissionReveal.svelte';
   import UIButton from './UIButton.svelte';
 
@@ -31,7 +31,7 @@
     TEAM_SELECTION: PhaseTeamSelection,
     TEAM_VOTE: PhaseTeamVote,
     TEAM_REVEAL: PhaseTeamReveal,
-    MISSION_START: Mission,
+    MISSION_START: PhaseMission,
     MISSION_REVEAL: PhaseMissionReveal,
   };
 </script>
