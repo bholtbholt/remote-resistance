@@ -9,7 +9,7 @@
   const socket = getContext('socketIORoom');
 
   import Player from './Player.svelte';
-  import PlayerForm from './PlayerForm.svelte';
+  import JoinGameForm from './JoinGameForm.svelte';
   import UIButtonCopy from './UIButtonCopy.svelte';
   import UIButton from './UIButton.svelte';
   import UIBanner from './UIBanner.svelte';
@@ -59,7 +59,7 @@
     {/if}
     <UIButtonCopy class="mx-auto my-8">Share Game URL</UIButtonCopy>
   {:else if availableSlots}
-    <PlayerForm />
+    <JoinGameForm />
   {:else}
     <div
       in:fly={{ y: -200, duration: 600 }}
