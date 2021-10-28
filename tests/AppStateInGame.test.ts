@@ -52,13 +52,13 @@ test('should render PhaseTeamVote', () => {
   expect(component);
 });
 
-test('should render TeamBuildingReveal', () => {
+test('should render PhaseTeamReveal', () => {
   const { container } = render(AppFixture, {
     socket,
     component: AppStateInGame,
     historyState: roundOneTeamApproved,
   });
 
-  const component = container.querySelector('#TeamBuildingReveal');
+  const component = container.querySelector('#PhaseTeamReveal');
   expect(component);
 });

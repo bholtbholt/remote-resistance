@@ -36,7 +36,7 @@
   }
 </script>
 
-<div id="TeamBuildingReveal" in:blur>
+<div id="PhaseTeamReveal" in:blur>
   <UIHeading>
     Team <span class="{teamNameColor} transition-colors duration-150">
       {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))}
