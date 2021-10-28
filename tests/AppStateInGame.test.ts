@@ -3,7 +3,7 @@ import 'ts-jest';
 import { render } from '@testing-library/svelte';
 import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
-import LobbyGame from '../components/LobbyGame.svelte';
+import AppStateInGame from '../components/AppStateInGame.svelte';
 import { currentPlayerId } from '../stores/player';
 import { roundOneStart, roundOneTeam, roundOneTeamApproved, players } from './history-states';
 const socket = require('socket.io-client')('test');
@@ -19,7 +19,7 @@ describe('when player is logged in', () => {
 
     const { getByRole } = render(AppFixture, {
       socket,
-      component: LobbyGame,
+      component: AppStateInGame,
       historyState: roundOneStart,
     });
 
@@ -33,7 +33,7 @@ describe('when player is logged in', () => {
 test('should render TeamBuildingSelection', () => {
   const { container } = render(AppFixture, {
     socket,
-    component: LobbyGame,
+    component: AppStateInGame,
     historyState: roundOneStart,
   });
 
@@ -44,7 +44,7 @@ test('should render TeamBuildingSelection', () => {
 test('should render TeamBuildingVote', () => {
   const { container } = render(AppFixture, {
     socket,
-    component: LobbyGame,
+    component: AppStateInGame,
     historyState: roundOneTeam,
   });
 
@@ -55,7 +55,7 @@ test('should render TeamBuildingVote', () => {
 test('should render TeamBuildingReveal', () => {
   const { container } = render(AppFixture, {
     socket,
-    component: LobbyGame,
+    component: AppStateInGame,
     historyState: roundOneTeamApproved,
   });
 

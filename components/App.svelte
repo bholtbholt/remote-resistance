@@ -18,14 +18,14 @@
   });
 
   import AppStatePreGame from './AppStatePreGame.svelte';
-  import LobbyGame from './LobbyGame.svelte';
+  import AppStateInGame from './AppStateInGame.svelte';
   import AppStatePostGame from './AppStatePostGame.svelte';
   import UISpinner from './UISpinner.svelte';
   import AppController from './AppController.svelte';
 
   const state = {
     PRE_GAME: AppStatePreGame,
-    IN_GAME: LobbyGame,
+    IN_GAME: AppStateInGame,
     POST_GAME: AppStatePostGame,
   };
 </script>

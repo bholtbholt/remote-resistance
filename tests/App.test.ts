@@ -32,7 +32,7 @@ test('should render in_game component', () => {
   history['history::init'](roundOneStart);
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  const component = container.querySelector('#LobbyGame');
+  const component = container.querySelector('#AppStateInGame');
   expect(component).toBeInTheDocument();
 });
 

@@ -20,7 +20,7 @@
     window.sessionStorage.setItem('hideRoleReveal', true);
   }
 
-  // toggleCardVisibility is in LobbyGame so everything behind the card is blurred
+  // toggleCardVisibility is in AppStateInGame so everything behind the card is blurred
   $: blurredClasses = showPlayerCard ? 'transition-all duration-1000 ease-out blur opacity-50' : '';
   $: showPlayerCard = false;
   function toggleCardVisibility() {
@@ -36,7 +36,7 @@
   };
 </script>
 
-<div id="LobbyGame" class={blurredClasses} in:fade>
+<div id="AppStateInGame" class={blurredClasses} in:fade>
   <RoundTracker />
   {#if !hideRoleReveal && $playerIsLoggedIn}
     <RevealRole />
