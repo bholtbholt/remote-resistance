@@ -10,7 +10,6 @@
 
   import Player from './Player.svelte';
   import PlayerForm from './PlayerForm.svelte';
-  import UISpinner from './UISpinner.svelte';
   import UIButtonCopy from './UIButtonCopy.svelte';
   import UIButton from './UIButton.svelte';
   import UIBanner from './UIBanner.svelte';
@@ -40,7 +39,7 @@
     {#each $players as { ...player }}
       <Player {...player} />
     {/each}
-    {#each playerSlots as playerSlot, i}
+    {#each playerSlots as {}, i}
       <li
         class="animate-pulse
           py-12 rounded-lg shadow

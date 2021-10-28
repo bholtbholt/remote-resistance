@@ -20,7 +20,6 @@
 
   import UIBanner from './UIBanner.svelte';
   import UIButton from './UIButton.svelte';
-  import UISpinner from './UISpinner.svelte';
   import UIHeading from './UIHeading.svelte';
   import { toSentance } from './view-helper';
 
