@@ -9,8 +9,7 @@
   const socket = getContext('socketIORoom');
 
   import Player from './Player.svelte';
-  import PlayerForm from './PlayerForm.svelte';
-  import UISpinner from './UISpinner.svelte';
+  import JoinGameForm from './JoinGameForm.svelte';
   import UIButtonCopy from './UIButtonCopy.svelte';
   import UIButton from './UIButton.svelte';
   import UIBanner from './UIBanner.svelte';
@@ -29,7 +28,7 @@
   }
 </script>
 
-<div id="LobbyPreGame" in:fade>
+<div id="AppStatePreGame" in:fade>
   <ul
     id="playerList"
     class="grid grid-cols-5 gap-2 mb-8
@@ -40,7 +39,7 @@
     {#each $players as { ...player }}
       <Player {...player} />
     {/each}
-    {#each playerSlots as playerSlot, i}
+    {#each playerSlots as {}, i}
       <li
         class="animate-pulse
           py-12 rounded-lg shadow
@@ -60,7 +59,7 @@
     {/if}
     <UIButtonCopy class="mx-auto my-8">Share Game URL</UIButtonCopy>
   {:else if availableSlots}
-    <PlayerForm />
+    <JoinGameForm />
   {:else}
     <div
       in:fly={{ y: -200, duration: 600 }}

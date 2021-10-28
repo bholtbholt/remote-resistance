@@ -4,12 +4,12 @@
 
   import { blur } from './custom-transitions';
 
-  import Player from './Player.svelte';
+  import PlayerList from './PlayerList.svelte';
   import UIHeading from './UIHeading.svelte';
-  import { gridSize, playerNamesToSentance } from './view-helper';
+  import { playerNamesToSentance } from './view-helper';
 </script>
 
-<div id="RevealRole" in:blur>
+<div id="PhaseRoleReveal" in:blur>
   {#if $playerIsASpy}
     <UIHeading>
       {playerNamesToSentance(
@@ -17,20 +17,12 @@
         $currentPlayer.name,
       )} are <span class="text-rose-500 font-bold">spies</span> amongst the resistance!
     </UIHeading>
-    <ul id="playerList" class="grid {gridSize($ruleset.spyCount)} gap-2">
-      {#each $spies as { ...player }}
-        <Player {...player} />
-      {/each}
-    </ul>
+    <PlayerList cols={$ruleset.spyCount} players={$spies} />
   {:else}
     <UIHeading>
       You're part of the <span class="text-sky-400 font-bold">resistance</span>, but there are {$ruleset.spyCount}
       spies in your midst.
     </UIHeading>
-    <ul id="playerList" class="grid {gridSize($ruleset.playerCount)} gap-2">
-      {#each $players as { ...player }}
-        <Player {...player} />
-      {/each}
-    </ul>
+    <PlayerList cols={$ruleset.playerCount} players={$players} />
   {/if}
 </div>

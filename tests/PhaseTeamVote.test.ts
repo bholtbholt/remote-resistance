@@ -3,7 +3,7 @@ import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { createHistoryEvent, resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
-import TeamBuildingVote from '../components/TeamBuildingVote.svelte';
+import PhaseTeamVote from '../components/PhaseTeamVote.svelte';
 import { currentPlayerId } from '../stores/player';
 import { team, teamVotes } from '../stores/team';
 import {
@@ -25,7 +25,7 @@ describe('when player is logged in', () => {
     currentPlayerId.set(player.id);
     const { container, getByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingVote,
+      component: PhaseTeamVote,
       historyState: roundOneTeam,
     });
 
@@ -45,7 +45,7 @@ describe('when player is logged in', () => {
     currentPlayerId.set(player.id);
     const { getByRole } = render(AppFixture, {
       socket,
-      component: TeamBuildingVote,
+      component: PhaseTeamVote,
       historyState: [
         ...roundOneTeam,
         createHistoryEvent('teamvote::cast', { playerId: player.id, vote: '👍' }),
@@ -60,7 +60,7 @@ describe('when player is logged in', () => {
 test('should restrict viewers from voting', () => {
   const { getByRole, container } = render(AppFixture, {
     socket,
-    component: TeamBuildingVote,
+    component: PhaseTeamVote,
     historyState: roundOneTeam,
   });
 
@@ -76,7 +76,7 @@ describe('when all votes have been cast', () => {
     currentPlayerId.set(leader.id);
     const { getByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingVote,
+      component: PhaseTeamVote,
       historyState: roundOneVotesApproved,
     });
 
@@ -94,7 +94,7 @@ describe('when team is rejected', () => {
     currentPlayerId.set(leader.id);
     const { getByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingVote,
+      component: PhaseTeamVote,
       historyState: roundOneVotesRejected,
     });
 
@@ -110,7 +110,7 @@ describe('when team is rejected', () => {
     currentPlayerId.set(leader.id);
     const { getByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingVote,
+      component: PhaseTeamVote,
       historyState: roundOneVotesRejected,
     });
 

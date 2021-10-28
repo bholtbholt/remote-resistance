@@ -19,9 +19,9 @@
   import { currentRound } from '../stores/round';
   import { team } from '../stores/team';
 
-  import Player from './Player.svelte';
+  import PlayerList from './PlayerList.svelte';
   import UISpinner from './UISpinner.svelte';
-  import { gridSize, toSentance } from './view-helper';
+  import { toSentance } from './view-helper';
 
   let playerVote;
   $: voteOptions = [
@@ -69,7 +69,7 @@
   }
 </script>
 
-<div id="Mission" in:fade>
+<div id="PhaseMission" in:fade>
   {#if $playerIsTeamMember}
     <h2 class="text-gray-100 text-center">Pass or fail this mission</h2>
     <h3 class="text-lg text-gray-500 text-center">
@@ -120,11 +120,7 @@
       </form>
     {/if}
   {:else}
-    <ul id="playerList" class="grid {gridSize($teamMembers.length)} gap-xs">
-      {#each $teamMembers as { ...player }}
-        <Player {...player} />
-      {/each}
-    </ul>
+    <PlayerList cols={$teamMembers.length} players={$teamMembers} />
     <h2 class="text-lg text-gray-500 text-center">
       {toSentance($teamMembers.map((teamMember) => teamMember.name))} are on the {$currentRound.name}
       mission

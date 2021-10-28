@@ -3,7 +3,7 @@ import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
 import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
-import TeamBuildingReveal from '../components/TeamBuildingReveal.svelte';
+import PhaseTeamReveal from '../components/PhaseTeamReveal.svelte';
 import { currentPlayerId } from '../stores/player';
 import { team, teamVotes } from '../stores/team';
 import { roundOneTeamApproved, roundOneTeamRejected, players } from './history-states';
@@ -21,7 +21,7 @@ describe('when vote is rejected', () => {
 
     const { getByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingReveal,
+      component: PhaseTeamReveal,
       historyState: roundOneTeamRejected,
     });
 
@@ -41,7 +41,7 @@ describe('when vote is rejected', () => {
 
     const { getByRole } = render(AppFixture, {
       socket,
-      component: TeamBuildingReveal,
+      component: PhaseTeamReveal,
       historyState: roundOneTeamRejected,
     });
 
@@ -54,7 +54,7 @@ describe('when vote is rejected', () => {
   test('should reveal player votes', () => {
     const { queryAllByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingReveal,
+      component: PhaseTeamReveal,
       historyState: roundOneTeamRejected,
     });
 
@@ -71,7 +71,7 @@ describe('when vote is approved', () => {
 
     const { getByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingReveal,
+      component: PhaseTeamReveal,
       historyState: roundOneTeamApproved,
     });
 
@@ -89,7 +89,7 @@ describe('when vote is approved', () => {
 
     const { queryByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingReveal,
+      component: PhaseTeamReveal,
       historyState: roundOneTeamApproved,
     });
 
@@ -100,7 +100,7 @@ describe('when vote is approved', () => {
   test('should reveal player votes', () => {
     const { queryAllByText } = render(AppFixture, {
       socket,
-      component: TeamBuildingReveal,
+      component: PhaseTeamReveal,
       historyState: roundOneTeamApproved,
     });
 
@@ -113,7 +113,7 @@ describe('$leaderName', () => {
   test('should show current leader name when vote is approved', () => {
     const { getByRole } = render(AppFixture, {
       socket,
-      component: TeamBuildingReveal,
+      component: PhaseTeamReveal,
       historyState: roundOneTeamApproved,
     });
     const [leader] = players;
@@ -128,7 +128,7 @@ describe('$leaderName', () => {
   test('should show previous leader name when vote is rejected', () => {
     const { getByRole } = render(AppFixture, {
       socket,
-      component: TeamBuildingReveal,
+      component: PhaseTeamReveal,
       historyState: roundOneTeamRejected,
     });
     const [leader] = players;

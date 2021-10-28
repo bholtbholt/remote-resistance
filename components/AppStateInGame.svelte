@@ -5,13 +5,13 @@
   import { roundstate } from '../stores/round';
 
   import RoundTracker from './RoundTracker.svelte';
-  import RevealRole from './RevealRole.svelte';
+  import PhaseRoleReveal from './PhaseRoleReveal.svelte';
   import RoleCard from './RoleCard.svelte';
-  import TeamBuildingSelection from './TeamBuildingSelection.svelte';
-  import TeamBuildingVote from './TeamBuildingVote.svelte';
-  import TeamBuildingReveal from './TeamBuildingReveal.svelte';
-  import Mission from './Mission.svelte';
-  import MissionReveal from './MissionReveal.svelte';
+  import PhaseTeamSelection from './PhaseTeamSelection.svelte';
+  import PhaseTeamVote from './PhaseTeamVote.svelte';
+  import PhaseTeamReveal from './PhaseTeamReveal.svelte';
+  import PhaseMission from './PhaseMission.svelte';
+  import PhaseMissionReveal from './PhaseMissionReveal.svelte';
   import UIButton from './UIButton.svelte';
 
   let hideRoleReveal = window.sessionStorage.getItem('hideRoleReveal');
@@ -20,7 +20,7 @@
     window.sessionStorage.setItem('hideRoleReveal', true);
   }
 
-  // toggleCardVisibility is in LobbyGame so everything behind the card is blurred
+  // toggleCardVisibility is in AppStateInGame so everything behind the card is blurred
   $: blurredClasses = showPlayerCard ? 'transition-all duration-1000 ease-out blur opacity-50' : '';
   $: showPlayerCard = false;
   function toggleCardVisibility() {
@@ -28,18 +28,18 @@
   }
 
   const phase = {
-    TEAM_SELECTION: TeamBuildingSelection,
-    TEAM_VOTE: TeamBuildingVote,
-    TEAM_REVEAL: TeamBuildingReveal,
-    MISSION_START: Mission,
-    MISSION_REVEAL: MissionReveal,
+    TEAM_SELECTION: PhaseTeamSelection,
+    TEAM_VOTE: PhaseTeamVote,
+    TEAM_REVEAL: PhaseTeamReveal,
+    MISSION_START: PhaseMission,
+    MISSION_REVEAL: PhaseMissionReveal,
   };
 </script>
 
-<div id="LobbyGame" class={blurredClasses} in:fade>
+<div id="AppStateInGame" class={blurredClasses} in:fade>
   <RoundTracker />
   {#if !hideRoleReveal && $playerIsLoggedIn}
-    <RevealRole />
+    <PhaseRoleReveal />
     <div class="mt-8" in:fly={{ y: 200, duration: 600, delay: 3000 }}>
       <UIButton on:click={hideRoles}>Got it!</UIButton>
     </div>

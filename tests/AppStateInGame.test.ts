@@ -3,7 +3,7 @@ import 'ts-jest';
 import { render } from '@testing-library/svelte';
 import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
-import LobbyGame from '../components/LobbyGame.svelte';
+import AppStateInGame from '../components/AppStateInGame.svelte';
 import { currentPlayerId } from '../stores/player';
 import { roundOneStart, roundOneTeam, roundOneTeamApproved, players } from './history-states';
 const socket = require('socket.io-client')('test');
@@ -19,7 +19,7 @@ describe('when player is logged in', () => {
 
     const { getByRole } = render(AppFixture, {
       socket,
-      component: LobbyGame,
+      component: AppStateInGame,
       historyState: roundOneStart,
     });
 
@@ -30,35 +30,35 @@ describe('when player is logged in', () => {
   });
 });
 
-test('should render TeamBuildingSelection', () => {
+test('should render PhaseTeamSelection', () => {
   const { container } = render(AppFixture, {
     socket,
-    component: LobbyGame,
+    component: AppStateInGame,
     historyState: roundOneStart,
   });
 
-  const component = container.querySelector('#TeamBuildingSelection');
+  const component = container.querySelector('#PhaseTeamSelection');
   expect(component);
 });
 
-test('should render TeamBuildingVote', () => {
+test('should render PhaseTeamVote', () => {
   const { container } = render(AppFixture, {
     socket,
-    component: LobbyGame,
+    component: AppStateInGame,
     historyState: roundOneTeam,
   });
 
-  const component = container.querySelector('#TeamBuildingVote');
+  const component = container.querySelector('#PhaseTeamVote');
   expect(component);
 });
 
-test('should render TeamBuildingReveal', () => {
+test('should render PhaseTeamReveal', () => {
   const { container } = render(AppFixture, {
     socket,
-    component: LobbyGame,
+    component: AppStateInGame,
     historyState: roundOneTeamApproved,
   });
 
-  const component = container.querySelector('#TeamBuildingReveal');
+  const component = container.querySelector('#PhaseTeamReveal');
   expect(component);
 });

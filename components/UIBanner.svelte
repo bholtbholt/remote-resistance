@@ -10,7 +10,7 @@
 </script>
 
 <div
-  class="{colors[theme] || colors.primary}
+  class="{colors[theme] || colors.teal}
   py-3 px-4 rounded-lg shadow-xl
   flex items-center flex-wrap"
 >

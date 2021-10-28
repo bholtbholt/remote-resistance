@@ -20,7 +20,6 @@
 
   import UIBanner from './UIBanner.svelte';
   import UIButton from './UIButton.svelte';
-  import UISpinner from './UISpinner.svelte';
   import UIHeading from './UIHeading.svelte';
   import { toSentance } from './view-helper';
 
@@ -67,7 +66,7 @@
   }
 </script>
 
-<div id="TeamBuildingVote" in:fade>
+<div id="PhaseTeamVote" in:fade>
   <UIHeading>
     Vote for team <span class="text-teal-400">
       {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))}

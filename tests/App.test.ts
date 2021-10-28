@@ -24,7 +24,7 @@ test('should render pre_game component', () => {
   history['history::init']([]);
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  const component = container.querySelector('#LobbyPreGame');
+  const component = container.querySelector('#AppStatePreGame');
   expect(component).toBeInTheDocument();
 });
 
@@ -32,7 +32,7 @@ test('should render in_game component', () => {
   history['history::init'](roundOneStart);
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  const component = container.querySelector('#LobbyGame');
+  const component = container.querySelector('#AppStateInGame');
   expect(component).toBeInTheDocument();
 });
 
@@ -41,7 +41,7 @@ test('should render post_game component', () => {
   appstate['appstate::set']('POST_GAME'); // TODO Remove when real history exists
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  const component = container.querySelector('#LobbyPostGame');
+  const component = container.querySelector('#AppStatePostGame');
   expect(component).toBeInTheDocument();
 });
 
