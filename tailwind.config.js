@@ -8,6 +8,13 @@ module.exports = {
       animation: {
         'slow-pulse': 'slow-pulse 3s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
+      colors: {
+        orange: colors.orange,
+        teal: colors.teal,
+        cyan: colors.cyan,
+        sky: colors.sky,
+        rose: colors.rose,
+      },
       keyframes: {
         'slow-pulse': {
           '0%': { transform: 'scale(1)', opacity: 1 },
@@ -37,18 +44,6 @@ module.exports = {
       const newUtilities = {
         '.blur': {
           filter: 'blur(0.6em)',
-        },
-        '.outline': {
-          boxShadow: `0 0 0 ${theme('borderWidth.default')} ${theme('colors.teal.500')}`,
-        },
-        '.outline-blue-700': {
-          boxShadow: `0 0 0 ${theme('borderWidth.lg')} ${theme('colors.blue.700')}`,
-        },
-        '.outline-red-700': {
-          boxShadow: `0 0 0 ${theme('borderWidth.lg')} ${theme('colors.red.700')}`,
-        },
-        '.text-anchor-middle': {
-          textAnchor: 'middle',
         },
       };
 

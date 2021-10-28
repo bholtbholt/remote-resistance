@@ -2,28 +2,28 @@
   import { backOut } from 'svelte/easing';
   import { scale } from 'svelte/transition';
 
-  import { players, playerIsLoggedIn } from '../stores/player';
-  import { ruleset } from '../stores/rules';
   import { currentRound, rounds } from '../stores/round';
-
-  import RoundTracker from './RoundTracker.svelte';
 </script>
 
-<ul id="RoundTracker" class="flex justify-between">
+<ul id="RoundTracker" class="flex justify-between mb-8">
   {#each $rounds as round}
     <li
-      class="h-lg w-lg rounded-round relative text-center {round === $currentRound
-        ? 'bg-yellow-400 transform scale-150'
-        : 'bg-gray-600'}"
+      class="relative h-4 w-4 rounded-full
+        flex justify-center items-center
+        {round === $currentRound
+        ? 'bg-yellow-400 dark:bg-indigo-600 transform scale-150'
+        : 'bg-indigo-900 dark:bg-gray-600'}"
     >
       {#if round === $currentRound}
         <span
-          class="animate-slow-pulse absolute inset-0 h-full w-full rounded-round bg-yellow-300
-            opacity-75 z-n"
+          class="absolute inset-0 h-full w-full rounded-full z-n
+            animate-slow-pulse opacity-75
+            bg-yellow-200 dark:bg-indigo-400"
         />
         {#if round.failedTeamVotes > 0}
           <div
-            class="font-bold text-sm text-yellow-800"
+            class="text-xs text-indigo-800 dark:text-indigo-50"
+            style="font-size: 0.66em"
             in:scale={{ start: 4, delay: 2650, easing: backOut }}
           >
             {round.failedTeamVotes}

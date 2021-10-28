@@ -18,7 +18,10 @@
   import { currentRound } from '../stores/round';
   import { teamVoteApproved } from '../stores/team';
 
-  import Spinner from './Spinner.svelte';
+  import UIBanner from './UIBanner.svelte';
+  import UIButton from './UIButton.svelte';
+  import UISpinner from './UISpinner.svelte';
+  import UIHeading from './UIHeading.svelte';
   import { toSentance } from './view-helper';
 
   let playerVote;
@@ -27,25 +30,23 @@
       value: '👎',
       id: 'vote-reject',
       label: 'Reject',
-      labelClass: 'text-red-400',
+      labelClass: 'text-rose-500',
       selected: playerVote === '👎',
-      border: 'border-red-500',
-      svgClass: 'transform scale-x-flip',
-      y: '80%',
+      border: 'ring-rose-500 ring-offset-rose-500',
+      emojiClass: 'transform scale-x-flip',
       rotateDeg: -18,
-      rotateX: -60,
+      rotateX: -90,
     },
     {
       value: '👍',
       id: 'vote-approve',
       label: 'Approve',
-      labelClass: 'text-blue-400',
+      labelClass: 'text-sky-400',
       selected: playerVote === '👍',
-      border: 'border-blue-500',
-      svgClass: '',
-      y: '74%',
+      border: 'ring-sky-400 ring-offset-sky-400',
+      emojiClass: '',
       rotateDeg: 18,
-      rotateX: 60,
+      rotateX: 90,
     },
   ];
 
@@ -67,18 +68,18 @@
 </script>
 
 <div id="TeamBuildingVote" in:fade>
-  <h2 class="text-gray-100 text-center">
-    Vote for team <span class="text-blue-300">
+  <UIHeading>
+    Vote for team <span class="text-teal-400">
       {toSentance($teamMembers.map((teamMember) => `${teamMember.avatar} ${teamMember.name}`))}
     </span>
-  </h2>
-  <h3 class="text-lg text-gray-500 text-center">
-    Picked by {$leader.name} for the {$currentRound.name} mission
-  </h3>
+    <span slot="subheading">
+      Picked by {$leader.name} for the {$currentRound.name} mission
+    </span>
+  </UIHeading>
 
   {#if $playerIsLoggedIn && !$playerHasVoted}
     <form on:submit|preventDefault={submitVote}>
-      <div class="grid grid-cols-2 gap-lg">
+      <div class="flex justify-center gap-6 mb-10">
         {#each voteOptions as vote}
           <label
             for={vote.id}
@@ -95,49 +96,39 @@
               value={vote.value}
             />
             <div
-              class="rounded-round transition-border duration-150 ease-out border-solid {vote.selected
-                ? `${vote.border} border-lg`
-                : 'border-transparent border'}"
+              class:scale-110={vote.selected}
+              class:scale-90={playerVote && !vote.selected}
+              class:ring-offset-4={vote.selected}
+              class="text-8xl pt-6 pb-2 px-3 rounded-lg
+                ring {vote.border}
+                bg-white dark:bg-gray-700
+                transition-all duration-500 ease-out"
             >
-              <svg
-                viewBox="0 0 20 20"
-                class="shadow rounded-round bg-gray-900 {vote.svgClass} transition-border duration-150
-                  ease-out border-solid border-transparent {vote.selected ? 'border' : 'border-lg'}"
-              >
-                <text x="50%" y={vote.y} class="align-middle overflow-visible text-anchor-middle">
-                  {vote.value}
-                </text>
-              </svg>
+              <div class="{vote.emojiClass} mb-5">{vote.value}</div>
+              <div class="text-lg font-medium {vote.labelClass}">{vote.label}</div>
             </div>
-
-            <div class="uppercase text-lg tracking-widest {vote.labelClass}">{vote.label}</div>
           </label>
         {/each}
       </div>
 
       {#if playerVote}
-        <button class="btn-primary font-bold text-lg w-full" in:fly={{ y: 200, duration: 600 }}>
-          {voteOptions.find((vote) => vote.value === playerVote).label} this team
-        </button>
+        <div in:fly={{ y: 200, duration: 600 }}>
+          {#if playerVote === '👍'}
+            <UIButton theme="sky">Approve this team</UIButton>
+          {:else if playerVote === '👎'}
+            <UIButton theme="rose">Reject this team</UIButton>
+          {/if}
+        </div>
       {/if}
     </form>
   {:else if $allPlayersHaveVoted && $playerIsLeader}
-    <div
-      in:fly={{ y: 200, duration: 600 }}
-      class="bg-white rounded-lg shadow-xl relative z-10 text-center"
-    >
-      <h2 class="text-primary-500 ">Are votes are in!</h2>
-      <button on:click={revealVotes} class="btn-primary font-bold text-lg w-full">
-        Reveal votes
-      </button>
+    <div in:fly={{ y: 200, duration: 600 }} class="text-center">
+      <h2 class="text-4xl font-semibold text-white dark:text-purple-50 mb-6">Are votes are in!</h2>
+      <UIButton on:click={revealVotes}>Reveal votes</UIButton>
     </div>
   {:else}
-    <div
-      in:fly={{ y: 200, duration: 600 }}
-      class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
-    >
-      <Spinner color="text-blue-700" />
-      <h2 class="text-lg text-blue-900">Waiting for vote results</h2>
+    <div in:fly={{ y: 200, duration: 600 }}>
+      <UIBanner>Waiting for vote results</UIBanner>
     </div>
   {/if}
 </div>

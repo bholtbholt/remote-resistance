@@ -7,6 +7,8 @@
   import { getContext } from 'svelte';
   const socket = getContext('socketIORoom');
 
+  import UIButton from './UIButton.svelte';
+
   // prettier-ignore
   const avatars = [
     '🐶','🐱','🦊','🐯','🦁',
@@ -38,22 +40,29 @@
 </script>
 
 <form
-  class="bg-white rounded-lg shadow-xl relative z-10"
+  class="-mt-48 p-4 mb-10
+    bg-white dark:bg-gray-800 bg-opacity-80
+    rounded-lg shadow-2xl relative z-10"
   in:fly={{ y: -200, duration: 900 }}
   out:fade={{ duration: 150 }}
   on:submit|preventDefault={handleSubmit}
 >
   <label
     for="name"
-    class="border-b border-gray-400 focus-within:border-primary-500 block
-      transition-colors duration-200 ease-in"
+    class="border-b-4 border-indigo-200 dark:border-gray-600
+      focus-within:border-teal-400
+      block mb-8
+      ease-out duration-200 transition-colors"
   >
-    <div class="text-sm uppercase text-gray-500 font-bold ">Name:</div>
+    <div class="uppercase font-light tracking-widest text-sm text-indigo-700 dark:text-purple-300">
+      Name
+    </div>
     <input
       id="name"
       name="name"
-      class="appearance-none bg-transparent border-none w-full text-gray-800 text-lg
-        focus:outline-none"
+      class="appearance-none focus:outline-none
+        bg-transparent border-none w-full py-1
+        text-gray-800 dark:text-gray-200 text-2xl"
       autocomplete="off"
       disabled={!enableForm}
       required
@@ -61,14 +70,23 @@
     />
   </label>
 
-  <div class="text-sm uppercase text-gray-500 font-bold ">Avatar:</div>
-  <div class="grid grid-cols-5 grid-rows-2">
+  <div
+    class="uppercase font-light tracking-widest text-sm text-indigo-700 dark:text-purple-300 mb-2"
+  >
+    Avatar
+  </div>
+  <div class="grid grid-cols-5 gap-1 mb-8">
     {#each avatars as avatar, i}
       <label
         for="avatar_{i}"
-        class="relative text-center rounded-sm ease-in duration-75 transition-shadow"
-        class:outline={avatar === playerAvatar}
+        class="relative
+          ease-out duration-200 transition-colors
+          py-2 rounded-lg bg-white dark:bg-transparent
+          text-center text-5xl"
+        class:ring-teal-400={avatar === playerAvatar}
+        class:ring={avatar === playerAvatar}
         class:opacity-25={takenAvatars.includes(avatar)}
+        class:cursor-pointer={!takenAvatars.includes(avatar)}
       >
         <input
           id="avatar_{i}"
@@ -79,14 +97,10 @@
           value={avatar}
           disabled={takenAvatars.includes(avatar)}
         />
-        <svg viewBox="0 0 20 20">
-          <text x="51%" y="78%" class="align-middle overflow-visible text-anchor-middle">
-            {avatar}
-          </text>
-        </svg>
+        {avatar}
       </label>
     {/each}
   </div>
 
-  <button disabled={!enableForm} class="btn-primary font-bold text-lg w-full"> Join game </button>
+  <UIButton disabled={!enableForm}>Join game</UIButton>
 </form>

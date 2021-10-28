@@ -47,5 +47,7 @@ test('should show failed team votes for the currrent round', () => {
   const round1 = container.querySelector('#RoundTracker > li:first-of-type');
 
   expect(round1.classList).toContain('bg-yellow-400');
-  expect(round1.innerHTML).toContain('<div class="font-bold text-sm text-yellow-800">1</div>');
+  expect(round1.innerHTML).toContain(
+    '<div class="text-xs text-indigo-800 dark:text-indigo-50" style="font-size: 0.66em;">1</div>',
+  );
 });

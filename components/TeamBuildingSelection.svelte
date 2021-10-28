@@ -10,7 +10,9 @@
   import { ruleset } from '../stores/rules';
   import { team } from '../stores/team';
 
-  import Spinner from './Spinner.svelte';
+  import UIBanner from './UIBanner.svelte';
+  import UIButton from './UIButton.svelte';
+  import UIHeading from './UIHeading.svelte';
   import { gridSize } from './view-helper';
 
   $: disableSelection = $team.length >= $currentRound.teamSize;
@@ -28,22 +30,24 @@
 
 <div id="TeamBuildingSelection" in:fade>
   {#if $playerIsLeader}
-    <h2 class="text-gray-100 text-center">
-      Pick <span class="text-blue-300">{$currentRound.teamSize} players</span> for the {$currentRound.name}
+    <UIHeading>
+      Pick <span class="text-teal-400 font-bold">{$currentRound.teamSize} players</span> for the {$currentRound.name}
       mission.
-    </h2>
+    </UIHeading>
   {/if}
 
   <form on:submit|preventDefault={confirmTeam}>
-    <div class="grid {gridSize($ruleset.playerCount)} gap-xs">
+    <div class="grid {gridSize($ruleset.playerCount)} gap-2 mb-10">
       {#each $players.map((player) => {
         return { selected: $team.includes(player.id), ...player };
       }) as player}
         <label
           for="player_{player.id}"
-          class="relative text-center bg-white rounded-sm ease-in duration-75 transition-shadow
-            cursor-pointer"
-          class:outline={player.selected}
+          class="relative cursor-pointer
+            p-1 rounded-lg text-center
+            bg-white dark:bg-gray-700 shadow"
+          class:ring-teal-400={player.selected}
+          class:ring={player.selected}
           class:cursor-not-allowed={!$playerIsLeader || (disableSelection && !player.selected)}
           class:opacity-25={disableSelection && !player.selected}
         >
@@ -56,12 +60,12 @@
             value={player.id}
             disabled={!$playerIsLeader || (disableSelection && !player.selected)}
           />
-          <svg viewBox="0 0 20 20">
-            <text x="50%" y="80%" class="align-middle overflow-visible text-anchor-middle">
-              {player.avatar}
-            </text>
-          </svg>
-          <div class="truncate text-gray-700" class:font-extrabold={player.selected}>
+          <div class="py-2 text-5xl">{player.avatar}</div>
+          <div
+            class="truncate {player.selected
+              ? 'text-teal-500 dark:text-teal-400 font-medium'
+              : 'text-gray-600 dark:text-gray-300'}"
+          >
             {player.name}
           </div>
         </label>
@@ -69,22 +73,18 @@
     </div>
 
     {#if $playerIsLeader && enableSubmit}
-      <button class="btn-primary font-bold text-lg w-full" in:fly={{ y: 200, duration: 600 }}>
-        Confirm this team
-      </button>
+      <div in:fly={{ y: 200, duration: 600 }}>
+        <UIButton>Confirm this team</UIButton>
+      </div>
     {/if}
   </form>
 
   {#if !$playerIsLeader}
-    <div
-      class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
-      in:fly={{ y: 200, duration: 600 }}
-    >
-      <Spinner color="text-blue-700" />
-      <h2 class="text-lg text-blue-900">
+    <div in:fly={{ y: 200, duration: 600 }}>
+      <UIBanner>
         <span class="font-extrabold">{$leader.name}</span> is picking {$currentRound.teamSize} players
         for the {$currentRound.name} mission.
-      </h2>
+      </UIBanner>
     </div>
   {/if}
 </div>

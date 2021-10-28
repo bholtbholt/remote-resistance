@@ -1,39 +1,35 @@
 <script>
   export let showCard = false;
-  import { fly } from 'svelte/transition';
+  import { fly, fade } from 'svelte/transition';
   import { cardFlip } from './custom-transitions';
   import { currentPlayer, playerIsASpy } from '../stores/player';
 
-  import Player from './Player.svelte';
-
-  $: borderColor = $playerIsASpy ? 'border-red-700' : 'border-blue-700';
-  $: outlineColor = $playerIsASpy ? 'outline-red-700' : 'outline-blue-700';
-  $: headingColor = $playerIsASpy ? 'text-red-600' : 'text-blue-600';
+  $: ringColor = $playerIsASpy ? 'ring-offset-rose-500' : 'ring-offset-sky-400';
+  $: headingColor = $playerIsASpy ? 'text-rose-600' : 'text-sky-400';
   $: headingText = $playerIsASpy ? "You're a Spy" : 'Resistance';
 </script>
 
 {#if showCard}
-  <div class="fixed inset-0 z-10 cursor-pointer background-red-700" on:click>
-    <div
-      class="fixed top-0 inset-x-0 rounded-lg shadow-xl border-solid border-xl {borderColor}"
-      transition:cardFlip
-    >
-      <div class="text-center bg-white rounded-lg {outlineColor}">
-        <h2 class="text-xl font-extrabold {headingColor}">{headingText}</h2>
-        <svg viewBox="0 0 20 20">
-          <text x="50%" y="80%" class="align-middle overflow-visible text-anchor-middle">
-            {$currentPlayer.avatar}
-          </text>
-        </svg>
-        <div class="text-gray-700 text-lg font-bold">{$currentPlayer.name}</div>
+  <div
+    class="fixed inset-0 z-10 cursor-pointer
+      bg-black bg-opacity-75
+      grid place-items-center h-screen"
+    on:click
+    transition:fade
+  >
+    <div class="rounded-lg ring-offset-8 ring-8 ring-indigo-600" transition:cardFlip>
+      <div
+        class="text-center rounded-lg p-6
+        bg-white dark:bg-gray-800
+        ring-4 ring-white dark:ring-gray-700 ring-offset-8 {ringColor}"
+      >
+        <h2 class="text-4xl mb-4 font-bold tracking-tight {headingColor}">{headingText}</h2>
+        <div class="mb-2 text-9xl" style="font-size: 10rem;">{$currentPlayer.avatar}</div>
       </div>
     </div>
   </div>
 {:else}
-  <button
-    in:fly={{ y: 100, delay: 250 }}
-    class="fixed left-0 bottom-0"
-    style="font-size: 56px;"
-    on:click>🃏</button
+  <button in:fly={{ y: 100, delay: 250 }} class="fixed left-0 bottom-0 text-6xl mb-3" on:click
+    >🃏</button
   >
 {/if}

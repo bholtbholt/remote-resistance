@@ -20,7 +20,7 @@
   import LobbyPreGame from './LobbyPreGame.svelte';
   import LobbyGame from './LobbyGame.svelte';
   import LobbyPostGame from './LobbyPostGame.svelte';
-  import Spinner from './Spinner.svelte';
+  import UISpinner from './UISpinner.svelte';
   import AppController from './AppController.svelte';
 
   const state = {
@@ -33,7 +33,9 @@
 {#if $historyIsLoaded}
   <svelte:component this={state[$appstate]} />
 {:else}
-  <Spinner color="text-blue-900" />
+  <div class="grid place-items-center h-screen">
+    <UISpinner class="mx-auto text-indigo-900 dark:text-gray-200 text-2xl" />
+  </div>
 {/if}
 
 {#if renderAppController}
