@@ -17,14 +17,14 @@
     socket.on(actionName, callback);
   });
 
-  import LobbyPreGame from './LobbyPreGame.svelte';
+  import AppStatePreGame from './AppStatePreGame.svelte';
   import LobbyGame from './LobbyGame.svelte';
   import LobbyPostGame from './LobbyPostGame.svelte';
   import UISpinner from './UISpinner.svelte';
   import AppController from './AppController.svelte';
 
   const state = {
-    PRE_GAME: LobbyPreGame,
+    PRE_GAME: AppStatePreGame,
     IN_GAME: LobbyGame,
     POST_GAME: LobbyPostGame,
   };

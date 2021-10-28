@@ -4,7 +4,7 @@ import { render, fireEvent } from '@testing-library/svelte';
 import { createPlayer, repeat, createHistoryEvent, resetTestState } from './test-helper';
 import { get } from 'svelte/store';
 import AppFixture from './AppFixture.svelte';
-import LobbyPreGame from '../components/LobbyPreGame.svelte';
+import AppStatePreGame from '../components/AppStatePreGame.svelte';
 import { currentPlayerId, players } from '../stores/player';
 import { generateRuleset, ruleset } from '../stores/rules';
 const socket = require('socket.io-client')('test');
@@ -14,14 +14,14 @@ afterEach(() => {
 });
 
 test('should render 10 blank spots with no players', () => {
-  const { container } = render(AppFixture, { socket, component: LobbyPreGame });
+  const { container } = render(AppFixture, { socket, component: AppStatePreGame });
 
   expect(container.querySelectorAll('ul > li').length).toEqual(10);
 });
 
 test('should render 9 blank spots with with 1 player first', () => {
   players['player::add']({ id: 'id-for-binks', avatar: '🐶', name: 'Binks' });
-  const { container } = render(AppFixture, { socket, component: LobbyPreGame });
+  const { container } = render(AppFixture, { socket, component: AppStatePreGame });
 
   const slots = container.querySelectorAll('ul > li');
 
@@ -33,7 +33,7 @@ test('should suggest a new room when all spots are taken', () => {
   repeat(10, () => {
     players['player::add'](createPlayer());
   });
-  const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
+  const { getByText } = render(AppFixture, { socket, component: AppStatePreGame });
 
   const link = getByText('start a new game');
 
@@ -41,7 +41,7 @@ test('should suggest a new room when all spots are taken', () => {
 });
 
 test('should render the player form when spots are available', () => {
-  const { getByLabelText } = render(AppFixture, { socket, component: LobbyPreGame });
+  const { getByLabelText } = render(AppFixture, { socket, component: AppStatePreGame });
 
   const nameField = getByLabelText('Name');
 
@@ -53,7 +53,7 @@ test('should render waiting text when the player is logged in but there are not 
   currentPlayerId.set('id-for-binks');
   const { getByText, getByLabelText, rerender } = render(AppFixture, {
     socket,
-    component: LobbyPreGame,
+    component: AppStatePreGame,
   });
 
   const waitingMessage = getByText('Waiting for more players to join…');
@@ -67,7 +67,7 @@ test('should let players start the game when there are enough', () => {
   });
   players['player::add']({ id: 'id-for-binks', avatar: '🐶', name: 'Binks' });
   currentPlayerId.set('id-for-binks');
-  const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
+  const { getByText } = render(AppFixture, { socket, component: AppStatePreGame });
 
   const button = getByText('Start the game!');
 
@@ -85,7 +85,7 @@ test('should generate a ruleset when the game is started', async () => {
   });
 
   jest.spyOn(socket, 'emit');
-  const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
+  const { getByText } = render(AppFixture, { socket, component: AppStatePreGame });
 
   const button = getByText('Start the game!');
 
@@ -105,7 +105,7 @@ test('should set the game state to IN_GAME', async () => {
   });
 
   jest.spyOn(socket, 'emit');
-  const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
+  const { getByText } = render(AppFixture, { socket, component: AppStatePreGame });
 
   const button = getByText('Start the game!');
 
@@ -125,7 +125,7 @@ test('should set the first team builder leader', async () => {
   });
 
   jest.spyOn(socket, 'emit');
-  const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
+  const { getByText } = render(AppFixture, { socket, component: AppStatePreGame });
 
   const button = getByText('Start the game!');
 
@@ -145,7 +145,7 @@ test('should initialize rounds', async () => {
   });
 
   jest.spyOn(socket, 'emit');
-  const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
+  const { getByText } = render(AppFixture, { socket, component: AppStatePreGame });
 
   const button = getByText('Start the game!');
 

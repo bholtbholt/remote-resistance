@@ -29,7 +29,7 @@
   }
 </script>
 
-<div id="LobbyPreGame" in:fade>
+<div id="AppStatePreGame" in:fade>
   <ul
     id="playerList"
     class="grid grid-cols-5 gap-2 mb-8

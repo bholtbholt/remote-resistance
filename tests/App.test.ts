@@ -24,7 +24,7 @@ test('should render pre_game component', () => {
   history['history::init']([]);
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
 
-  const component = container.querySelector('#LobbyPreGame');
+  const component = container.querySelector('#AppStatePreGame');
   expect(component).toBeInTheDocument();
 });
 
