@@ -105,12 +105,12 @@ describe('when player is not leader', () => {
 
     const p1Label = container.querySelector(`label[for="player_${p1.id}"]`);
     const p1Input = container.querySelector(`#player_${p1.id}`);
-    expect(p1Label.classList).toContain('outline');
+    expect(p1Label.classList).toContain('ring');
     expect(p1Input).toHaveProperty('disabled');
 
     const p2Label = container.querySelector(`label[for="player_${p2.id}"]`);
     const p2Input = container.querySelector(`#player_${p2.id}`);
-    expect(p2Label.classList).toContain('outline');
+    expect(p2Label.classList).toContain('ring');
     expect(p2Input).toHaveProperty('disabled');
   });
 });

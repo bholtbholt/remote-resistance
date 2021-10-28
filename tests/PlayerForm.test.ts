@@ -14,7 +14,7 @@ afterEach(() => {
 test('should enable the form by default', () => {
   const { getByText, getByLabelText } = render(AppFixture, { socket, component: PlayerForm });
 
-  const nameField = getByLabelText('Name:') as HTMLInputElement;
+  const nameField = getByLabelText('Name') as HTMLInputElement;
   const button = getByText('Join game') as HTMLButtonElement;
 
   expect(nameField.disabled).toEqual(false);
@@ -34,7 +34,7 @@ test('should set the current player', async () => {
   jest.spyOn(currentPlayerId, 'set');
   const { getByText, getByLabelText } = render(AppFixture, { socket, component: PlayerForm });
 
-  const nameField = getByLabelText('Name:') as HTMLInputElement;
+  const nameField = getByLabelText('Name') as HTMLInputElement;
   const button = getByText('Join game') as HTMLButtonElement;
 
   await fireEvent.submit(button.form);
@@ -46,7 +46,7 @@ test('should add the player to the room', async () => {
   jest.spyOn(socket, 'emit');
   const { getByText, getByLabelText } = render(AppFixture, { socket, component: PlayerForm });
 
-  const nameField = getByLabelText('Name:') as HTMLInputElement;
+  const nameField = getByLabelText('Name') as HTMLInputElement;
   nameField.value = 'Binks';
   const button = getByText('Join game') as HTMLButtonElement;
 

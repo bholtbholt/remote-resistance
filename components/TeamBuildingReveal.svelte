@@ -54,7 +54,7 @@
         class:ring={player.teamMember}
       >
         <div class="py-2 text-5xl">{player.vote}</div>
-        <PlayerInline {...player} truncate={true} />
+        <PlayerInline avatar={player.avatar} name={player.name} truncate={true} />
       </li>
     {/each}
   </ul>

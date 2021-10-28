@@ -35,7 +35,7 @@ test('should suggest a new room when all spots are taken', () => {
   });
   const { getByText } = render(AppFixture, { socket, component: LobbyPreGame });
 
-  const link = getByText('start a new one instead.');
+  const link = getByText('start a new game');
 
   expect(link);
 });
@@ -43,7 +43,7 @@ test('should suggest a new room when all spots are taken', () => {
 test('should render the player form when spots are available', () => {
   const { getByLabelText } = render(AppFixture, { socket, component: LobbyPreGame });
 
-  const nameField = getByLabelText('Name:');
+  const nameField = getByLabelText('Name');
 
   expect(nameField);
 });
