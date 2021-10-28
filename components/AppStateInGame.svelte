@@ -11,7 +11,7 @@
   import PhaseTeamVote from './PhaseTeamVote.svelte';
   import PhaseTeamReveal from './PhaseTeamReveal.svelte';
   import Mission from './Mission.svelte';
-  import MissionReveal from './MissionReveal.svelte';
+  import PhaseMissionReveal from './PhaseMissionReveal.svelte';
   import UIButton from './UIButton.svelte';
 
   let hideRoleReveal = window.sessionStorage.getItem('hideRoleReveal');
@@ -32,7 +32,7 @@
     TEAM_VOTE: PhaseTeamVote,
     TEAM_REVEAL: PhaseTeamReveal,
     MISSION_START: Mission,
-    MISSION_REVEAL: MissionReveal,
+    MISSION_REVEAL: PhaseMissionReveal,
   };
 </script>
 

@@ -2,6 +2,6 @@
   import { blur } from './custom-transitions';
 </script>
 
-<div id="MissionReveal" in:blur>
+<div id="PhaseMissionReveal" in:blur>
   <p>Mission reveal</p>
 </div>
