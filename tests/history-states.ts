@@ -143,3 +143,21 @@ export const roundOneMissionFailed = [
   createHistoryEvent('leader::change', [players, spy1.id]),
   createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
 ];
+
+export const roundTwoStartP = [
+  ...roundOneMissionPassed,
+  createHistoryEvent('rounds::update', [0, { winner: 'resistance' }]),
+  createHistoryEvent('missionvote::reset'),
+  createHistoryEvent('team::reset'),
+  createHistoryEvent('teamvote::reset'),
+  createHistoryEvent('roundstate::set', 'TEAM_SELECTION'),
+];
+
+export const roundTwoStartF = [
+  ...roundOneMissionFailed,
+  createHistoryEvent('rounds::update', [0, { winner: 'spies' }]),
+  createHistoryEvent('missionvote::reset'),
+  createHistoryEvent('team::reset'),
+  createHistoryEvent('teamvote::reset'),
+  createHistoryEvent('roundstate::set', 'TEAM_SELECTION'),
+];
