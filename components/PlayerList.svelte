@@ -5,7 +5,7 @@
   import { gridSize } from './view-helper';
 </script>
 
-<ul id="playerList" class="grid {gridSize(cols)} gap-2">
+<ul id="playerList" class="grid {gridSize(cols)} gap-2 mb-8">
   {#each players as player}
     <Player {...player} />
   {/each}

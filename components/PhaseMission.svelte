@@ -19,7 +19,10 @@
   import { currentRound } from '../stores/round';
   import { team } from '../stores/team';
 
+  import UIHeading from './UIHeading.svelte';
   import PlayerList from './PlayerList.svelte';
+  import UIButton from './UIButton.svelte';
+  import UIBanner from './UIBanner.svelte';
   import UISpinner from './UISpinner.svelte';
   import { toSentance } from './view-helper';
 
@@ -29,24 +32,24 @@
       value: 'fail',
       id: 'vote-fail',
       label: 'Fail',
-      defaultColor: 'text-red-600 bg-red-200',
-      selectedColor: 'bg-red-600 text-red-200',
+      defaultColor: 'text-rose-500 bg-white bg-opacity-80 dark:bg-gray-700',
+      selectedColor: 'text-rose-100 bg-rose-500 ',
       selected: playerVote === 'fail',
       disabled: !$playerIsASpy,
       rotateDeg: -18,
-      rotateX: -60,
+      rotateX: -90,
       origin: 'origin-left',
     },
     {
       value: 'pass',
       id: 'vote-pass',
       label: 'Pass',
-      defaultColor: 'text-blue-700 bg-blue-200',
-      selectedColor: 'bg-blue-600 text-blue-200',
+      defaultColor: 'text-sky-500 bg-white bg-opacity-80 dark:bg-gray-700',
+      selectedColor: 'text-sky-100 bg-sky-500',
       selected: playerVote === 'pass',
       disabled: false,
       rotateDeg: 18,
-      rotateX: 60,
+      rotateX: 90,
       origin: 'origin-right',
     },
   ];
@@ -71,32 +74,34 @@
 
 <div id="PhaseMission" in:fade>
   {#if $playerIsTeamMember}
-    <h2 class="text-gray-100 text-center">Pass or fail this mission</h2>
-    <h3 class="text-lg text-gray-500 text-center">
-      <!-- prettier-ignore -->
-      {#if $playerIsASpy}
-        Spies may pass or fail
-      {:else}
-        Resistance must pass
-      {/if}
-    </h3>
+    <UIHeading>
+      Pass or fail this mission
+      <span slot="subheading">
+        {#if $playerIsASpy}
+          Spies may pass or fail
+        {:else}
+          Resistance must pass
+        {/if}
+      </span>
+    </UIHeading>
     {#if !$playerHasCompletedMission}
       <form on:submit|preventDefault={submitVote}>
-        <div class="grid grid-cols-2 gap-lg">
+        <div class="flex justify-center gap-6 mb-10">
           {#each voteOptions as vote}
             <label
               for={vote.id}
               in:rotate={{ deg: vote.rotateDeg, x: vote.rotateX, y: 20 }}
-              class:opacity-25={(playerVote && !vote.selected) || vote.disabled}
+              class:opacity-30={(playerVote && !vote.selected) || vote.disabled}
               class:cursor-pointer={!vote.disabled}
               class:cursor-not-allowed={vote.disabled}
               class:scale-110={vote.selected}
               class:scale-90={playerVote && !vote.selected}
-              class="{vote.selected
-                ? vote.selectedColor
-                : vote.defaultColor} transition duration-150
-                transform relative rounded-lg shadow text-center text-xl font-extrabold uppercase
-                tracking-widest {vote.origin}"
+              class="relative flex-1
+                text-6xl font-extrabold uppercase tracking-tight text-center
+                py-8 px-3 rounded-lg shadow-xl
+                transform {vote.origin}
+                {vote.selected ? vote.selectedColor : vote.defaultColor}
+                transition-all duration-300 ease-out"
             >
               <input
                 id={vote.id}
@@ -113,47 +118,43 @@
         </div>
 
         {#if playerVote}
-          <button class="btn-primary font-bold text-lg w-full" in:fly={{ y: 200, duration: 600 }}>
-            {voteOptions.find((vote) => vote.value === playerVote).label} this mission
-          </button>
+          <div class="mt-8" in:fly={{ y: 200, duration: 600 }}>
+            {#if playerVote === 'pass'}
+              <UIButton theme="sky">Pass this mission</UIButton>
+            {:else if playerVote === 'fail'}
+              <UIButton theme="rose">Fail this mission</UIButton>
+            {/if}
+          </div>
         {/if}
       </form>
     {/if}
   {:else}
     <PlayerList cols={$teamMembers.length} players={$teamMembers} />
-    <h2 class="text-lg text-gray-500 text-center">
+    <UIHeading>
       {toSentance($teamMembers.map((teamMember) => teamMember.name))} are on the {$currentRound.name}
       mission
-    </h2>
+    </UIHeading>
   {/if}
 
   {#if $playerIsLeader && $missionIsComplete}
-    <div
-      in:fly={{ y: 200, duration: 600 }}
-      class="bg-white rounded-lg shadow-xl relative z-10 text-center"
-    >
-      <h2 class="text-primary-500">The mission is complete!</h2>
-      <button on:click={revealVotes} class="btn-primary font-bold text-lg w-full">
-        Reveal results
-      </button>
+    <div in:fly={{ y: 200, duration: 600 }} class="text-center">
+      <h2 class="text-4xl font-semibold text-white dark:text-purple-50 mb-6">
+        The mission is complete!
+      </h2>
+      <UIButton on:click={revealVotes}>Reveal results</UIButton>
     </div>
   {:else if ($playerIsTeamMember && $playerHasCompletedMission) || !$playerIsTeamMember}
-    <div
-      in:fly={{ y: 200, duration: 600 }}
-      class="bg-blue-200 rounded-lg shadow-xl relative z-10 flex items-center"
-    >
-      <UISpinner class="text-blue-700" />
-      <div>
-        <h2 class="text-blue-900">Waiting for mission results</h2>
-        <p class="text-blue-700">
-          <!-- prettier-ignore -->
+    <div in:fly={{ y: 200, duration: 600 }}>
+      <UIBanner>
+        Waiting for mission results
+        <p slot="details">
           {#if $currentRound.permittedMissionVoteFails}
             Spies must play 2 fails to win this mission
           {:else}
             All players must pass to win this mission
           {/if}
         </p>
-      </div>
+      </UIBanner>
     </div>
   {/if}
 </div>

@@ -14,6 +14,9 @@
   py-3 px-4 rounded-lg shadow-xl
   flex items-center flex-wrap"
 >
-  <UISpinner class="mr-3 flex-none" />
-  <h2 class="text-xl flex-1"><slot /></h2>
+  <UISpinner class="mr-3 flex-initial" />
+  <div class="flex-1">
+    <h2 class="text-xl"><slot /></h2>
+    <slot name="details" />
+  </div>
 </div>
