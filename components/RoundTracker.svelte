@@ -3,6 +3,15 @@
   import { scale } from 'svelte/transition';
 
   import { currentRound, rounds } from '../stores/round';
+
+  // maps to round.winner || currentRound, with undefined as the
+  // fallback/default style and true as the currentRound style
+  const roundStyle = {
+    spies: 'bg-rose-600',
+    resistance: 'bg-sky-400 dark:bg-sky-500',
+    true: 'bg-yellow-400 dark:bg-indigo-600 transform scale-150',
+    undefined: 'bg-indigo-900 dark:bg-gray-600',
+  };
 </script>
 
 <ul id="RoundTracker" class="flex justify-between mb-8">
@@ -10,9 +19,7 @@
     <li
       class="relative h-4 w-4 rounded-full
         flex justify-center items-center
-        {round === $currentRound
-        ? 'bg-yellow-400 dark:bg-indigo-600 transform scale-150'
-        : 'bg-indigo-900 dark:bg-gray-600'}"
+        {roundStyle[round === $currentRound || round.winner]}"
     >
       {#if round === $currentRound}
         <span
