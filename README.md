@@ -98,7 +98,7 @@ import { get } from 'svelte/store';
 import AppFixture from './AppFixture.svelte';
 import Component from './Component.svelte';
 import { currentPlayerId } from '../stores/player';
-import { historyState, players } from './history-states';
+import { createHistoryEvent, historyState, players } from './history-states';
 const socket = require('socket.io-client')('test');
 
 test('should do a thing', () => {

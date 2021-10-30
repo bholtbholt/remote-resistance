@@ -1,8 +1,7 @@
-import { createHistoryEvent } from './test-helper';
 import { get } from 'svelte/store';
 import { rounds, currentRound } from '../stores/round';
 import { history } from '../stores/history';
-import { roundOneTeamApproved } from './history-states';
+import { createHistoryEvent, roundOneTeamApproved } from './history-states';
 
 test('should initialize all rounds', () => {
   history['history::init'](roundOneTeamApproved);

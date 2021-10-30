@@ -1,9 +1,8 @@
 import { render, fireEvent } from '@testing-library/svelte';
 import AppFixture from './AppFixture.svelte';
-import { createHistoryEvent } from './test-helper';
 import PhaseMission from '../components/PhaseMission.svelte';
 import { currentPlayerId } from '../stores/player';
-import { roundOneTeamApproved, players } from './history-states';
+import { createHistoryEvent, roundOneTeamApproved, players } from './history-states';
 const socket = require('socket.io-client')('test');
 
 const historyState = [

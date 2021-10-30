@@ -1,8 +1,7 @@
-import { createHistoryEvent } from './test-helper';
 import { get } from 'svelte/store';
 import { missionIsComplete, missionVotes, missionPassed } from '../stores/mission';
 import { history } from '../stores/history';
-import { roundOneTeamApproved, players } from './history-states';
+import { createHistoryEvent, roundOneTeamApproved, players } from './history-states';
 import { rounds, currentRound } from '../stores/round';
 
 test('should cast a vote', () => {

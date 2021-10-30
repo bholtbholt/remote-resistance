@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/svelte';
-import { createPlayer, repeat, createHistoryEvent } from './test-helper';
+import { createPlayer, repeat } from './test-helper';
 import { get } from 'svelte/store';
 import AppFixture from './AppFixture.svelte';
 import AppStatePreGame from '../components/AppStatePreGame.svelte';
