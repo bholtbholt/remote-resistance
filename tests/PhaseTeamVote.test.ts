@@ -2,7 +2,6 @@ import { render, fireEvent } from '@testing-library/svelte';
 import AppFixture from './AppFixture.svelte';
 import PhaseTeamVote from '../components/PhaseTeamVote.svelte';
 import { currentPlayerId } from '../stores/player';
-import { team, teamVotes } from '../stores/team';
 import {
   createHistoryEvent,
   roundOneTeam,

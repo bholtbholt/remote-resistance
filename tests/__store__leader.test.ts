@@ -1,6 +1,6 @@
 import { createPlayer, repeat } from './test-helper';
 import { get } from 'svelte/store';
-import { currentPlayerId, players } from '../stores/player';
+import { players } from '../stores/player';
 import { leader } from '../stores/leader';
 
 beforeEach(() => {

@@ -2,7 +2,6 @@ import { get } from 'svelte/store';
 import { missionIsComplete, missionVotes, missionPassed } from '../stores/mission';
 import { history } from '../stores/history';
 import { createHistoryEvent, roundOneTeamApproved, players } from './history-states';
-import { rounds, currentRound } from '../stores/round';
 
 test('should cast a vote', () => {
   const id = 'player-id';

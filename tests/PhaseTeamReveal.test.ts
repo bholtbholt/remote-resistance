@@ -2,7 +2,6 @@ import { render, fireEvent } from '@testing-library/svelte';
 import AppFixture from './AppFixture.svelte';
 import PhaseTeamReveal from '../components/PhaseTeamReveal.svelte';
 import { currentPlayerId } from '../stores/player';
-import { team, teamVotes } from '../stores/team';
 import { roundOneTeamApproved, roundOneTeamRejected, players } from './history-states';
 const socket = require('socket.io-client')('test');
 

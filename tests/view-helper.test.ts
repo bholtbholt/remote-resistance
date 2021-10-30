@@ -1,4 +1,3 @@
-import { createPlayer, repeat } from './test-helper';
 import { gridSize, playerNamesToSentance, toSentance } from '../components/view-helper';
 
 test('should join an array with an and', () => {

@@ -4,7 +4,6 @@ import { get } from 'svelte/store';
 import AppFixture from './AppFixture.svelte';
 import AppStatePreGame from '../components/AppStatePreGame.svelte';
 import { currentPlayerId, players } from '../stores/player';
-import { generateRuleset, ruleset } from '../stores/rules';
 const socket = require('socket.io-client')('test');
 
 test('should render 10 blank spots with no players', () => {
