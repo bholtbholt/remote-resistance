@@ -1,17 +1,10 @@
-import 'core-js';
-import 'ts-jest';
 import { render } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
-import { resetTestState } from './test-helper';
 import App from '../components/App.svelte';
 import { history } from '../stores/history';
 import { appstate } from '../stores/app'; // TODO Remove when real history exists
 import { roundOneStart } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 test('should show a loading state before history inits', () => {
   const { getByTestId } = render(App, { socket, currentPlayerIdSessionKey: '' });

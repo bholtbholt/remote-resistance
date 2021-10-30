@@ -1,14 +1,8 @@
-import 'core-js';
-import 'ts-jest';
-import { createHistoryEvent, resetTestState } from './test-helper';
+import { createHistoryEvent } from './test-helper';
 import { get } from 'svelte/store';
 import { rounds, currentRound } from '../stores/round';
 import { history } from '../stores/history';
 import { roundOneTeamApproved } from './history-states';
-
-afterEach(() => {
-  return resetTestState();
-});
 
 test('should initialize all rounds', () => {
   history['history::init'](roundOneTeamApproved);

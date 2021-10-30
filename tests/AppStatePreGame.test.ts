@@ -1,17 +1,11 @@
-import 'core-js';
-import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { createPlayer, repeat, createHistoryEvent, resetTestState } from './test-helper';
+import { createPlayer, repeat, createHistoryEvent } from './test-helper';
 import { get } from 'svelte/store';
 import AppFixture from './AppFixture.svelte';
 import AppStatePreGame from '../components/AppStatePreGame.svelte';
 import { currentPlayerId, players } from '../stores/player';
 import { generateRuleset, ruleset } from '../stores/rules';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 test('should render 10 blank spots with no players', () => {
   const { container } = render(AppFixture, { socket, component: AppStatePreGame });

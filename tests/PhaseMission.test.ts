@@ -1,8 +1,6 @@
-import 'core-js';
-import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { createHistoryEvent, resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
+import { createHistoryEvent } from './test-helper';
 import PhaseMission from '../components/PhaseMission.svelte';
 import { currentPlayerId } from '../stores/player';
 import { roundOneTeamApproved, players } from './history-states';
@@ -12,10 +10,6 @@ const historyState = [
   ...roundOneTeamApproved,
   createHistoryEvent('roundstate::set', 'MISSION_START'),
 ];
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when player is a team member', () => {
   test('should cast a passing vote', async () => {

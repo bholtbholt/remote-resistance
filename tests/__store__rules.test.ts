@@ -1,5 +1,3 @@
-import 'core-js';
-import 'ts-jest';
 import { createPlayer, repeat } from './test-helper';
 import { generateRuleset } from '../stores/rules';
 

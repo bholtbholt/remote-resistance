@@ -1,17 +1,10 @@
-import 'core-js';
-import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import PhaseTeamReveal from '../components/PhaseTeamReveal.svelte';
 import { currentPlayerId } from '../stores/player';
 import { team, teamVotes } from '../stores/team';
 import { roundOneTeamApproved, roundOneTeamRejected, players } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when vote is rejected', () => {
   test('should allow the new leader to re-start the team building phase', async () => {

@@ -1,15 +1,8 @@
-import 'core-js';
-import 'ts-jest';
 import { render } from '@testing-library/svelte';
-import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import RoundTracker from '../components/RoundTracker.svelte';
 import { roundOneStart, roundOneNewVote } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 test('should show all rounds', () => {
   const { container } = render(AppFixture, {

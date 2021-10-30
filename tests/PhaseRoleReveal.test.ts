@@ -1,16 +1,9 @@
-import 'core-js';
-import 'ts-jest';
 import { render } from '@testing-library/svelte';
-import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import PhaseRoleReveal from '../components/PhaseRoleReveal.svelte';
 import { currentPlayerId } from '../stores/player';
 import { roundOneStart, players } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when player is resistance', () => {
   test('should show resistance', () => {

@@ -1,16 +1,9 @@
-import 'core-js';
-import 'ts-jest';
 import { render } from '@testing-library/svelte';
-import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import AppStateInGame from '../components/AppStateInGame.svelte';
 import { currentPlayerId } from '../stores/player';
 import { roundOneStart, roundOneTeam, roundOneTeamApproved, players } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when player is logged in', () => {
   test('should show role', () => {
