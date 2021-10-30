@@ -2,7 +2,7 @@
   import { backOut } from 'svelte/easing';
   import { scale } from 'svelte/transition';
 
-  import { currentRound, rounds } from '../stores/round';
+  import { currentRound, rounds, phaseTeamBuilding } from '../stores/round';
 
   // maps to round.winner || currentRound, with undefined as the
   // fallback/default style and true as the currentRound style
@@ -27,7 +27,7 @@
             animate-slow-pulse opacity-75
             bg-yellow-200 dark:bg-indigo-400"
         />
-        {#if round.failedTeamVotes > 0}
+        {#if $phaseTeamBuilding && round.failedTeamVotes > 0}
           <div
             class="text-xs text-indigo-800 dark:text-indigo-50"
             style="font-size: 0.66em"

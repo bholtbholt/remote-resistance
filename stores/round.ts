@@ -54,12 +54,9 @@ export const rounds = (() => {
   };
 })();
 
-export const currentRound = derived(
-  rounds,
-  ($rounds): Round => {
-    return $rounds.find((round) => round.winner === undefined) || initRound({});
-  },
-);
+export const currentRound = derived(rounds, ($rounds): Round => {
+  return $rounds.find((round) => round.winner === undefined) || initRound({});
+});
 
 export const roundstate = (() => {
   const { set, subscribe } = writable('TEAM_SELECTION');
@@ -70,3 +67,8 @@ export const roundstate = (() => {
     'roundstate::set': set,
   };
 })();
+
+export const phaseTeamBuilding = derived(roundstate, ($roundState) => {
+  const phases = ['TEAM_SELECTION', 'TEAM_VOTE', 'TEAM_REVEAL'];
+  return phases.includes($roundState);
+});

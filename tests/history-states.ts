@@ -21,7 +21,7 @@ const [spy1, spy2, spy3, p4, p5, p6, p7] = players;
 let ruleset = generateRuleset(players);
 ruleset.spyIds = [spy1.id, spy2.id, spy3.id];
 
-const votesApproved = [
+export const votesApproved = [
   createHistoryEvent('teamvote::cast', { playerId: spy1.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy2.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy3.id, vote: '👍' }),
@@ -31,7 +31,7 @@ const votesApproved = [
   createHistoryEvent('teamvote::cast', { playerId: p7.id, vote: '👎' }),
 ];
 
-const votesRejected = [
+export const votesRejected = [
   createHistoryEvent('teamvote::cast', { playerId: spy1.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy2.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy3.id, vote: '👎' }),
