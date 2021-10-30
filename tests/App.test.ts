@@ -1,5 +1,4 @@
 import { render } from '@testing-library/svelte';
-import '@testing-library/jest-dom';
 import App from '../components/App.svelte';
 import { history } from '../stores/history';
 import { appstate } from '../stores/app'; // TODO Remove when real history exists

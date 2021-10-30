@@ -19,7 +19,7 @@ describe('when player is logged in', () => {
     const h2 = getByRole('heading', {
       name: "You're part of the resistance , but there are 3 spies in your midst.",
     });
-    expect(h2);
+    expect(h2).toBeInTheDocument();
   });
 });
 
@@ -31,7 +31,7 @@ test('should render PhaseTeamSelection', () => {
   });
 
   const component = container.querySelector('#PhaseTeamSelection');
-  expect(component);
+  expect(component).toBeInTheDocument();
 });
 
 test('should render PhaseTeamVote', () => {
@@ -42,7 +42,7 @@ test('should render PhaseTeamVote', () => {
   });
 
   const component = container.querySelector('#PhaseTeamVote');
-  expect(component);
+  expect(component).toBeInTheDocument();
 });
 
 test('should render PhaseTeamReveal', () => {
@@ -53,5 +53,5 @@ test('should render PhaseTeamReveal', () => {
   });
 
   const component = container.querySelector('#PhaseTeamReveal');
-  expect(component);
+  expect(component).toBeInTheDocument();
 });

@@ -18,7 +18,7 @@ describe('when vote is rejected', () => {
     });
 
     const button = getByText('Pick a new team');
-    expect(button);
+    expect(button).toBeInTheDocument();
 
     await fireEvent.click(button);
 
@@ -40,7 +40,7 @@ describe('when vote is rejected', () => {
     const h3 = getByRole('heading', {
       name: `${leader.name} is the new leader`,
     });
-    expect(h3);
+    expect(h3).toBeInTheDocument();
   });
 
   test('should reveal player votes', () => {
@@ -68,7 +68,7 @@ describe('when vote is approved', () => {
     });
 
     const button = getByText('Start mission');
-    expect(button);
+    expect(button).toBeInTheDocument();
 
     await fireEvent.click(button);
 
@@ -114,7 +114,7 @@ describe('$leaderName', () => {
       name: `Picked by ${leader.name} for the first mission`,
     });
 
-    expect(h3);
+    expect(h3).toBeInTheDocument();
   });
 
   test('should show previous leader name when vote is rejected', () => {
@@ -129,6 +129,6 @@ describe('$leaderName', () => {
       name: `Picked by ${leader.name} for the first mission`,
     });
 
-    expect(h3);
+    expect(h3).toBeInTheDocument();
   });
 });

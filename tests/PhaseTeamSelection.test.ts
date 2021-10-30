@@ -22,7 +22,7 @@ describe('when player is leader', () => {
     const h2 = getByRole('heading', {
       name: 'Pick 2 players for the first mission.',
     });
-    expect(h2);
+    expect(h2).toBeInTheDocument();
   });
 
   test('should let leader select players', async () => {
@@ -35,7 +35,7 @@ describe('when player is leader', () => {
 
     players.forEach((player) => {
       const input = container.querySelector(`#player_${player.id}:not(disabled)`);
-      expect(input);
+      expect(input).toBeInTheDocument();
     });
 
     const [p1] = players;
@@ -78,7 +78,7 @@ describe('when player is not leader', () => {
 
     players.forEach((player) => {
       const input = container.querySelector(`#player_${player.id}`);
-      expect(input);
+      expect(input).toBeInTheDocument();
       expect(input).toHaveProperty('disabled');
     });
   });

@@ -20,7 +20,7 @@ describe('when player is resistance', () => {
       name: "You're part of the resistance , but there are 3 spies in your midst.",
     });
 
-    expect(h2);
+    expect(h2).toBeInTheDocument();
     expect(container.querySelectorAll('#playerList > li').length).toEqual(7);
   });
 });
@@ -40,7 +40,7 @@ describe('when player is a spy', () => {
       name: `You, ${spy2.name}, and ${spy3.name} are spies amongst the resistance!`,
     });
 
-    expect(h2);
+    expect(h2).toBeInTheDocument();
     expect(container.querySelectorAll('#playerList > li').length).toEqual(3);
   });
 });

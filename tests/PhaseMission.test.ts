@@ -88,7 +88,7 @@ describe('when player is a team member', () => {
     });
 
     const h2 = getByRole('heading', { name: 'Waiting for mission results' });
-    expect(h2);
+    expect(h2).toBeInTheDocument();
   });
 
   test('should not show a waiting message before voting', () => {
@@ -113,7 +113,7 @@ test('should restrict non-team members from voting', () => {
   });
 
   const h2 = getByRole('heading', { name: 'Waiting for mission results' });
-  expect(h2);
+  expect(h2).toBeInTheDocument();
   expect(container.querySelector(`#vote-pass`)).toBeNull();
 });
 
@@ -138,7 +138,7 @@ describe('when mission is complete', () => {
     });
 
     const message = queryByText('The mission is complete!');
-    expect(message);
+    expect(message).toBeInTheDocument();
   });
 
   test('should not show the reveal message', () => {

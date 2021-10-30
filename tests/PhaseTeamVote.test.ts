@@ -26,7 +26,7 @@ describe('when player is logged in', () => {
     await fireEvent.click(input);
 
     const button = getByText('Approve this team');
-    expect(button);
+    expect(button).toBeInTheDocument();
 
     await fireEvent.click(button);
 
@@ -46,7 +46,7 @@ describe('when player is logged in', () => {
     });
 
     const h2 = getByRole('heading', { name: 'Waiting for vote results' });
-    expect(h2);
+    expect(h2).toBeInTheDocument();
   });
 });
 
@@ -58,7 +58,7 @@ test('should restrict viewers from voting', () => {
   });
 
   const h2 = getByRole('heading', { name: 'Waiting for vote results' });
-  expect(h2);
+  expect(h2).toBeInTheDocument();
   expect(container.querySelector(`#vote-reject`)).toBeNull();
 });
 
