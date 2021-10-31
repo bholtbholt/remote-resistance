@@ -44,7 +44,7 @@
     },
   };
 
-  $: cards = $rounds[$currentRound.index].missionPhase.votes
+  $: cards = $currentRound.missionPhase.votes
     .map((missionVote) => missionVote.vote)
     .sort((vote) => vote == 'fail');
   $: transitionDelay = cards.length * 1200;
