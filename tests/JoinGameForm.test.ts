@@ -1,15 +1,8 @@
-import 'core-js';
-import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import JoinGameForm from '../components/JoinGameForm.svelte';
 import { currentPlayerId, players } from '../stores/player';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 test('should enable the form by default', () => {
   const { getByText, getByLabelText } = render(AppFixture, { socket, component: JoinGameForm });

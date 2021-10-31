@@ -1,17 +1,9 @@
-import 'core-js';
-import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import PhaseTeamReveal from '../components/PhaseTeamReveal.svelte';
 import { currentPlayerId } from '../stores/player';
-import { team, teamVotes } from '../stores/team';
 import { roundOneTeamApproved, roundOneTeamRejected, players } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when vote is rejected', () => {
   test('should allow the new leader to re-start the team building phase', async () => {
@@ -26,7 +18,7 @@ describe('when vote is rejected', () => {
     });
 
     const button = getByText('Pick a new team');
-    expect(button);
+    expect(button).toBeInTheDocument();
 
     await fireEvent.click(button);
 
@@ -48,7 +40,7 @@ describe('when vote is rejected', () => {
     const h3 = getByRole('heading', {
       name: `${leader.name} is the new leader`,
     });
-    expect(h3);
+    expect(h3).toBeInTheDocument();
   });
 
   test('should reveal player votes', () => {
@@ -76,7 +68,7 @@ describe('when vote is approved', () => {
     });
 
     const button = getByText('Start mission');
-    expect(button);
+    expect(button).toBeInTheDocument();
 
     await fireEvent.click(button);
 
@@ -122,7 +114,7 @@ describe('$leaderName', () => {
       name: `Picked by ${leader.name} for the first mission`,
     });
 
-    expect(h3);
+    expect(h3).toBeInTheDocument();
   });
 
   test('should show previous leader name when vote is rejected', () => {
@@ -137,6 +129,6 @@ describe('$leaderName', () => {
       name: `Picked by ${leader.name} for the first mission`,
     });
 
-    expect(h3);
+    expect(h3).toBeInTheDocument();
   });
 });

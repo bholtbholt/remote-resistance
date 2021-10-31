@@ -1,17 +1,9 @@
-import 'core-js';
-import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { createHistoryEvent, resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import PhaseTeamSelection from '../components/PhaseTeamSelection.svelte';
 import { currentPlayerId } from '../stores/player';
-import { team, teamVotes } from '../stores/team';
-import { roundOneStart, players } from './history-states';
+import { createHistoryEvent, roundOneStart, players } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when player is leader', () => {
   beforeEach(() => {
@@ -30,7 +22,7 @@ describe('when player is leader', () => {
     const h2 = getByRole('heading', {
       name: 'Pick 2 players for the first mission.',
     });
-    expect(h2);
+    expect(h2).toBeInTheDocument();
   });
 
   test('should let leader select players', async () => {
@@ -43,7 +35,7 @@ describe('when player is leader', () => {
 
     players.forEach((player) => {
       const input = container.querySelector(`#player_${player.id}:not(disabled)`);
-      expect(input);
+      expect(input).toBeInTheDocument();
     });
 
     const [p1] = players;
@@ -86,7 +78,7 @@ describe('when player is not leader', () => {
 
     players.forEach((player) => {
       const input = container.querySelector(`#player_${player.id}`);
-      expect(input);
+      expect(input).toBeInTheDocument();
       expect(input).toHaveProperty('disabled');
     });
   });

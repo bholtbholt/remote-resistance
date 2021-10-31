@@ -1,16 +1,9 @@
-import 'core-js';
-import 'ts-jest';
 import { render } from '@testing-library/svelte';
-import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import PhaseRoleReveal from '../components/PhaseRoleReveal.svelte';
 import { currentPlayerId } from '../stores/player';
 import { roundOneStart, players } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when player is resistance', () => {
   test('should show resistance', () => {
@@ -27,7 +20,7 @@ describe('when player is resistance', () => {
       name: "You're part of the resistance , but there are 3 spies in your midst.",
     });
 
-    expect(h2);
+    expect(h2).toBeInTheDocument();
     expect(container.querySelectorAll('#playerList > li').length).toEqual(7);
   });
 });
@@ -47,7 +40,7 @@ describe('when player is a spy', () => {
       name: `You, ${spy2.name}, and ${spy3.name} are spies amongst the resistance!`,
     });
 
-    expect(h2);
+    expect(h2).toBeInTheDocument();
     expect(container.querySelectorAll('#playerList > li').length).toEqual(3);
   });
 });

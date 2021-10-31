@@ -1,6 +1,4 @@
-import 'core-js';
-import 'ts-jest';
-import { createPlayer, repeat, resetTestState } from './test-helper';
+import { createPlayer, repeat } from './test-helper';
 import { get } from 'svelte/store';
 import {
   currentPlayer,
@@ -26,10 +24,6 @@ beforeEach(() => {
     players['player::add'](createPlayer());
   });
   return;
-});
-
-afterEach(() => {
-  return resetTestState();
 });
 
 describe('#players', () => {

@@ -1,4 +1,4 @@
-import type { Action, HistoryEvent, Player } from '../types';
+import type { Player } from '../types';
 import { v4 as uuid } from 'uuid';
 import { appstate } from '../stores/app';
 import { history } from '../stores/history';
@@ -11,10 +11,6 @@ import { team, teamVotes } from '../stores/team';
 
 export function repeat(number: number, callback) {
   return Array.from(Array(number)).map((i) => callback());
-}
-
-export function createHistoryEvent(action: Action, data = {}): HistoryEvent {
-  return { action, data, timestamp: Date.now(), id: uuid() };
 }
 
 export function createPlayer(player = {}): Player {

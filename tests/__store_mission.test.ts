@@ -1,15 +1,7 @@
-import 'core-js';
-import 'ts-jest';
-import { createHistoryEvent, resetTestState } from './test-helper';
 import { get } from 'svelte/store';
 import { missionIsComplete, missionVotes, missionPassed } from '../stores/mission';
 import { history } from '../stores/history';
-import { roundOneTeamApproved, players } from './history-states';
-import { rounds, currentRound } from '../stores/round';
-
-afterEach(() => {
-  return resetTestState();
-});
+import { createHistoryEvent, roundOneTeamApproved, players } from './history-states';
 
 test('should cast a vote', () => {
   const id = 'player-id';

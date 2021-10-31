@@ -1,18 +1,12 @@
-import 'core-js';
-import 'ts-jest';
-import { createPlayer, repeat, resetTestState } from './test-helper';
+import { createPlayer, repeat } from './test-helper';
 import { get } from 'svelte/store';
-import { currentPlayerId, players } from '../stores/player';
+import { players } from '../stores/player';
 import { leader } from '../stores/leader';
 
 beforeEach(() => {
   repeat(5, () => {
     players['player::add'](createPlayer());
   });
-});
-
-afterEach(() => {
-  return resetTestState();
 });
 
 test('should set a new leader', () => {

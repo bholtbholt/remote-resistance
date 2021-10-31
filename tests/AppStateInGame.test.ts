@@ -1,16 +1,9 @@
-import 'core-js';
-import 'ts-jest';
 import { render } from '@testing-library/svelte';
-import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import AppStateInGame from '../components/AppStateInGame.svelte';
 import { currentPlayerId } from '../stores/player';
 import { roundOneStart, roundOneTeam, roundOneTeamApproved, players } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when player is logged in', () => {
   test('should show role', () => {
@@ -26,7 +19,7 @@ describe('when player is logged in', () => {
     const h2 = getByRole('heading', {
       name: "You're part of the resistance , but there are 3 spies in your midst.",
     });
-    expect(h2);
+    expect(h2).toBeInTheDocument();
   });
 });
 
@@ -38,7 +31,7 @@ test('should render PhaseTeamSelection', () => {
   });
 
   const component = container.querySelector('#PhaseTeamSelection');
-  expect(component);
+  expect(component).toBeInTheDocument();
 });
 
 test('should render PhaseTeamVote', () => {
@@ -49,7 +42,7 @@ test('should render PhaseTeamVote', () => {
   });
 
   const component = container.querySelector('#PhaseTeamVote');
-  expect(component);
+  expect(component).toBeInTheDocument();
 });
 
 test('should render PhaseTeamReveal', () => {
@@ -60,5 +53,5 @@ test('should render PhaseTeamReveal', () => {
   });
 
   const component = container.querySelector('#PhaseTeamReveal');
-  expect(component);
+  expect(component).toBeInTheDocument();
 });

@@ -1,22 +1,15 @@
-import 'core-js';
-import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { createHistoryEvent, resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import PhaseTeamVote from '../components/PhaseTeamVote.svelte';
 import { currentPlayerId } from '../stores/player';
-import { team, teamVotes } from '../stores/team';
 import {
+  createHistoryEvent,
   roundOneTeam,
   roundOneVotesApproved,
   roundOneVotesRejected,
   players,
 } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when player is logged in', () => {
   test('should cast a vote', async () => {
@@ -33,7 +26,7 @@ describe('when player is logged in', () => {
     await fireEvent.click(input);
 
     const button = getByText('Approve this team');
-    expect(button);
+    expect(button).toBeInTheDocument();
 
     await fireEvent.click(button);
 
@@ -53,7 +46,7 @@ describe('when player is logged in', () => {
     });
 
     const h2 = getByRole('heading', { name: 'Waiting for vote results' });
-    expect(h2);
+    expect(h2).toBeInTheDocument();
   });
 });
 
@@ -65,7 +58,7 @@ test('should restrict viewers from voting', () => {
   });
 
   const h2 = getByRole('heading', { name: 'Waiting for vote results' });
-  expect(h2);
+  expect(h2).toBeInTheDocument();
   expect(container.querySelector(`#vote-reject`)).toBeNull();
 });
 

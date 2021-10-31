@@ -1,21 +1,14 @@
-import 'core-js';
-import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { createHistoryEvent, resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import PhaseMission from '../components/PhaseMission.svelte';
 import { currentPlayerId } from '../stores/player';
-import { roundOneTeamApproved, players } from './history-states';
+import { createHistoryEvent, roundOneTeamApproved, players } from './history-states';
 const socket = require('socket.io-client')('test');
 
 const historyState = [
   ...roundOneTeamApproved,
   createHistoryEvent('roundstate::set', 'MISSION_START'),
 ];
-
-afterEach(() => {
-  return resetTestState();
-});
 
 describe('when player is a team member', () => {
   test('should cast a passing vote', async () => {
@@ -95,7 +88,7 @@ describe('when player is a team member', () => {
     });
 
     const h2 = getByRole('heading', { name: 'Waiting for mission results' });
-    expect(h2);
+    expect(h2).toBeInTheDocument();
   });
 
   test('should not show a waiting message before voting', () => {
@@ -120,7 +113,7 @@ test('should restrict non-team members from voting', () => {
   });
 
   const h2 = getByRole('heading', { name: 'Waiting for mission results' });
-  expect(h2);
+  expect(h2).toBeInTheDocument();
   expect(container.querySelector(`#vote-pass`)).toBeNull();
 });
 
@@ -145,7 +138,7 @@ describe('when mission is complete', () => {
     });
 
     const message = queryByText('The mission is complete!');
-    expect(message);
+    expect(message).toBeInTheDocument();
   });
 
   test('should not show the reveal message', () => {

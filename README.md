@@ -93,20 +93,13 @@ Run `npm run test` for the Jest watcher.
 Most tests need the following boilerplate:
 
 ```typescript
-import 'core-js';
-import 'ts-jest';
 import { render } from '@testing-library/svelte';
 import { get } from 'svelte/store';
-import { resetTestState } from './test-helper';
 import AppFixture from './AppFixture.svelte';
 import Component from './Component.svelte';
 import { currentPlayerId } from '../stores/player';
-import { historyState, players } from './history-states';
+import { createHistoryEvent, historyState, players } from './history-states';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 test('should do a thing', () => {
   const [player] = players;

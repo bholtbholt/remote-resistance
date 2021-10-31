@@ -1,5 +1,11 @@
-import { createPlayer, createHistoryEvent } from './test-helper';
+import type { Action, HistoryEvent } from '../types';
+import { v4 as uuid } from 'uuid';
+import { createPlayer } from './test-helper';
 import { generateRuleset } from '../stores/rules';
+
+export function createHistoryEvent(action: Action, data = {}): HistoryEvent {
+  return { action, data, timestamp: Date.now(), id: uuid() };
+}
 
 export const players = [
   createPlayer(),
@@ -15,7 +21,7 @@ const [spy1, spy2, spy3, p4, p5, p6, p7] = players;
 let ruleset = generateRuleset(players);
 ruleset.spyIds = [spy1.id, spy2.id, spy3.id];
 
-const votesApproved = [
+export const votesApproved = [
   createHistoryEvent('teamvote::cast', { playerId: spy1.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy2.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy3.id, vote: '👍' }),
@@ -25,7 +31,7 @@ const votesApproved = [
   createHistoryEvent('teamvote::cast', { playerId: p7.id, vote: '👎' }),
 ];
 
-const votesRejected = [
+export const votesRejected = [
   createHistoryEvent('teamvote::cast', { playerId: spy1.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy2.id, vote: '👍' }),
   createHistoryEvent('teamvote::cast', { playerId: spy3.id, vote: '👎' }),

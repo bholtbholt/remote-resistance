@@ -1,17 +1,10 @@
-import 'core-js';
-import 'ts-jest';
 import { render, fireEvent } from '@testing-library/svelte';
-import { createPlayer, repeat, createHistoryEvent, resetTestState } from './test-helper';
+import { createPlayer, repeat } from './test-helper';
 import { get } from 'svelte/store';
 import AppFixture from './AppFixture.svelte';
 import AppStatePreGame from '../components/AppStatePreGame.svelte';
 import { currentPlayerId, players } from '../stores/player';
-import { generateRuleset, ruleset } from '../stores/rules';
 const socket = require('socket.io-client')('test');
-
-afterEach(() => {
-  return resetTestState();
-});
 
 test('should render 10 blank spots with no players', () => {
   const { container } = render(AppFixture, { socket, component: AppStatePreGame });
@@ -37,7 +30,7 @@ test('should suggest a new room when all spots are taken', () => {
 
   const link = getByText('start a new game');
 
-  expect(link);
+  expect(link).toBeInTheDocument();
 });
 
 test('should render the player form when spots are available', () => {
@@ -45,7 +38,7 @@ test('should render the player form when spots are available', () => {
 
   const nameField = getByLabelText('Name');
 
-  expect(nameField);
+  expect(nameField).toBeInTheDocument();
 });
 
 test('should render waiting text when the player is logged in but there are not enough players', () => {
@@ -58,7 +51,7 @@ test('should render waiting text when the player is logged in but there are not 
 
   const waitingMessage = getByText('Waiting for more players to join…');
 
-  expect(waitingMessage);
+  expect(waitingMessage).toBeInTheDocument();
 });
 
 test('should let players start the game when there are enough', () => {
@@ -71,7 +64,7 @@ test('should let players start the game when there are enough', () => {
 
   const button = getByText('Start the game!');
 
-  expect(button);
+  expect(button).toBeInTheDocument();
 });
 
 test('should generate a ruleset when the game is started', async () => {

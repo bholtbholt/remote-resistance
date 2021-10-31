@@ -1,13 +1,7 @@
-import 'core-js';
-import 'ts-jest';
-import { repeat, resetTestState } from './test-helper';
+import { repeat } from './test-helper';
 import { get } from 'svelte/store';
 import { team, teamVoteApproved, teamVotes } from '../stores/team';
 import { v4 as uuid } from 'uuid';
-
-afterEach(() => {
-  return resetTestState();
-});
 
 test('should add an id', () => {
   const id = uuid();
