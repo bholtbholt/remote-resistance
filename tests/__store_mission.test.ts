@@ -32,7 +32,7 @@ describe('#missionIsComplete', () => {
   });
 });
 
-describe('when permittedMissionVoteFails is 0', () => {
+describe('#missionPassed when permittedMissionVoteFails is 0', () => {
   beforeEach(() => {
     return history['history::init'](roundOneTeamApproved);
   });
@@ -54,7 +54,7 @@ describe('when permittedMissionVoteFails is 0', () => {
   });
 });
 
-describe('when permittedMissionVoteFails is 1', () => {
+describe('#missionPassed when permittedMissionVoteFails is 1', () => {
   beforeEach(() => {
     history['history::init']([
       ...roundOneTeamApproved,
@@ -65,6 +65,16 @@ describe('when permittedMissionVoteFails is 1', () => {
   });
 
   test('should return true for passing missions', () => {
+    const [p1, p2, p3, p4] = players;
+    missionVotes['missionvote::cast']({ playerId: p1.id, vote: 'pass' });
+    missionVotes['missionvote::cast']({ playerId: p2.id, vote: 'pass' });
+    missionVotes['missionvote::cast']({ playerId: p3.id, vote: 'pass' });
+    missionVotes['missionvote::cast']({ playerId: p4.id, vote: 'pass' });
+
+    expect(get(missionPassed)).toEqual(true);
+  });
+
+  test('should return true for missions with a single fail', () => {
     const [p1, p2, p3, p4] = players;
     missionVotes['missionvote::cast']({ playerId: p1.id, vote: 'pass' });
     missionVotes['missionvote::cast']({ playerId: p2.id, vote: 'pass' });
