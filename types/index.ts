@@ -2,13 +2,6 @@ export type Action = string;
 export type PlayerId = UUID;
 type UUID = string;
 
-export interface Game {
-  rounds: Round[];
-  players: PlayerId[];
-  spies: PlayerId[];
-  winner: 'resistance' | 'spies';
-}
-
 export interface HistoryEvent {
   action: Action;
   data: any;
