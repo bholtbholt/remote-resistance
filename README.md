@@ -54,7 +54,6 @@ HISTORY=withPlayers
 Rounds use the following pattern:
 
 - `round{Number}Start`, as in `roundOneStart`
-- `round{Number}Start{P|F: Pass|Fail}`, as in `roundTwoStartF` or `roundThreeStartFP`
 - `round{Number}Team`, as in `roundOneTeam`
 - `round{Number}VotesApproved`, as in `roundOneVotesApproved`
 - `round{Number}VotesRejected`, as in `roundOneVotesRejected`
@@ -69,8 +68,15 @@ Rounds use the following pattern:
 History states outside of rounds:
 
 - `withPlayers` before the game has started
-- `spiesWin` after the game with a spy victory
-- `resistanceWin` after the game with a resistance victory
+- `spiesWin` five rounds with a spy victory
+- `resistanceWin` five rounds with a resistance victory
+
+Rounds alternate resistance then spy win conditions:
+
+- `roundTwoStart` = Round 1 resistance win
+- `roundThreeStart` = Round 2 spy win
+- `roundFourStart` = Round 3 resistance win
+- `roundFiveStart` = Round 4 spy win
 
 ## Admin Control with App Controller
 

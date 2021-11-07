@@ -27,6 +27,6 @@ export const missionPassed = derived(
   ([$missionVotes, $currentRound]): boolean => {
     const failed = $missionVotes.filter((missionvote) => missionvote.vote === 'fail').length;
 
-    return $currentRound.permittedMissionVoteFails === failed;
+    return $currentRound.permittedMissionVoteFails >= failed;
   },
 );
