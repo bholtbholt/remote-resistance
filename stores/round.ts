@@ -54,9 +54,22 @@ export const rounds = (() => {
   };
 })();
 
-export const currentRound = derived(rounds, ($rounds): Round => {
-  return $rounds.find((round) => round.winner === undefined) || initRound({});
-});
+export const currentRoundIndex = (() => {
+  const { subscribe, set, update } = writable(0);
+
+  return {
+    subscribe,
+    'rounds::reset': () => set(0),
+    'rounds::increment': () => update((i) => i + 1),
+  };
+})();
+
+export const currentRound = derived(
+  [rounds, currentRoundIndex],
+  ([$rounds, $currentRoundIndex]): Round => {
+    return $rounds[$currentRoundIndex] || initRound({});
+  },
+);
 
 export const roundstate = (() => {
   const { set, subscribe } = writable('TEAM_SELECTION');
