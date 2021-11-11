@@ -557,11 +557,3 @@ export const roundFiveMissionFailed = [
   createHistoryEvent('leader::change', [players, p5.id]),
   createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
 ];
-
-///////////////////////////////////////////////////////////
-// END GAME
-///////////////////////////////////////////////////////////
-
-export const spieswin = [...roundFiveMissionFailed, ...nextRound];
-
-export const resistanceWin = [...roundFiveMissionPassed, ...nextRound];

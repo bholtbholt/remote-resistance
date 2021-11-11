@@ -68,8 +68,6 @@ Rounds use the following pattern:
 History states outside of rounds:
 
 - `withPlayers` before the game has started
-- `spiesWin` five rounds with a spy victory
-- `resistanceWin` five rounds with a resistance victory
 
 Rounds alternate resistance then spy win conditions:
 
