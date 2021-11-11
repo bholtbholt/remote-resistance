@@ -50,10 +50,6 @@
   $: transitionDelay = cards.length * 1200;
 
   function startNextRound() {
-    const update = {
-      winner: $missionPassed ? 'resistance' : 'spies',
-    };
-    socket.emit('rounds::update', [$currentRound.index, update]);
     socket.emit('missionvote::reset');
     socket.emit('team::reset');
     socket.emit('teamvote::reset');

@@ -60,6 +60,7 @@
 
   function revealVotes() {
     const update = {
+      winner: $missionPassed ? 'resistance' : 'spies',
       missionPhase: {
         team: $team,
         votes: $missionVotes,

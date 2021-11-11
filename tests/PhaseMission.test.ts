@@ -72,7 +72,7 @@ describe('when player is a team member', () => {
     expect(input.disabled).toEqual(true);
   });
 
-  test('should a waiting message after voting', () => {
+  test('should show a waiting message after voting', () => {
     const [player] = players;
     currentPlayerId.set(player.id);
     const { getByRole } = render(AppFixture, {
@@ -190,6 +190,7 @@ describe('when mission is revealed', () => {
     await fireEvent.click(button);
 
     const expectedUpdate = {
+      winner: 'resistance',
       missionPhase: {
         team: [player.id, p6.id],
         votes: [
