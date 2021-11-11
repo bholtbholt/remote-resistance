@@ -3,7 +3,7 @@ import { appstate } from '../stores/app';
 import { leader, previousLeader } from '../stores/leader';
 import { missionVotes } from '../stores/mission';
 import { players } from '../stores/player';
-import { rounds, roundstate } from '../stores/round';
+import { rounds, roundstate, currentRoundIndex } from '../stores/round';
 import { ruleset } from '../stores/rules';
 import { team, teamVotes } from '../stores/team';
 
@@ -20,6 +20,8 @@ export const actions = {
   'player::add': players['player::add'],
   'rounds::init': rounds['rounds::init'],
   'rounds::update': rounds['rounds::update'],
+  'rounds::increment': currentRoundIndex['rounds::increment'],
+  'rounds::reset': currentRoundIndex['rounds::reset'],
   'roundstate::set': roundstate['roundstate::set'],
   'ruleset::generate': ruleset['ruleset::generate'],
   'team::confirmation': team['team::confirmation'],

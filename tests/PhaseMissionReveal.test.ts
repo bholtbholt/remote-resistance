@@ -42,6 +42,22 @@ test('should reset the round state', async () => {
   expect(socket.emit).toHaveBeenCalledWith('teamvote::reset');
 });
 
+test('should increment the round', async () => {
+  jest.spyOn(socket, 'emit');
+  const [previousLeader, newLeader] = players;
+  currentPlayerId.set(newLeader.id);
+  const { queryByText } = render(AppFixture, {
+    socket,
+    historyState: roundOneMissionPassed,
+    component: PhaseMissionReveal,
+  });
+
+  const button = queryByText('Start next round');
+  await fireEvent.click(button);
+
+  expect(socket.emit).toHaveBeenCalledWith('rounds::increment');
+});
+
 test('should update the round winner', async () => {
   jest.spyOn(socket, 'emit');
   const [previousLeader, newLeader] = players;

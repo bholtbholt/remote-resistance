@@ -34,22 +34,20 @@ describe('#currentRound', () => {
     expect(round).toEqual(get(rounds)[0]);
     expect(round).not.toEqual(get(rounds)[1]);
     expect(round.name).toEqual('first');
-    expect(round.winner).toEqual(undefined);
   });
 
   test('should return the fourth round', () => {
     history['history::init']([
       ...roundOneTeamApproved,
-      createHistoryEvent('rounds::update', [0, { winner: 'resistance' }]),
-      createHistoryEvent('rounds::update', [1, { winner: 'spies' }]),
-      createHistoryEvent('rounds::update', [2, { winner: 'resistance' }]),
+      createHistoryEvent('rounds::increment'),
+      createHistoryEvent('rounds::increment'),
+      createHistoryEvent('rounds::increment'),
     ]);
     const round = get(currentRound);
 
     expect(round).toEqual(get(rounds)[3]);
     expect(round).not.toEqual(get(rounds)[0]);
     expect(round.name).toEqual('fourth');
-    expect(round.winner).toEqual(undefined);
   });
 });
 

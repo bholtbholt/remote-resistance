@@ -1,7 +1,14 @@
 import { get } from 'svelte/store';
 import { missionIsComplete, missionVotes, missionPassed } from '../stores/mission';
 import { history } from '../stores/history';
-import { createHistoryEvent, roundOneTeamApproved, players } from './history-states';
+import {
+  createHistoryEvent,
+  roundOneTeamApproved,
+  roundFourTeamApproved,
+  players,
+} from './history-states';
+
+import { rounds, currentRound } from '../stores/round';
 
 test('should cast a vote', () => {
   const id = 'player-id';
@@ -56,12 +63,7 @@ describe('#missionPassed when permittedMissionVoteFails is 0', () => {
 
 describe('#missionPassed when permittedMissionVoteFails is 1', () => {
   beforeEach(() => {
-    history['history::init']([
-      ...roundOneTeamApproved,
-      createHistoryEvent('rounds::update', [0, { winner: 'resistance' }]),
-      createHistoryEvent('rounds::update', [1, { winner: 'spies' }]),
-      createHistoryEvent('rounds::update', [2, { winner: 'resistance' }]),
-    ]);
+    history['history::init'](roundFourTeamApproved);
   });
 
   test('should return true for passing missions', () => {

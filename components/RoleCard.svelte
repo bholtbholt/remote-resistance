@@ -29,7 +29,11 @@
     </div>
   </div>
 {:else}
-  <button in:fly={{ y: 100, delay: 250 }} class="fixed left-0 bottom-0 text-6xl mb-3" on:click
-    >🃏</button
+  <button
+    in:fly={{ y: 100, delay: 250 }}
+    class="fixed left-0 bottom-0
+      text-6xl ml-3 mb-3 p-3
+      border border-white rounded-lg"
+    on:click>{$currentPlayer.avatar}</button
   >
 {/if}

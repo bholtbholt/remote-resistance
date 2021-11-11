@@ -50,10 +50,12 @@ const votesPending = [
   createHistoryEvent('teamvote::cast', { playerId: p7.id, vote: '👍' }),
 ];
 
-const resetRound = [
+const nextRound = [
   createHistoryEvent('missionvote::reset'),
   createHistoryEvent('team::reset'),
   createHistoryEvent('teamvote::reset'),
+  createHistoryEvent('rounds::increment'),
+  createHistoryEvent('roundstate::set', 'TEAM_SELECTION'),
 ];
 
 ///////////////////////////////////////////////////////////
@@ -128,6 +130,7 @@ export const roundOneMissionPassed = [
   createHistoryEvent('rounds::update', [
     0,
     {
+      winner: 'resistance',
       missionPhase: {
         team: [spy1.id, p6.id],
         votes: [
@@ -150,6 +153,7 @@ export const roundOneMissionFailed = [
   createHistoryEvent('rounds::update', [
     0,
     {
+      winner: 'spies',
       missionPhase: {
         team: [spy1.id, p6.id],
         votes: [
@@ -168,12 +172,7 @@ export const roundOneMissionFailed = [
 // ROUND 2
 ///////////////////////////////////////////////////////////
 
-export const roundTwoStart = [
-  ...roundOneMissionPassed,
-  createHistoryEvent('rounds::update', [0, { winner: 'resistance' }]),
-  ...resetRound,
-  createHistoryEvent('roundstate::set', 'TEAM_SELECTION'),
-];
+export const roundTwoStart = [...roundOneMissionPassed, ...nextRound];
 
 export const roundTwoTeam = [
   ...roundTwoStart,
@@ -223,6 +222,7 @@ export const roundTwoMissionPassed = [
   createHistoryEvent('rounds::update', [
     1,
     {
+      winner: 'resistance',
       missionPhase: {
         team: [spy1.id, p6.id, p7.id],
         votes: [
@@ -247,6 +247,7 @@ export const roundTwoMissionFailed = [
   createHistoryEvent('rounds::update', [
     1,
     {
+      winner: 'spies',
       missionPhase: {
         team: [spy1.id, p6.id, p7.id],
         votes: [
@@ -266,12 +267,7 @@ export const roundTwoMissionFailed = [
 // ROUND 3
 ///////////////////////////////////////////////////////////
 
-export const roundThreeStart = [
-  ...roundTwoMissionFailed,
-  createHistoryEvent('rounds::update', [1, { winner: 'spies' }]),
-  ...resetRound,
-  createHistoryEvent('roundstate::set', 'TEAM_SELECTION'),
-];
+export const roundThreeStart = [...roundTwoMissionFailed, ...nextRound];
 
 export const roundThreeTeam = [
   ...roundThreeStart,
@@ -321,6 +317,7 @@ export const roundThreeMissionPassed = [
   createHistoryEvent('rounds::update', [
     2,
     {
+      winner: 'resistance',
       missionPhase: {
         team: [spy2.id, p6.id, p7.id],
         votes: [
@@ -345,6 +342,7 @@ export const roundThreeMissionFailed = [
   createHistoryEvent('rounds::update', [
     2,
     {
+      winner: 'spies',
       missionPhase: {
         team: [spy2.id, p6.id, p7.id],
         votes: [
@@ -364,12 +362,7 @@ export const roundThreeMissionFailed = [
 // ROUND 4
 ///////////////////////////////////////////////////////////
 
-export const roundFourStart = [
-  ...roundThreeMissionPassed,
-  createHistoryEvent('rounds::update', [2, { winner: 'resistance' }]),
-  ...resetRound,
-  createHistoryEvent('roundstate::set', 'TEAM_SELECTION'),
-];
+export const roundFourStart = [...roundThreeMissionPassed, ...nextRound];
 
 export const roundFourTeam = [
   ...roundFourStart,
@@ -421,6 +414,7 @@ export const roundFourMissionPassed = [
   createHistoryEvent('rounds::update', [
     3,
     {
+      winner: 'resistance',
       missionPhase: {
         team: [spy1.id, spy2.id, p6.id, p7.id],
         votes: [
@@ -447,6 +441,7 @@ export const roundFourMissionFailed = [
   createHistoryEvent('rounds::update', [
     3,
     {
+      winner: 'spies',
       missionPhase: {
         team: [spy1.id, spy2.id, p6.id, p7.id],
         votes: [
@@ -467,12 +462,7 @@ export const roundFourMissionFailed = [
 // ROUND 5
 ///////////////////////////////////////////////////////////
 
-export const roundFiveStart = [
-  ...roundFourMissionFailed,
-  createHistoryEvent('rounds::update', [3, { winner: 'spies' }]),
-  ...resetRound,
-  createHistoryEvent('roundstate::set', 'TEAM_SELECTION'),
-];
+export const roundFiveStart = [...roundFourMissionFailed, ...nextRound];
 
 export const roundFiveTeam = [
   ...roundFiveStart,
@@ -524,6 +514,7 @@ export const roundFiveMissionPassed = [
   createHistoryEvent('rounds::update', [
     4,
     {
+      winner: 'resistance',
       missionPhase: {
         team: [spy1.id, spy2.id, p6.id, p7.id],
         votes: [
@@ -550,6 +541,7 @@ export const roundFiveMissionFailed = [
   createHistoryEvent('rounds::update', [
     4,
     {
+      winner: 'spies',
       missionPhase: {
         team: [spy1.id, spy2.id, p6.id, p7.id],
         votes: [
@@ -570,14 +562,6 @@ export const roundFiveMissionFailed = [
 // END GAME
 ///////////////////////////////////////////////////////////
 
-export const spieswin = [
-  ...roundFiveMissionFailed,
-  createHistoryEvent('rounds::update', [4, { winner: 'spies' }]),
-  ...resetRound,
-];
+export const spieswin = [...roundFiveMissionFailed, ...nextRound];
 
-export const resistanceWin = [
-  ...roundFiveMissionPassed,
-  createHistoryEvent('rounds::update', [4, { winner: 'resistance' }]),
-  ...resetRound,
-];
+export const resistanceWin = [...roundFiveMissionPassed, ...nextRound];
