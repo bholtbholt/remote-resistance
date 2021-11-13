@@ -68,7 +68,7 @@
       },
     };
     socket.emit('rounds::update', [$currentRound.index, update]);
-    socket.emit('leader::change', [$players, $leader.id]);
+    socket.emit('leader::change');
     socket.emit('phase::set', 'MISSION_REVEAL');
   }
 </script>

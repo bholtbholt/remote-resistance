@@ -26,7 +26,7 @@
   import Player from './Player.svelte';
 
   function changeLeader() {
-    socket.emit('leader::change', [$players, $leader?.id]);
+    socket.emit('leader::change');
   }
 
   function changeCurrentPlayer() {

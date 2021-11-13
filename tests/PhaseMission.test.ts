@@ -224,7 +224,7 @@ describe('when mission is revealed', () => {
     const button = queryByText('Reveal results');
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('leader::change', [players, player.id]);
+    expect(socket.emit).toHaveBeenCalledWith('leader::change');
   });
 
   test('should change the round state', async () => {

@@ -110,6 +110,6 @@ describe('when team is rejected', () => {
     const button = getByText('Reveal votes');
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('leader::change', [players, leader.id]);
+    expect(socket.emit).toHaveBeenCalledWith('leader::change');
   });
 });

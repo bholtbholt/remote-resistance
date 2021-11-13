@@ -107,7 +107,7 @@ test('should set the game state to IN_GAME', async () => {
   expect(socket.emit).toHaveBeenCalledWith('appstate::set', 'IN_GAME');
 });
 
-test('should set the first team builder leader', async () => {
+test('should initialize the first team builder leader', async () => {
   const binks = { id: 'id-for-binks', avatar: '🐶', name: 'Binks' };
   players['player::add'](binks);
   currentPlayerId.set(binks.id);
@@ -124,7 +124,7 @@ test('should set the first team builder leader', async () => {
 
   await fireEvent.click(button);
 
-  expect(socket.emit).toHaveBeenCalledWith('leader::change', [get(players), undefined]);
+  expect(socket.emit).toHaveBeenCalledWith('leader::init', get(players));
 });
 
 test('should initialize rounds', async () => {

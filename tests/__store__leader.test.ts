@@ -1,7 +1,7 @@
 import { createPlayer, repeat } from './test-helper';
 import { get } from 'svelte/store';
 import { players } from '../stores/player';
-import { leader } from '../stores/leader';
+import { leader, previousLeader, leaderIndexes } from '../stores/leader';
 
 beforeEach(() => {
   repeat(5, () => {
@@ -9,35 +9,43 @@ beforeEach(() => {
   });
 });
 
-test('should set a new leader', () => {
-  const [p1] = get(players);
-
-  leader['leader::change']([get(players), undefined]);
-  expect(get(leader)).toEqual(p1);
-});
-
 test('should loop through leaders in succession', () => {
   const [p1, p2, p3, p4, p5] = get(players);
 
-  leader['leader::change']([get(players), undefined]);
+  leaderIndexes['leader::init'](get(players));
   expect(get(leader)).toEqual(p1);
-  leader['leader::change']([get(players), p1.id]);
+
+  leaderIndexes['leader::change']();
   expect(get(leader)).toEqual(p2);
-  leader['leader::change']([get(players), p2.id]);
+  expect(get(previousLeader)).toEqual(p1);
+
+  leaderIndexes['leader::change']();
   expect(get(leader)).toEqual(p3);
-  leader['leader::change']([get(players), p3.id]);
+  expect(get(previousLeader)).toEqual(p2);
+
+  leaderIndexes['leader::change']();
   expect(get(leader)).toEqual(p4);
-  leader['leader::change']([get(players), p4.id]);
+  expect(get(previousLeader)).toEqual(p3);
+
+  leaderIndexes['leader::change']();
   expect(get(leader)).toEqual(p5);
-  leader['leader::change']([get(players), p5.id]);
+  expect(get(previousLeader)).toEqual(p4);
+
+  leaderIndexes['leader::change']();
   expect(get(leader)).toEqual(p1);
+  expect(get(previousLeader)).toEqual(p5);
+
+  leaderIndexes['leader::change']();
+  expect(get(leader)).toEqual(p2);
+  expect(get(previousLeader)).toEqual(p1);
 });
 
 test('should not pick a previous leader', () => {
   const [p1] = get(players);
 
-  leader['leader::change']([get(players), undefined]);
+  leaderIndexes['leader::init'](get(players));
   expect(get(leader)).toEqual(p1);
-  leader['leader::change']([get(players), p1.id]);
+
+  leaderIndexes['leader::change']();
   expect(get(leader)).not.toEqual(p1);
 });
