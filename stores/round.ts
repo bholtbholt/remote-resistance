@@ -1,5 +1,6 @@
 import type { Round, MissionPhase, Ruleset } from '../types';
 import { writable, derived } from 'svelte/store';
+import { roundsToWin } from './rules';
 
 const initMission: MissionPhase = {
   team: [],
@@ -70,3 +71,17 @@ export const currentRound = derived(
     return $rounds[$currentRoundIndex] || initRound({});
   },
 );
+
+export const spiesWin = derived(rounds, ($rounds): boolean => {
+  const wins = $rounds.filter((round) => round.winner === 'spies').length;
+  return wins >= roundsToWin;
+});
+
+export const resistanceWin = derived(rounds, ($rounds): boolean => {
+  const wins = $rounds.filter((round) => round.winner === 'resistance').length;
+  return wins >= roundsToWin;
+});
+
+export const teamBuildingFailure = derived(currentRound, ($currentRound): boolean => {
+  return $currentRound.failedTeamVotes > $currentRound.permittedTeamVoteFails;
+});

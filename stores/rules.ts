@@ -3,6 +3,7 @@ import { writable } from 'svelte/store';
 
 export const maximumPlayerCount = 10;
 export const minimumPlayerCount = 5;
+export const roundsToWin = 3;
 
 export const ruleset = (() => {
   const init: Ruleset = {
@@ -12,7 +13,6 @@ export const ruleset = (() => {
     spyIds: [],
     missions: {},
     failTies: undefined,
-    roundsToWin: undefined,
     permittedTeamVoteFails: undefined,
   };
   const { set, subscribe, update } = writable(init);
@@ -49,7 +49,6 @@ export function generateRuleset(players: Player[]): Ruleset {
     spyIds,
     missions,
     failTies: true,
-    roundsToWin: 3,
     permittedTeamVoteFails: 4,
   };
 }
