@@ -19,7 +19,7 @@ export const ruleset = (() => {
 
   return {
     subscribe,
-    reset: () => set(init),
+    'ruleset::reset': () => set(init),
     'ruleset::generate': (ruleset: Ruleset) => {
       set(ruleset);
     },

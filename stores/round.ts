@@ -28,7 +28,7 @@ export const rounds = (() => {
 
   return {
     subscribe,
-    reset: () => set(init),
+    'rounds::reset': () => set(init),
     'rounds::update': ([roundIndex, props]: [number, Object]) => {
       update(($rounds) => {
         $rounds[roundIndex] = { ...$rounds[roundIndex], ...props };
@@ -76,12 +76,12 @@ export const roundstate = (() => {
 
   return {
     subscribe,
-    reset: () => set('TEAM_SELECTION'),
+    'roundstate::reset': () => set('TEAM_SELECTION'),
     'roundstate::set': set,
   };
 })();
 
-export const phaseTeamBuilding = derived(roundstate, ($roundState) => {
+export const phaseTeamBuilding = derived(roundstate, ($roundState): boolean => {
   const phases = ['TEAM_SELECTION', 'TEAM_VOTE', 'TEAM_REVEAL'];
   return phases.includes($roundState);
 });

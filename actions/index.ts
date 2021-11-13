@@ -21,7 +21,10 @@ export const actions = {
   'rounds::init': rounds['rounds::init'],
   'rounds::update': rounds['rounds::update'],
   'rounds::increment': currentRoundIndex['rounds::increment'],
-  'rounds::reset': currentRoundIndex['rounds::reset'],
+  'rounds::reset': () => {
+    rounds['rounds::reset']();
+    currentRoundIndex['rounds::reset']();
+  },
   'roundstate::set': roundstate['roundstate::set'],
   'ruleset::generate': ruleset['ruleset::generate'],
   'team::confirmation': team['team::confirmation'],

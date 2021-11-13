@@ -27,10 +27,10 @@ export function resetTestState() {
   missionVotes['missionvote::reset']();
   players.reset();
   previousLeader.reset();
-  rounds.reset();
-  roundstate.reset();
+  rounds['rounds::reset']();
+  roundstate['roundstate::reset']();
   currentRoundIndex['rounds::reset']();
-  ruleset.reset();
+  ruleset['ruleset::reset']();
   team['team::reset']();
   teamVotes['teamvote::reset']();
 }
