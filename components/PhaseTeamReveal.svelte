@@ -8,7 +8,7 @@
 
   import { leader, previousLeader } from '../stores/leader';
   import { players, playerIsLeader, playerIsTeamMember, teamMembers } from '../stores/player';
-  import { currentRound } from '../stores/round';
+  import { currentRound, teamBuildingFailure } from '../stores/round';
   import { team, teamVoteApproved, teamVotes } from '../stores/team';
 
   import PlayerInline from './PlayerInline.svelte';
@@ -34,6 +34,16 @@
   function startMission() {
     socket.emit('phase::set', 'MISSION_START');
   }
+
+  function endGame() {
+    socket.emit('appstate::set', 'PRE_GAME');
+    socket.emit('missionvote::reset');
+    socket.emit('team::reset');
+    socket.emit('teamvote::reset');
+    socket.emit('phase::set', 'TEAM_SELECTION');
+    socket.emit('rounds::reset');
+    window.sessionStorage.removeItem('hideRoleReveal');
+  }
 </script>
 
 <div id="PhaseTeamReveal" in:blur>
@@ -58,7 +68,18 @@
       </li>
     {/each}
   </ul>
-  {#if $teamVoteApproved}
+  {#if $teamBuildingFailure}
+    <h2
+      in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
+      on:introend={() => (teamNameColor = 'text-red-300')}
+      class="text-4xl font-semibold text-center text-white dark:text-purple-50 mb-2"
+    >
+      Spies win
+    </h2>
+    <div class="mt-6" in:fade={{ delay: 3000 }}>
+      <UIButton on:click={endGame}>Start a new game</UIButton>
+    </div>
+  {:else if $teamVoteApproved}
     <h2
       in:scale={{ start: 4, duration: 800, delay: 2000, easing: quartIn }}
       on:introend={() => (teamNameColor = 'text-blue-300')}
@@ -84,13 +105,18 @@
       Rejected
     </h2>
     {#if $playerIsLeader}
-      <div class="mt-6" in:fade={{ delay: 3000 }}>
+      <div class="mt-6 mb-4" in:fade={{ delay: 3000 }}>
         <UIButton on:click={pickNewTeam}>Pick a new team</UIButton>
       </div>
     {:else}
       <h3 class="text-2xl text-center text-rose-100 dark:text-purple-50" in:fade={{ delay: 3000 }}>
         {$leader.name} is the new leader
       </h3>
+    {/if}
+    {#if $currentRound.failedTeamVotes === $currentRound.permittedTeamVoteFails}
+      <h4 class="text-center text-rose-100 dark:text-purple-50" in:fade={{ delay: 3000 }}>
+        <strong class="font-bold">Spies win</strong> if the next team is rejected
+      </h4>
     {/if}
   {/if}
 </div>
