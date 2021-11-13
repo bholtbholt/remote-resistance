@@ -1,7 +1,7 @@
 <script>
   export let socket;
   export let currentPlayerIdSessionKey;
-  export let renderAppController = false;
+  export let renderAdminController = false;
 
   import { setContext } from 'svelte';
   setContext('socketIORoom', socket);
@@ -20,7 +20,7 @@
   import AppStatePreGame from './AppStatePreGame.svelte';
   import AppStateInGame from './AppStateInGame.svelte';
   import UISpinner from './UISpinner.svelte';
-  import AppController from './AppController.svelte';
+  import AdminController from './AdminController.svelte';
 
   const state = {
     PRE_GAME: AppStatePreGame,
@@ -36,6 +36,6 @@
   </div>
 {/if}
 
-{#if renderAppController}
-  <AppController />
+{#if renderAdminController}
+  <AdminController />
 {/if}

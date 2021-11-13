@@ -65,12 +65,12 @@
       </div>
     {/each}
     <div class="ml-3">
+      {#if $playerIsLoggedIn}
+        <button {...btn} on:click={logOut}>Log out</button>
+      {/if}
       {#if $players.length > 0}
         <button {...btn} on:click={changeCurrentPlayer}>🔁 Player</button>
         <button {...btn} on:click={changeLeader}>🔁 Leader</button>
-      {/if}
-      {#if $playerIsLoggedIn}
-        <button {...btn} on:click={logOut}>Log out</button>
       {/if}
     </div>
   </ul>

@@ -76,9 +76,9 @@ Rounds alternate resistance then spy win conditions:
 - `roundFourStart` = Round 3 resistance win
 - `roundFiveStart` = Round 4 spy win
 
-## Admin Control with App Controller
+## AdminController
 
-`AppController.svelte` is an admin tool for controlling player state. Change the logged-in player or the leader, see the spies, and log-out. It's turned on for development.
+`AdminController.svelte` is a tool for controlling player state. Change the logged-in player or the leader, see the spies, and log-out. It's turned on for development.
 
 ## Testing
 
