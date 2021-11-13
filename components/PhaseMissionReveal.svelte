@@ -54,7 +54,7 @@
     socket.emit('team::reset');
     socket.emit('teamvote::reset');
     socket.emit('rounds::increment');
-    socket.emit('roundstate::set', 'TEAM_SELECTION');
+    socket.emit('phase::set', 'TEAM_SELECTION');
   }
 </script>
 

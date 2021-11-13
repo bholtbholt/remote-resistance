@@ -61,10 +61,10 @@ test('should not display failed team votes after PhaseTeamBuilding has passed', 
       createHistoryEvent('team::selection', p1.id),
       createHistoryEvent('team::selection', p2.id),
       createHistoryEvent('team::confirmation', [p1.id, p2.id]),
-      createHistoryEvent('roundstate::set', 'TEAM_VOTE'),
+      createHistoryEvent('phase::set', 'TEAM_VOTE'),
       ...votesApproved,
-      createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
-      createHistoryEvent('roundstate::set', 'MISSION_START'),
+      createHistoryEvent('phase::set', 'TEAM_REVEAL'),
+      createHistoryEvent('phase::set', 'MISSION_START'),
     ],
   });
 

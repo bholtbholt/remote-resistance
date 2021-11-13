@@ -62,7 +62,7 @@
       socket.emit('rounds::update', [$currentRound.index, update]);
       socket.emit('leader::change', [$players, $leader.id]);
     }
-    socket.emit('roundstate::set', 'TEAM_REVEAL');
+    socket.emit('phase::set', 'TEAM_REVEAL');
   }
 </script>
 

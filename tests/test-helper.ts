@@ -5,7 +5,8 @@ import { history } from '../stores/history';
 import { leader, previousLeader } from '../stores/leader';
 import { missionVotes } from '../stores/mission';
 import { currentPlayerId, players } from '../stores/player';
-import { rounds, roundstate, currentRoundIndex } from '../stores/round';
+import { phase } from '../stores/phase';
+import { rounds, currentRoundIndex } from '../stores/round';
 import { ruleset } from '../stores/rules';
 import { team, teamVotes } from '../stores/team';
 
@@ -28,7 +29,7 @@ export function resetTestState() {
   players.reset();
   previousLeader.reset();
   rounds['rounds::reset']();
-  roundstate['roundstate::reset']();
+  phase['phase::reset']();
   currentRoundIndex['rounds::reset']();
   ruleset['ruleset::reset']();
   team['team::reset']();

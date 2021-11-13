@@ -24,7 +24,7 @@ describe('when vote is rejected', () => {
 
     expect(socket.emit).toHaveBeenCalledWith('teamvote::reset');
     expect(socket.emit).toHaveBeenCalledWith('team::reset');
-    expect(socket.emit).toHaveBeenCalledWith('roundstate::set', 'TEAM_SELECTION');
+    expect(socket.emit).toHaveBeenCalledWith('phase::set', 'TEAM_SELECTION');
   });
 
   test('should reveal the new leader', () => {
@@ -72,7 +72,7 @@ describe('when vote is approved', () => {
 
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('roundstate::set', 'MISSION_START');
+    expect(socket.emit).toHaveBeenCalledWith('phase::set', 'MISSION_START');
   });
 
   test('should hide the mission button', () => {

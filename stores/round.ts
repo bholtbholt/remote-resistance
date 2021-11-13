@@ -70,18 +70,3 @@ export const currentRound = derived(
     return $rounds[$currentRoundIndex] || initRound({});
   },
 );
-
-export const roundstate = (() => {
-  const { set, subscribe } = writable('TEAM_SELECTION');
-
-  return {
-    subscribe,
-    'roundstate::reset': () => set('TEAM_SELECTION'),
-    'roundstate::set': set,
-  };
-})();
-
-export const phaseTeamBuilding = derived(roundstate, ($roundState): boolean => {
-  const phases = ['TEAM_SELECTION', 'TEAM_VOTE', 'TEAM_REVEAL'];
-  return phases.includes($roundState);
-});

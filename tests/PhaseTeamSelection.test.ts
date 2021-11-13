@@ -64,7 +64,7 @@ describe('when player is leader', () => {
     await fireEvent.click(button);
 
     expect(socket.emit).toHaveBeenCalledWith('team::confirmation', [p1.id, p2.id]);
-    expect(socket.emit).toHaveBeenCalledWith('roundstate::set', 'TEAM_VOTE');
+    expect(socket.emit).toHaveBeenCalledWith('phase::set', 'TEAM_VOTE');
   });
 });
 

@@ -28,11 +28,11 @@
   function pickNewTeam() {
     socket.emit('teamvote::reset');
     socket.emit('team::reset');
-    socket.emit('roundstate::set', 'TEAM_SELECTION');
+    socket.emit('phase::set', 'TEAM_SELECTION');
   }
 
   function startMission() {
-    socket.emit('roundstate::set', 'MISSION_START');
+    socket.emit('phase::set', 'MISSION_START');
   }
 </script>
 

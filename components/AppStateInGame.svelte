@@ -2,7 +2,7 @@
   import { fly, fade } from 'svelte/transition';
 
   import { playerIsLoggedIn } from '../stores/player';
-  import { roundstate } from '../stores/round';
+  import { phase } from '../stores/phase';
 
   import RoundTracker from './RoundTracker.svelte';
   import PhaseRoleReveal from './PhaseRoleReveal.svelte';
@@ -27,7 +27,7 @@
     showPlayerCard = !showPlayerCard;
   }
 
-  const phase = {
+  const phases = {
     TEAM_SELECTION: PhaseTeamSelection,
     TEAM_VOTE: PhaseTeamVote,
     TEAM_REVEAL: PhaseTeamReveal,
@@ -46,7 +46,7 @@
   {/if}
 
   {#if hideRoleReveal || !$playerIsLoggedIn}
-    <svelte:component this={phase[$roundstate]} />
+    <svelte:component this={phases[$phase]} />
   {/if}
 </div>
 

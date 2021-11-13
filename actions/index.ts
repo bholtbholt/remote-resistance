@@ -3,7 +3,8 @@ import { appstate } from '../stores/app';
 import { leader, previousLeader } from '../stores/leader';
 import { missionVotes } from '../stores/mission';
 import { players } from '../stores/player';
-import { rounds, roundstate, currentRoundIndex } from '../stores/round';
+import { phase } from '../stores/phase';
+import { rounds, currentRoundIndex } from '../stores/round';
 import { ruleset } from '../stores/rules';
 import { team, teamVotes } from '../stores/team';
 
@@ -25,7 +26,7 @@ export const actions = {
     rounds['rounds::reset']();
     currentRoundIndex['rounds::reset']();
   },
-  'roundstate::set': roundstate['roundstate::set'],
+  'phase::set': phase['phase::set'],
   'ruleset::generate': ruleset['ruleset::generate'],
   'team::confirmation': team['team::confirmation'],
   'team::reset': team['team::reset'],

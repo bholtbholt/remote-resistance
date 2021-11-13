@@ -5,10 +5,7 @@ import { currentPlayerId } from '../stores/player';
 import { createHistoryEvent, roundOneTeamApproved, players } from './history-states';
 const socket = require('socket.io-client')('test');
 
-const historyState = [
-  ...roundOneTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
-];
+const historyState = [...roundOneTeamApproved, createHistoryEvent('phase::set', 'MISSION_START')];
 
 describe('when player is a team member', () => {
   test('should cast a passing vote', async () => {
@@ -253,6 +250,6 @@ describe('when mission is revealed', () => {
     const button = queryByText('Reveal results');
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('roundstate::set', 'MISSION_REVEAL');
+    expect(socket.emit).toHaveBeenCalledWith('phase::set', 'MISSION_REVEAL');
   });
 });

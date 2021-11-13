@@ -21,7 +21,7 @@ test('should let the leader start the new round', async () => {
   const button = queryByText('Start next round');
   await fireEvent.click(button);
 
-  expect(socket.emit).toHaveBeenCalledWith('roundstate::set', 'TEAM_SELECTION');
+  expect(socket.emit).toHaveBeenCalledWith('phase::set', 'TEAM_SELECTION');
 });
 
 test('should reset the round state', async () => {
