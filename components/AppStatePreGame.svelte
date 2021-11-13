@@ -23,7 +23,7 @@
     const ruleset = generateRuleset($players);
     socket.emit('ruleset::generate', ruleset);
     socket.emit('rounds::init', ruleset);
-    socket.emit('leader::change', [$players, undefined]);
+    socket.emit('leader::init', $players);
     socket.emit('appstate::set', 'IN_GAME');
   }
 </script>

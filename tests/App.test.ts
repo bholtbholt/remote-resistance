@@ -28,15 +28,6 @@ test('should render in_game component', () => {
   expect(component).toBeInTheDocument();
 });
 
-test('should render post_game component', () => {
-  history['history::init'](roundOneStart);
-  appstate['appstate::set']('POST_GAME'); // TODO Remove when real history exists
-  const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });
-
-  const component = container.querySelector('#AppStatePostGame');
-  expect(component).toBeInTheDocument();
-});
-
 test('should only init history once', () => {
   jest.spyOn(socket, 'once');
   const { container } = render(App, { socket, currentPlayerIdSessionKey: '' });

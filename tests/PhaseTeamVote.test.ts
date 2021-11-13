@@ -76,7 +76,7 @@ describe('when all votes have been cast', () => {
     const button = getByText('Reveal votes');
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('roundstate::set', 'TEAM_REVEAL');
+    expect(socket.emit).toHaveBeenCalledWith('phase::set', 'TEAM_REVEAL');
   });
 });
 
@@ -110,6 +110,6 @@ describe('when team is rejected', () => {
     const button = getByText('Reveal votes');
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('leader::change', [players, leader.id]);
+    expect(socket.emit).toHaveBeenCalledWith('leader::change');
   });
 });

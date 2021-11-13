@@ -8,7 +8,7 @@
 
   import { previousLeader, leader } from '../stores/leader';
   import { players, playerIsLeader, playerIsTeamMember, teamMembers } from '../stores/player';
-  import { rounds, currentRound } from '../stores/round';
+  import { rounds, currentRound, spiesWin, resistanceWin } from '../stores/round';
   import { missionPassed } from '../stores/mission';
 
   import UIButton from './UIButton.svelte';
@@ -50,15 +50,21 @@
   $: transitionDelay = cards.length * 1200;
 
   function startNextRound() {
-    const update = {
-      winner: $missionPassed ? 'resistance' : 'spies',
-    };
-    socket.emit('rounds::update', [$currentRound.index, update]);
     socket.emit('missionvote::reset');
     socket.emit('team::reset');
     socket.emit('teamvote::reset');
     socket.emit('rounds::increment');
-    socket.emit('roundstate::set', 'TEAM_SELECTION');
+    socket.emit('phase::set', 'TEAM_SELECTION');
+  }
+
+  function endGame() {
+    socket.emit('appstate::set', 'PRE_GAME');
+    socket.emit('missionvote::reset');
+    socket.emit('team::reset');
+    socket.emit('teamvote::reset');
+    socket.emit('phase::set', 'TEAM_SELECTION');
+    socket.emit('rounds::reset');
+    window.sessionStorage.removeItem('hideRoleReveal');
   }
 </script>
 
@@ -91,9 +97,19 @@
       in:scale={{ start: 4, duration: 800, delay: transitionDelay, easing: quartIn }}
       class="text-4xl font-semibold text-center text-white dark:text-purple-50 mb-6"
     >
-      {$missionPassed ? 'Mission passed' : 'Mission failed'}
+      {#if $resistanceWin}
+        Resistance wins
+      {:else if $spiesWin}
+        Spies win
+      {:else if $missionPassed}
+        Mission passed
+      {:else}
+        Mission failed
+      {/if}
     </h2>
-    {#if $playerIsLeader}
+    {#if $resistanceWin || $spiesWin}
+      <UIButton on:click={endGame}>Start a new game</UIButton>
+    {:else if $playerIsLeader}
       <UIButton on:click={startNextRound}>Start next round</UIButton>
     {:else}
       <h3 class="text-2xl text-center text-rose-100 dark:text-purple-50">

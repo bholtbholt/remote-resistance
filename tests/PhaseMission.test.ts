@@ -5,10 +5,7 @@ import { currentPlayerId } from '../stores/player';
 import { createHistoryEvent, roundOneTeamApproved, players } from './history-states';
 const socket = require('socket.io-client')('test');
 
-const historyState = [
-  ...roundOneTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
-];
+const historyState = [...roundOneTeamApproved, createHistoryEvent('phase::set', 'MISSION_START')];
 
 describe('when player is a team member', () => {
   test('should cast a passing vote', async () => {
@@ -72,7 +69,7 @@ describe('when player is a team member', () => {
     expect(input.disabled).toEqual(true);
   });
 
-  test('should a waiting message after voting', () => {
+  test('should show a waiting message after voting', () => {
     const [player] = players;
     currentPlayerId.set(player.id);
     const { getByRole } = render(AppFixture, {
@@ -190,6 +187,7 @@ describe('when mission is revealed', () => {
     await fireEvent.click(button);
 
     const expectedUpdate = {
+      winner: 'resistance',
       missionPhase: {
         team: [player.id, p6.id],
         votes: [
@@ -226,7 +224,7 @@ describe('when mission is revealed', () => {
     const button = queryByText('Reveal results');
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('leader::change', [players, player.id]);
+    expect(socket.emit).toHaveBeenCalledWith('leader::change');
   });
 
   test('should change the round state', async () => {
@@ -252,6 +250,6 @@ describe('when mission is revealed', () => {
     const button = queryByText('Reveal results');
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('roundstate::set', 'MISSION_REVEAL');
+    expect(socket.emit).toHaveBeenCalledWith('phase::set', 'MISSION_REVEAL');
   });
 });

@@ -1,5 +1,6 @@
 import type { Round, MissionPhase, Ruleset } from '../types';
 import { writable, derived } from 'svelte/store';
+import { roundsToWin } from './rules';
 
 const initMission: MissionPhase = {
   team: [],
@@ -28,7 +29,7 @@ export const rounds = (() => {
 
   return {
     subscribe,
-    reset: () => set(init),
+    'rounds::reset': () => set(init),
     'rounds::update': ([roundIndex, props]: [number, Object]) => {
       update(($rounds) => {
         $rounds[roundIndex] = { ...$rounds[roundIndex], ...props };
@@ -71,17 +72,16 @@ export const currentRound = derived(
   },
 );
 
-export const roundstate = (() => {
-  const { set, subscribe } = writable('TEAM_SELECTION');
+export const spiesWin = derived(rounds, ($rounds): boolean => {
+  const wins = $rounds.filter((round) => round.winner === 'spies').length;
+  return wins >= roundsToWin;
+});
 
-  return {
-    subscribe,
-    reset: () => set('TEAM_SELECTION'),
-    'roundstate::set': set,
-  };
-})();
+export const resistanceWin = derived(rounds, ($rounds): boolean => {
+  const wins = $rounds.filter((round) => round.winner === 'resistance').length;
+  return wins >= roundsToWin;
+});
 
-export const phaseTeamBuilding = derived(roundstate, ($roundState) => {
-  const phases = ['TEAM_SELECTION', 'TEAM_VOTE', 'TEAM_REVEAL'];
-  return phases.includes($roundState);
+export const teamBuildingFailure = derived(currentRound, ($currentRound): boolean => {
+  return $currentRound.failedTeamVotes > $currentRound.permittedTeamVoteFails;
 });

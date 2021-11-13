@@ -55,7 +55,7 @@ const nextRound = [
   createHistoryEvent('team::reset'),
   createHistoryEvent('teamvote::reset'),
   createHistoryEvent('rounds::increment'),
-  createHistoryEvent('roundstate::set', 'TEAM_SELECTION'),
+  createHistoryEvent('phase::set', 'TEAM_SELECTION'),
 ];
 
 ///////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ export const roundOneStart = [
   ...withPlayers,
   createHistoryEvent('ruleset::generate', ruleset),
   createHistoryEvent('rounds::init', ruleset),
-  createHistoryEvent('leader::change', [players, undefined]),
+  createHistoryEvent('leader::init', players),
   createHistoryEvent('appstate::set', 'IN_GAME'),
 ];
 
@@ -89,7 +89,7 @@ export const roundOneTeam = [
   createHistoryEvent('team::selection', spy1.id),
   createHistoryEvent('team::selection', p6.id),
   createHistoryEvent('team::confirmation', [spy1.id, p6.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_VOTE'),
+  createHistoryEvent('phase::set', 'TEAM_VOTE'),
 ];
 
 export const roundOneVotesApproved = [...roundOneTeam, ...votesApproved];
@@ -99,32 +99,32 @@ export const roundOneVotesPending = [...roundOneTeam, ...votesPending];
 export const roundOneTeamApproved = [
   ...roundOneTeam,
   ...votesApproved,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundOneTeamRejected = [
   ...roundOneTeam,
   ...votesRejected,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundOneNewVote = [
   ...roundOneTeamRejected,
   createHistoryEvent('rounds::update', [0, { failedTeamVotes: 1 }]),
-  createHistoryEvent('leader::change', [players, spy1.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundOneLastVote = [
   ...roundOneTeamRejected,
   createHistoryEvent('rounds::update', [0, { failedTeamVotes: 4 }]),
-  createHistoryEvent('leader::change', [players, p4.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundOneMissionPassed = [
   ...roundOneTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
   createHistoryEvent('rounds::update', [
@@ -141,13 +141,13 @@ export const roundOneMissionPassed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, spy1.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
 
 export const roundOneMissionFailed = [
   ...roundOneTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'fail' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
   createHistoryEvent('rounds::update', [
@@ -164,8 +164,8 @@ export const roundOneMissionFailed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, spy1.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
 
 ///////////////////////////////////////////////////////////
@@ -180,7 +180,7 @@ export const roundTwoTeam = [
   createHistoryEvent('team::selection', p6.id),
   createHistoryEvent('team::selection', p7.id),
   createHistoryEvent('team::confirmation', [spy1.id, p6.id, p7.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_VOTE'),
+  createHistoryEvent('phase::set', 'TEAM_VOTE'),
 ];
 
 export const roundTwoVotesApproved = [...roundTwoTeam, ...votesApproved];
@@ -190,32 +190,32 @@ export const roundTwoVotesPending = [...roundTwoTeam, ...votesPending];
 export const roundTwoTeamApproved = [
   ...roundTwoTeam,
   ...votesApproved,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundTwoTeamRejected = [
   ...roundTwoTeam,
   ...votesRejected,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundTwoNewVote = [
   ...roundTwoTeamRejected,
   createHistoryEvent('rounds::update', [1, { failedTeamVotes: 1 }]),
-  createHistoryEvent('leader::change', [players, spy2.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundTwoLastVote = [
   ...roundTwoTeamRejected,
   createHistoryEvent('rounds::update', [1, { failedTeamVotes: 4 }]),
-  createHistoryEvent('leader::change', [players, p5.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundTwoMissionPassed = [
   ...roundTwoTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p7.id, vote: 'pass' }),
@@ -234,13 +234,13 @@ export const roundTwoMissionPassed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, spy2.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
 
 export const roundTwoMissionFailed = [
   ...roundTwoTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'fail' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p7.id, vote: 'pass' }),
@@ -259,8 +259,8 @@ export const roundTwoMissionFailed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, spy2.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
 
 ///////////////////////////////////////////////////////////
@@ -275,7 +275,7 @@ export const roundThreeTeam = [
   createHistoryEvent('team::selection', p6.id),
   createHistoryEvent('team::selection', p7.id),
   createHistoryEvent('team::confirmation', [spy2.id, p6.id, p7.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_VOTE'),
+  createHistoryEvent('phase::set', 'TEAM_VOTE'),
 ];
 
 export const roundThreeVotesApproved = [...roundThreeTeam, ...votesApproved];
@@ -285,32 +285,32 @@ export const roundThreeVotesPending = [...roundThreeTeam, ...votesPending];
 export const roundThreeTeamApproved = [
   ...roundThreeTeam,
   ...votesApproved,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundThreeTeamRejected = [
   ...roundThreeTeam,
   ...votesRejected,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundThreeNewVote = [
   ...roundThreeTeamRejected,
   createHistoryEvent('rounds::update', [2, { failedTeamVotes: 1 }]),
-  createHistoryEvent('leader::change', [players, spy3.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundThreeLastVote = [
   ...roundThreeTeamRejected,
   createHistoryEvent('rounds::update', [2, { failedTeamVotes: 4 }]),
-  createHistoryEvent('leader::change', [players, p6.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundThreeMissionPassed = [
   ...roundThreeTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy2.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p7.id, vote: 'pass' }),
@@ -329,13 +329,13 @@ export const roundThreeMissionPassed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, spy3.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
 
 export const roundThreeMissionFailed = [
   ...roundThreeTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy2.id, vote: 'fail' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p7.id, vote: 'pass' }),
@@ -354,8 +354,8 @@ export const roundThreeMissionFailed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, spy3.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
 
 ///////////////////////////////////////////////////////////
@@ -371,7 +371,7 @@ export const roundFourTeam = [
   createHistoryEvent('team::selection', p6.id),
   createHistoryEvent('team::selection', p7.id),
   createHistoryEvent('team::confirmation', [spy1.id, spy2.id, p6.id, p7.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_VOTE'),
+  createHistoryEvent('phase::set', 'TEAM_VOTE'),
 ];
 
 export const roundFourVotesApproved = [...roundFourTeam, ...votesApproved];
@@ -381,32 +381,32 @@ export const roundFourVotesPending = [...roundFourTeam, ...votesPending];
 export const roundFourTeamApproved = [
   ...roundFourTeam,
   ...votesApproved,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundFourTeamRejected = [
   ...roundFourTeam,
   ...votesRejected,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundFourNewVote = [
   ...roundFourTeamRejected,
   createHistoryEvent('rounds::update', [3, { failedTeamVotes: 1 }]),
-  createHistoryEvent('leader::change', [players, p4.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundFourLastVote = [
   ...roundFourTeamRejected,
   createHistoryEvent('rounds::update', [3, { failedTeamVotes: 4 }]),
-  createHistoryEvent('leader::change', [players, p7.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundFourMissionPassed = [
   ...roundFourTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'fail' }),
   createHistoryEvent('missionvote::cast', { playerId: spy2.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
@@ -427,13 +427,13 @@ export const roundFourMissionPassed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, p4.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
 
 export const roundFourMissionFailed = [
   ...roundFourTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'fail' }),
   createHistoryEvent('missionvote::cast', { playerId: spy2.id, vote: 'fail' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
@@ -454,8 +454,8 @@ export const roundFourMissionFailed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, p4.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
 
 ///////////////////////////////////////////////////////////
@@ -471,7 +471,7 @@ export const roundFiveTeam = [
   createHistoryEvent('team::selection', p6.id),
   createHistoryEvent('team::selection', p7.id),
   createHistoryEvent('team::confirmation', [spy1.id, spy2.id, p6.id, p7.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_VOTE'),
+  createHistoryEvent('phase::set', 'TEAM_VOTE'),
 ];
 
 export const roundFiveVotesApproved = [...roundFiveTeam, ...votesApproved];
@@ -481,32 +481,32 @@ export const roundFiveVotesPending = [...roundFiveTeam, ...votesPending];
 export const roundFiveTeamApproved = [
   ...roundFiveTeam,
   ...votesApproved,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundFiveTeamRejected = [
   ...roundFiveTeam,
   ...votesRejected,
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundFiveNewVote = [
   ...roundFiveTeamRejected,
   createHistoryEvent('rounds::update', [4, { failedTeamVotes: 1 }]),
-  createHistoryEvent('leader::change', [players, p5.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundFiveLastVote = [
   ...roundFiveTeamRejected,
   createHistoryEvent('rounds::update', [4, { failedTeamVotes: 4 }]),
-  createHistoryEvent('leader::change', [players, spy1.id]),
-  createHistoryEvent('roundstate::set', 'TEAM_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'TEAM_REVEAL'),
 ];
 
 export const roundFiveMissionPassed = [
   ...roundFiveTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: spy2.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
@@ -527,13 +527,13 @@ export const roundFiveMissionPassed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, p5.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
 
 export const roundFiveMissionFailed = [
   ...roundFiveTeamApproved,
-  createHistoryEvent('roundstate::set', 'MISSION_START'),
+  createHistoryEvent('phase::set', 'MISSION_START'),
   createHistoryEvent('missionvote::cast', { playerId: spy1.id, vote: 'fail' }),
   createHistoryEvent('missionvote::cast', { playerId: spy2.id, vote: 'pass' }),
   createHistoryEvent('missionvote::cast', { playerId: p6.id, vote: 'pass' }),
@@ -554,14 +554,6 @@ export const roundFiveMissionFailed = [
       },
     },
   ]),
-  createHistoryEvent('leader::change', [players, p5.id]),
-  createHistoryEvent('roundstate::set', 'MISSION_REVEAL'),
+  createHistoryEvent('leader::change'),
+  createHistoryEvent('phase::set', 'MISSION_REVEAL'),
 ];
-
-///////////////////////////////////////////////////////////
-// END GAME
-///////////////////////////////////////////////////////////
-
-export const spieswin = [...roundFiveMissionFailed, ...nextRound];
-
-export const resistanceWin = [...roundFiveMissionPassed, ...nextRound];

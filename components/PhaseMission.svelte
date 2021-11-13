@@ -60,6 +60,7 @@
 
   function revealVotes() {
     const update = {
+      winner: $missionPassed ? 'resistance' : 'spies',
       missionPhase: {
         team: $team,
         votes: $missionVotes,
@@ -67,8 +68,8 @@
       },
     };
     socket.emit('rounds::update', [$currentRound.index, update]);
-    socket.emit('leader::change', [$players, $leader.id]);
-    socket.emit('roundstate::set', 'MISSION_REVEAL');
+    socket.emit('leader::change');
+    socket.emit('phase::set', 'MISSION_REVEAL');
   }
 </script>
 

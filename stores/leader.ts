@@ -1,38 +1,51 @@
-import type { Player, PlayerId } from '../types';
+import type { Player } from '../types';
 import { derived, writable } from 'svelte/store';
 
-const init: Player = {
-  id: undefined,
-  name: undefined,
-  avatar: undefined,
-};
-
-export const leader = (() => {
-  const { subscribe, set } = writable(init);
+export const leaderIndexes = (() => {
+  const initPlayer: Player = {
+    id: undefined,
+    name: undefined,
+    avatar: undefined,
+  };
+  const init = {
+    players: [initPlayer],
+    max: 0,
+    current: 0,
+    previous: 0,
+  };
+  const { subscribe, set, update } = writable(init);
 
   return {
     subscribe,
     reset: () => set(init),
-    'leader::change': ([players, currentLeaderId]: [Player[], PlayerId]) => {
-      const currentLeaderIndex = players.findIndex((player) => player.id === currentLeaderId);
-      const newLeader = players[currentLeaderIndex + 1] || players[0];
-      set(newLeader);
+    'leader::init': (players: Player[]) => {
+      update(($leader) => {
+        return {
+          ...$leader,
+          players,
+          max: players.length - 1,
+        };
+      });
+    },
+    'leader::change': () => {
+      update(($leader) => {
+        const previous = $leader.current;
+        const current = $leader.current + 1 > $leader.max ? 0 : $leader.current + 1;
+
+        return {
+          ...$leader,
+          previous,
+          current,
+        };
+      });
     },
   };
 })();
 
-// 'leader::change' action is wrapped to fire both leader and previousLeader in succession
-// It must match the leader API
-export const previousLeader = (() => {
-  const { subscribe, set } = writable(init);
+export const leader = derived(leaderIndexes, ($leaderIndexes): Player => {
+  return $leaderIndexes.players[$leaderIndexes.current];
+});
 
-  return {
-    subscribe,
-    reset: () => set(init),
-    'leader::change': ([players, currentLeaderId]: [Player[], PlayerId]) => {
-      const currentLeaderIndex = players.findIndex((player) => player.id === currentLeaderId);
-      const currentLeader = players[currentLeaderIndex] || players[0];
-      set(currentLeader);
-    },
-  };
-})();
+export const previousLeader = derived(leaderIndexes, ($leaderIndexes): Player => {
+  return $leaderIndexes.players[$leaderIndexes.previous];
+});

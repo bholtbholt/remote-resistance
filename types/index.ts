@@ -44,7 +44,6 @@ export interface Ruleset {
   spyCount: number;
   missions: Object;
   failTies: boolean;
-  roundsToWin: number;
   permittedTeamVoteFails: number;
 }
 

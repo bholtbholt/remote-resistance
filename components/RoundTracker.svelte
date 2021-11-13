@@ -2,7 +2,8 @@
   import { backOut } from 'svelte/easing';
   import { scale } from 'svelte/transition';
 
-  import { currentRound, rounds, phaseTeamBuilding } from '../stores/round';
+  import { phaseTeamBuilding } from '../stores/phase';
+  import { currentRound, rounds } from '../stores/round';
 
   // maps to round.winner || currentRound, with undefined as the
   // fallback/default style and true as the currentRound style

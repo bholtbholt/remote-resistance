@@ -24,7 +24,7 @@
 
   function confirmTeam() {
     socket.emit('team::confirmation', $team);
-    socket.emit('roundstate::set', 'TEAM_VOTE');
+    socket.emit('phase::set', 'TEAM_VOTE');
   }
 </script>
 

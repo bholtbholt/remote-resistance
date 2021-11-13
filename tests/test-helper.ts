@@ -2,10 +2,11 @@ import type { Player } from '../types';
 import { v4 as uuid } from 'uuid';
 import { appstate } from '../stores/app';
 import { history } from '../stores/history';
-import { leader, previousLeader } from '../stores/leader';
+import { leaderIndexes } from '../stores/leader';
 import { missionVotes } from '../stores/mission';
 import { currentPlayerId, players } from '../stores/player';
-import { rounds, roundstate, currentRoundIndex } from '../stores/round';
+import { phase } from '../stores/phase';
+import { rounds, currentRoundIndex } from '../stores/round';
 import { ruleset } from '../stores/rules';
 import { team, teamVotes } from '../stores/team';
 
@@ -22,15 +23,14 @@ export function createPlayer(player = {}): Player {
 export function resetTestState() {
   appstate.reset();
   currentPlayerId.reset();
-  history.reset();
-  leader.reset();
-  missionVotes['missionvote::reset']();
-  players.reset();
-  previousLeader.reset();
-  rounds.reset();
-  roundstate.reset();
   currentRoundIndex['rounds::reset']();
-  ruleset.reset();
+  history.reset();
+  leaderIndexes.reset();
+  missionVotes['missionvote::reset']();
+  phase['phase::reset']();
+  players.reset();
+  rounds['rounds::reset']();
+  ruleset['ruleset::reset']();
   team['team::reset']();
   teamVotes['teamvote::reset']();
 }

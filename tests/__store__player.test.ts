@@ -15,7 +15,7 @@ import {
   allPlayersHaveVoted,
 } from '../stores/player';
 import { generateRuleset, ruleset } from '../stores/rules';
-import { leader } from '../stores/leader';
+import { leaderIndexes } from '../stores/leader';
 import { missionVotes } from '../stores/mission';
 import { team, teamVotes } from '../stores/team';
 
@@ -117,7 +117,7 @@ describe('#playerIsLeader', () => {
     const [p1] = get(players);
     currentPlayerId.set(p1.id);
 
-    leader['leader::change']([get(players), undefined]);
+    leaderIndexes['leader::init'](get(players));
     expect(get(playerIsLeader)).toEqual(true);
   });
 
@@ -125,7 +125,7 @@ describe('#playerIsLeader', () => {
     const [p1, p2] = get(players);
     currentPlayerId.set(p2.id);
 
-    leader['leader::change']([get(players), undefined]);
+    leaderIndexes['leader::init'](get(players));
     expect(get(playerIsLeader)).toEqual(false);
   });
 });
