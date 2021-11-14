@@ -29,6 +29,16 @@
 </script>
 
 <div id="AppStatePreGame" in:fade>
+  <header class="mb-8 flex justify-center">
+    <h1 class="font-light tracking-tight text-indigo-200 dark:text-gray-300 text-xl">
+      Remote Resistance
+    </h1>
+    <span
+      class="px-1 text-xs leading-snug font-normal rounded-full bg-rose-100 text-rose-800 self-start"
+    >
+      beta
+    </span>
+  </header>
   <ul
     id="playerList"
     class="grid grid-cols-5 gap-2 mb-8
