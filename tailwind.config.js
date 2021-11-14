@@ -40,10 +40,13 @@ module.exports = {
     opacity: ['disabled'],
   },
   plugins: [
-    plugin(function ({ addUtilities, theme }) {
+    plugin(function ({ addUtilities }) {
       const newUtilities = {
         '.blur': {
           filter: 'blur(0.6em)',
+        },
+        '.bg-inherit': {
+          backgroundColor: 'inherit',
         },
       };
 
