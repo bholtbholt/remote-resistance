@@ -8,7 +8,7 @@
     "lint": "svelte-check",
     "prestart": "rm -rf dist",
     "setup": "cp .env.sample .env && npm install",
-    "server": "ts-node ./server/index.ts",
+    "prod": "ts-node ./server/index.ts",
     "start": "vite & ts-node ./server/index.ts",
     "test": "jest --watch"
   },
