@@ -11,7 +11,6 @@
     playerHasVoted,
     playerIsLeader,
     playerIsLoggedIn,
-    players,
     teamMembers,
   } from '../stores/player';
   import { leader } from '../stores/leader';

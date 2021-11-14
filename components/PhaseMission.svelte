@@ -5,7 +5,6 @@
   import { fade, fly } from 'svelte/transition';
   import { rotate } from './custom-transitions';
 
-  import { leader } from '../stores/leader';
   import { missionIsComplete, missionPassed, missionVotes } from '../stores/mission';
   import {
     currentPlayer,
@@ -13,7 +12,6 @@
     playerIsASpy,
     playerIsLeader,
     playerIsTeamMember,
-    players,
     teamMembers,
   } from '../stores/player';
   import { currentRound } from '../stores/round';
@@ -23,7 +21,6 @@
   import PlayerList from './PlayerList.svelte';
   import UIButton from './UIButton.svelte';
   import UIBanner from './UIBanner.svelte';
-  import UISpinner from './UISpinner.svelte';
   import { toSentance } from './view-helper';
 
   let playerVote;
