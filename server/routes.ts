@@ -3,7 +3,7 @@ import http from 'http';
 
 const app = express();
 const expressServer = http.createServer(app);
-const port = process.env.EXPRESS_PORT || 4000;
+const port = process.env.PORT || 4000;
 
 // serves the assets directory
 app.use(express.static('dist'));
