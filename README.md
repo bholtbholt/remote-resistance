@@ -2,6 +2,33 @@
 
 Play Resistance with your friends anywhere – a real-time remote version of the game.
 
+## Deploying
+
+Remote Resistance is served with [Heroku](https://dashboard.heroku.com/apps). Use the following commands for deploying:
+
+```
+# Deploying the main branch
+git push heroku main
+
+# Deploying a non-main branch
+git push heroku other-branch:main
+
+# Reset to main branch (must do after deploying another branch)
+git push -f heroku main:main
+
+```
+
+### Additional Heroku Commands
+
+```
+# Tail logs
+heroku logs --tail
+
+# Run the Heroku app locally
+npm run build
+heroku local web
+```
+
 ## Installation
 
 - Download the latest version of [Node](https://nodejs.org/en/) and NPM.
