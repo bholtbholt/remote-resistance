@@ -27,6 +27,10 @@ heroku logs --tail
 # Run the Heroku app locally
 npm run build
 heroku local web
+
+# Redeploy without changes (deploys twice and reverts empty commit)
+git commit --allow-empty -m "Redeploy"; git push heroku main
+git reset HEAD~; git push -f heroku main
 ```
 
 ## Installation
@@ -153,4 +157,6 @@ Using `history-states` is the easiest way to build up a true state in the applic
 <dl>
   <dt>Tests are failing as a group, but pass individually</dt>
   <dd>Jest runs tests with shared state, so you need to add <code>afterEach(() => { …; return; })</code> to undo the state.</dd>
+  <dt>The app is running, but the loading state never ends</dt>
+  <dd>You probably have a typo in your ENV URLS, likely `VITE_EXPRESS_URL`. Make sure there are no trailing slashes at the end of the URL. The socket queries against `window.location.pathname`, which returns something like `/game-id`.</dd>
 </dl>
