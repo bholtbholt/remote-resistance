@@ -17,7 +17,7 @@ describe('when player is resistance', () => {
     });
 
     const h2 = getByRole('heading', {
-      name: "You're part of the resistance , but there are 3 spies in your midst.",
+      name: "You're resistance but 3 spies are among you.",
     });
 
     expect(h2).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('when player is resistance', () => {
 
 describe('when player is a spy', () => {
   test('should show spies', () => {
-    const [spy1, spy2, spy3] = players;
+    const [spy1] = players;
     currentPlayerId.set(spy1.id);
 
     const { container, getByRole } = render(AppFixture, {
@@ -37,7 +37,7 @@ describe('when player is a spy', () => {
     });
 
     const h2 = getByRole('heading', {
-      name: `You, ${spy2.name}, and ${spy3.name} are spies amongst the resistance!`,
+      name: `You're spies amongst the resistance!`,
     });
 
     expect(h2).toBeInTheDocument();

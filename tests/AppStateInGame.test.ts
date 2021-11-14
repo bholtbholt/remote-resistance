@@ -24,7 +24,7 @@ describe('when player is logged in', () => {
     });
 
     const h2 = getByRole('heading', {
-      name: "You're part of the resistance , but there are 3 spies in your midst.",
+      name: "You're resistance but 3 spies are among you.",
     });
     expect(h2).toBeInTheDocument();
   });
