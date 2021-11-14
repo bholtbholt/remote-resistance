@@ -12,6 +12,10 @@
     "start": "vite & ts-node ./server/index.ts",
     "test": "jest --watch"
   },
+  "engines": {
+    "node": "14.x",
+    "npm": "7.24.x"
+  },
   "author": "bholtbholt",
   "license": "UNLICENSED",
   "dependencies": {
