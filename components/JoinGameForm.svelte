@@ -1,6 +1,6 @@
 <script>
   import { currentPlayerId, players } from '../stores/player';
-  import { v4 as uuid } from 'uuid';
+  import { nanoid } from 'nanoid/non-secure';
 
   import { fly, fade } from 'svelte/transition';
   import { onMount } from 'svelte';
@@ -28,7 +28,7 @@
   function handleSubmit() {
     enableForm = false;
     const player = {
-      id: uuid(),
+      id: nanoid(),
       name: this.elements['name'].value,
       avatar: this.elements['avatar'].value,
     };

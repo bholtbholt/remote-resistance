@@ -1,12 +1,12 @@
+type NanoID = string;
 export type Action = string;
-export type PlayerId = UUID;
-type UUID = string;
+export type PlayerId = NanoID;
 
 export interface HistoryEvent {
   action: Action;
   data: any;
   timestamp: number;
-  id: UUID;
+  id: NanoID;
 }
 
 export interface MissionPhase {

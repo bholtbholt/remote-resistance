@@ -1,6 +1,6 @@
 import type { Namespace } from 'socket.io';
 import type { Action, HistoryEvent } from '../types';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid/non-secure';
 
 const historyEvents = {};
 // A wrapper for socket.io emit that stores the event in local memory
@@ -10,7 +10,7 @@ function createHistory(namespace: Namespace, action: Action, data) {
     action,
     data,
     timestamp: Date.now(),
-    id: uuid(),
+    id: nanoid(),
   };
   historyEvents[namespace.name] = [...historyEvents[namespace.name], event];
   namespace.emit(action, data);
