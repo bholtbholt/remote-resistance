@@ -39,3 +39,12 @@ test('should only init history once', () => {
 
   expect(socket.once).toHaveBeenCalledTimes(1);
 });
+
+test('should reset hideRoleReveal when a new round starts', () => {
+  window.sessionStorage.setItem('hideRoleReveal', 'true');
+  expect(window.sessionStorage.getItem('hideRoleReveal')).toEqual('true');
+
+  history['history::init'](roundOneStart);
+
+  expect(window.sessionStorage.getItem('hideRoleReveal')).toBeNull();
+});

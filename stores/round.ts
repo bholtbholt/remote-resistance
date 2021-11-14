@@ -50,6 +50,7 @@ export const rounds = (() => {
         const index: number = parseInt(missionId, 10) - 1;
         return initRound({ name, index, permittedTeamVoteFails, ...missionRules });
       });
+      window.sessionStorage.removeItem('hideRoleReveal');
       set(initRounds);
     },
   };

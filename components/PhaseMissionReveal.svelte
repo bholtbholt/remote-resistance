@@ -64,7 +64,6 @@
     socket.emit('teamvote::reset');
     socket.emit('phase::set', 'TEAM_SELECTION');
     socket.emit('rounds::reset');
-    window.sessionStorage.removeItem('hideRoleReveal');
   }
 </script>
 
