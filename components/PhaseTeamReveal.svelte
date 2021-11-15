@@ -36,7 +36,7 @@
   }
 
   function endGame() {
-    socket.emit('appstate::set', 'PRE_GAME');
+    socket.emit('appstate::reset');
     socket.emit('missionvote::reset');
     socket.emit('team::reset');
     socket.emit('teamvote::reset');

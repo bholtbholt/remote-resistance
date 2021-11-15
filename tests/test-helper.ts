@@ -21,7 +21,7 @@ export function createPlayer(player = {}): Player {
 }
 
 export function resetTestState() {
-  appstate.reset();
+  appstate['appstate::reset']();
   currentPlayerId.reset();
   currentRoundIndex['rounds::reset']();
   history.reset();

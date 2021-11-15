@@ -81,7 +81,7 @@ export const roundOneStart = [
   createHistoryEvent('ruleset::generate', ruleset),
   createHistoryEvent('rounds::init', ruleset),
   createHistoryEvent('leader::init', players),
-  createHistoryEvent('appstate::set', 'IN_GAME'),
+  createHistoryEvent('appstate::init'),
 ];
 
 export const roundOneTeam = [

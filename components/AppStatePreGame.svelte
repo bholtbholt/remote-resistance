@@ -23,7 +23,7 @@
     socket.emit('ruleset::generate', ruleset);
     socket.emit('rounds::init', ruleset);
     socket.emit('leader::init', $players);
-    socket.emit('appstate::set', 'IN_GAME');
+    socket.emit('appstate::init');
   }
 
   let changingRoom = false;

@@ -108,7 +108,7 @@ describe('when spies win', () => {
     const button = queryByText('Start a new game');
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('appstate::set', 'PRE_GAME');
+    expect(socket.emit).toHaveBeenCalledWith('appstate::reset');
     expect(socket.emit).toHaveBeenCalledWith('missionvote::reset');
     expect(socket.emit).toHaveBeenCalledWith('team::reset');
     expect(socket.emit).toHaveBeenCalledWith('teamvote::reset');
@@ -139,7 +139,7 @@ describe('when resistance wins', () => {
     const button = queryByText('Start a new game');
     await fireEvent.click(button);
 
-    expect(socket.emit).toHaveBeenCalledWith('appstate::set', 'PRE_GAME');
+    expect(socket.emit).toHaveBeenCalledWith('appstate::reset');
     expect(socket.emit).toHaveBeenCalledWith('missionvote::reset');
     expect(socket.emit).toHaveBeenCalledWith('team::reset');
     expect(socket.emit).toHaveBeenCalledWith('teamvote::reset');

@@ -104,7 +104,7 @@ test('should set the game state to IN_GAME', async () => {
 
   await fireEvent.click(button);
 
-  expect(socket.emit).toHaveBeenCalledWith('appstate::set', 'IN_GAME');
+  expect(socket.emit).toHaveBeenCalledWith('appstate::init');
 });
 
 test('should initialize the first team builder leader', async () => {
