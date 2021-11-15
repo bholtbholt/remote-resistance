@@ -1,6 +1,4 @@
 <script>
-  import { redirect } from '../entry/redirect';
-
   import { players, playerIsLoggedIn } from '../stores/player';
   import { generateRuleset, maximumPlayerCount, minimumPlayerCount } from '../stores/rules';
 
@@ -8,88 +6,60 @@
   import { getContext } from 'svelte';
   const socket = getContext('socketIORoom');
 
-  import Player from './Player.svelte';
-  import JoinGameForm from './JoinGameForm.svelte';
-  import UIButtonCopy from './UIButtonCopy.svelte';
-  import UIButton from './UIButton.svelte';
+  import PreGameFilledSlots from './PreGameFilledSlots.svelte';
+  import PreGameHeader from './PreGameHeader.svelte';
+  import PreGameNewCode from './PreGameNewCode.svelte';
+  import PreGamePlayerForm from './PreGamePlayerForm.svelte';
+  import PreGamePlayerList from './PreGamePlayerList.svelte';
   import UIBanner from './UIBanner.svelte';
+  import UIButton from './UIButton.svelte';
+  import UIButtonCopy from './UIButtonCopy.svelte';
 
-  $: playerSlots = Array(Math.max(0, maximumPlayerCount - $players.length));
-  $: enoughPlayers = $players.length >= minimumPlayerCount;
   $: availableSlots = $players.length < maximumPlayerCount;
+  $: enoughPlayers = $players.length >= minimumPlayerCount;
 
-  function handleSubmit() {
-    this.disabled = true;
+  function startGame() {
     const ruleset = generateRuleset($players);
     socket.emit('ruleset::generate', ruleset);
     socket.emit('rounds::init', ruleset);
     socket.emit('leader::init', $players);
     socket.emit('appstate::set', 'IN_GAME');
   }
+
+  let changingRoom = false;
+  function changeRoom() {
+    changingRoom = true;
+  }
 </script>
 
 <div id="AppStatePreGame" in:fade>
-  <header class="mb-8 flex justify-center">
-    <h1 class="font-light tracking-tight text-indigo-200 dark:text-gray-300 text-xl">
-      Remote Resistance
-    </h1>
-    <span
-      class="px-1 text-xs leading-snug font-normal rounded-full bg-rose-100 text-rose-800 self-start"
-    >
-      beta
-    </span>
-  </header>
-  <ul
-    id="playerList"
-    class="grid grid-cols-5 gap-2 mb-8
-      transition-all duration-1000 ease-out"
-    class:blur={!$playerIsLoggedIn}
-    class:opacity-50={!$playerIsLoggedIn}
-  >
-    {#each $players as { ...player }}
-      <Player {...player} />
-    {/each}
-    {#each playerSlots as {}, i}
-      <li
-        class="animate-pulse
-          py-12 rounded-lg shadow
-          bg-white dark:bg-gray-800 bg-opacity-30"
-        style="animation-delay: {i * 100}ms"
-      />
-    {/each}
-  </ul>
+  <PreGameHeader />
+  <PreGamePlayerList />
 
   {#if $playerIsLoggedIn}
     {#if enoughPlayers}
       <div in:fade>
-        <UIButton on:click={handleSubmit}>Start the game!</UIButton>
+        <UIButton on:click={startGame}>Start the game!</UIButton>
       </div>
     {:else}
       <UIBanner>Waiting for more players to join…</UIBanner>
     {/if}
     <UIButtonCopy class="mx-auto my-8">Share Game URL</UIButtonCopy>
   {:else if availableSlots}
-    <JoinGameForm />
-  {:else}
     <div
-      in:fly={{ y: -200, duration: 600 }}
-      class="bg-orange-200 dark:bg-gray-800
-      text-orange-900 dark:text-gray-300
-      p-6 rounded-lg shadow-xl"
+      class="-mt-48 p-4 mb-10
+        bg-white dark:bg-gray-800 bg-opacity-80
+        rounded-lg shadow-2xl relative z-10"
+      in:fly={{ y: -200, duration: 900 }}
+      out:fade={{ duration: 150 }}
     >
-      <h2 class="text-xl font-bold mb-2">Too late!</h2>
-      <p>
-        There are already {maximumPlayerCount} players in the room. Wait here to watch, or
-        <a
-          href="/"
-          on:click|preventDefault={redirect}
-          class="font-bold cursor-pointer hover:underline
-            text-indigo-700 dark:text-purple-300"
-        >
-          start a new game
-        </a>
-        instead.
-      </p>
+      {#if changingRoom}
+        <PreGameNewCode />
+      {:else}
+        <PreGamePlayerForm on:click={changeRoom} />
+      {/if}
     </div>
+  {:else}
+    <PreGameFilledSlots />
   {/if}
 </div>

@@ -2,12 +2,13 @@
   import { currentPlayerId, players } from '../stores/player';
   import { nanoid } from 'nanoid/non-secure';
 
-  import { fly, fade } from 'svelte/transition';
   import { onMount } from 'svelte';
   import { getContext } from 'svelte';
   const socket = getContext('socketIORoom');
 
   import UIButton from './UIButton.svelte';
+  import UIFormText from './UIFormText.svelte';
+  import UIFormLabel from './UIFormLabel.svelte';
 
   // prettier-ignore
   const avatars = [
@@ -17,6 +18,7 @@
     '🌞','👹','🐲','🤡','🤖',
     '☘️','🍄','🌺','🌸','🌼'
   ];
+  let playerName;
   let playerAvatar;
   let enableForm = true;
   $: takenAvatars = $players.map((player) => player.avatar);
@@ -25,12 +27,12 @@
     playerAvatar = avatars.filter((n) => !takenAvatars.includes(n))[0];
   });
 
-  function handleSubmit() {
+  function joinGame() {
     enableForm = false;
     const player = {
       id: nanoid(),
-      name: this.elements['name'].value,
-      avatar: this.elements['avatar'].value,
+      name: playerName,
+      avatar: playerAvatar,
     };
 
     socket.emit('player::add', player);
@@ -39,42 +41,19 @@
   }
 </script>
 
-<form
-  class="-mt-48 p-4 mb-10
-    bg-white dark:bg-gray-800 bg-opacity-80
-    rounded-lg shadow-2xl relative z-10"
-  in:fly={{ y: -200, duration: 900 }}
-  out:fade={{ duration: 150 }}
-  on:submit|preventDefault={handleSubmit}
->
-  <label
-    for="name"
-    class="border-b-4 border-indigo-200 dark:border-gray-600
-      focus-within:border-teal-400
-      block mb-8
-      ease-out duration-200 transition-colors"
+<form on:submit|preventDefault={joinGame}>
+  <UIFormText
+    id="name"
+    name="name"
+    bind:value={playerName}
+    disabled={!enableForm}
+    required
+    autofocus
   >
-    <div class="uppercase font-light tracking-widest text-sm text-indigo-700 dark:text-purple-300">
-      Name
-    </div>
-    <input
-      id="name"
-      name="name"
-      class="appearance-none focus:outline-none
-        bg-transparent border-none w-full py-1
-        text-gray-800 dark:text-gray-200 text-2xl"
-      autocomplete="off"
-      disabled={!enableForm}
-      required
-      autofocus
-    />
-  </label>
+    Name
+  </UIFormText>
 
-  <div
-    class="uppercase font-light tracking-widest text-sm text-indigo-700 dark:text-purple-300 mb-2"
-  >
-    Avatar
-  </div>
+  <UIFormLabel class="mb-2">Avatar</UIFormLabel>
   <div class="grid grid-cols-5 gap-1 mb-8">
     {#each avatars as avatar, i}
       <label
@@ -96,11 +75,23 @@
           name="avatar"
           value={avatar}
           disabled={takenAvatars.includes(avatar)}
+          required
         />
         {avatar}
       </label>
     {/each}
   </div>
 
-  <UIButton disabled={!enableForm}>Join game</UIButton>
+  <UIButton class="mb-8" disabled={!enableForm}>Join game</UIButton>
+
+  <button
+    type="button"
+    on:click
+    class="block mx-auto
+      font-light text-sm hover:underline
+      text-indigo-700 dark:text-purple-300"
+  >
+    <span class="uppercase">Change game code:</span>
+    {window.location.pathname.slice(1)}
+  </button>
 </form>

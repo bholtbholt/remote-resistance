@@ -146,3 +146,17 @@ test('should initialize rounds', async () => {
 
   expect(socket.emit).toHaveBeenCalledWith('rounds::init', expect.objectContaining({}));
 });
+
+test('should allow visitors to change the game code', async () => {
+  const { getByText, getByLabelText } = render(AppFixture, { socket, component: AppStatePreGame });
+
+  const link = getByText('Change game code:');
+  await fireEvent.click(link);
+
+  const gameField = getByLabelText('New Game code');
+  await fireEvent.input(gameField, { target: { value: 'HAHA' } });
+
+  const button = getByText('Go to new game') as HTMLButtonElement;
+
+  expect(button).toBeInTheDocument();
+});
