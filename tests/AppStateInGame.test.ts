@@ -2,7 +2,14 @@ import { render } from '@testing-library/svelte';
 import AppFixture from './AppFixture.svelte';
 import AppStateInGame from '../components/AppStateInGame.svelte';
 import { currentPlayerId } from '../stores/player';
-import { roundOneStart, roundOneTeam, roundOneTeamApproved, players } from './history-states';
+import {
+  createHistoryEvent,
+  roundOneStart,
+  roundOneTeam,
+  roundOneTeamApproved,
+  roundOneMissionPassed,
+  players,
+} from './history-states';
 const socket = require('socket.io-client')('test');
 
 describe('when player is logged in', () => {
@@ -17,7 +24,7 @@ describe('when player is logged in', () => {
     });
 
     const h2 = getByRole('heading', {
-      name: "You're part of the resistance , but there are 3 spies in your midst.",
+      name: "You're resistance but 3 spies are among you.",
     });
     expect(h2).toBeInTheDocument();
   });
@@ -53,5 +60,27 @@ test('should render PhaseTeamReveal', () => {
   });
 
   const component = container.querySelector('#PhaseTeamReveal');
+  expect(component).toBeInTheDocument();
+});
+
+test('should render PhaseMission', () => {
+  const { container } = render(AppFixture, {
+    socket,
+    component: AppStateInGame,
+    historyState: [...roundOneTeamApproved, createHistoryEvent('phase::set', 'MISSION_START')],
+  });
+
+  const component = container.querySelector('#PhaseMission');
+  expect(component).toBeInTheDocument();
+});
+
+test('should render PhaseMissionReveal', () => {
+  const { container } = render(AppFixture, {
+    socket,
+    component: AppStateInGame,
+    historyState: roundOneMissionPassed,
+  });
+
+  const component = container.querySelector('#PhaseMissionReveal');
   expect(component).toBeInTheDocument();
 });

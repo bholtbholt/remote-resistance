@@ -6,6 +6,7 @@ import {
   players,
   roundOneStart,
   roundOneNewVote,
+  roundThreeStart,
   votesApproved,
 } from './history-states';
 const socket = require('socket.io-client')('test');
@@ -26,14 +27,29 @@ test('should highlight the current round', () => {
   const { container } = render(AppFixture, {
     socket,
     component: RoundTracker,
-    historyState: roundOneStart,
+    historyState: roundThreeStart,
   });
 
   const tracker = container.querySelectorAll('#RoundTracker > li');
-  const [round1, round2] = tracker;
+  const [round1, round2, round3] = tracker;
 
-  expect(round1.classList).toContain('bg-yellow-400');
+  expect(round3.classList).toContain('bg-yellow-400');
   expect(round2.classList).not.toContain('bg-yellow-400');
+});
+
+test('should show mission status for previous rounds', () => {
+  const { container } = render(AppFixture, {
+    socket,
+    component: RoundTracker,
+    historyState: roundThreeStart,
+  });
+
+  const tracker = container.querySelectorAll('#RoundTracker > li');
+  const [resistanceWin, spyWin, currentRound] = tracker;
+
+  expect(resistanceWin.classList).toContain('bg-sky-400');
+  expect(spyWin.classList).toContain('bg-rose-600');
+  expect(currentRound.classList).toContain('bg-yellow-400');
 });
 
 test('should show failed team votes for the currrent round', () => {
@@ -47,7 +63,7 @@ test('should show failed team votes for the currrent round', () => {
 
   expect(round1.classList).toContain('bg-yellow-400');
   expect(round1.innerHTML).toContain(
-    '<div class="text-xs text-indigo-800 dark:text-indigo-50" style="font-size: 0.66em;">1</div>',
+    '<div class="text-xs text-indigo-800 dark:text-indigo-50">1</div>',
   );
 });
 
@@ -70,6 +86,6 @@ test('should not display failed team votes after PhaseTeamBuilding has passed', 
 
   const round1 = container.querySelector('#RoundTracker > li:first-of-type');
   expect(round1.innerHTML).toContain(
-    '<span class="absolute inset-0 h-full w-full rounded-full z-n animate-slow-pulse opacity-75 bg-yellow-200 dark:bg-indigo-400"></span>',
+    '<span class="absolute inset-0 z-n h-full w-full rounded-full animate-slow-pulse bg-inherit"></span>',
   );
 });

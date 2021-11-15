@@ -5,7 +5,12 @@ export const appstate = (() => {
 
   return {
     subscribe,
-    reset: () => set('PRE_GAME'),
-    'appstate::set': set,
+    'appstate::reset': () => {
+      window.sessionStorage.removeItem('hideRoleReveal');
+      set('PRE_GAME');
+    },
+    'appstate::init': () => {
+      set('IN_GAME');
+    },
   };
 })();

@@ -1,15 +1,9 @@
-import { uniqueNamesGenerator, adjectives, animals } from 'unique-names-generator';
-
-const randomNamespace = uniqueNamesGenerator({
-  dictionaries: [adjectives, animals],
-  separator: '-',
-  length: 2,
-});
+import { nanoid } from 'nanoid/non-secure';
 
 function redirect() {
   window.sessionStorage.removeItem('currentPlayerId');
   window.sessionStorage.removeItem('hideRoleReveal');
-  window.location.pathname = `/${randomNamespace}`;
+  window.location.replace(`/${nanoid(4)}`);
 }
 
 export { redirect };

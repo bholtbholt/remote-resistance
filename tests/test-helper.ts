@@ -1,5 +1,5 @@
 import type { Player } from '../types';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid/non-secure';
 import { appstate } from '../stores/app';
 import { history } from '../stores/history';
 import { leaderIndexes } from '../stores/leader';
@@ -15,13 +15,13 @@ export function repeat(number: number, callback) {
 }
 
 export function createPlayer(player = {}): Player {
-  const defaultPlayer = { avatar: randomEmoji(), name: randomName(), id: uuid() };
+  const defaultPlayer = { avatar: randomEmoji(), name: randomName(), id: nanoid() };
 
   return { ...defaultPlayer, ...player };
 }
 
 export function resetTestState() {
-  appstate.reset();
+  appstate['appstate::reset']();
   currentPlayerId.reset();
   currentRoundIndex['rounds::reset']();
   history.reset();

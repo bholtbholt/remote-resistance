@@ -1,4 +1,6 @@
 <script>
+  let className = '';
+  export { className as class };
   export let disabled = false;
   export let theme = 'teal';
   const colors = {
@@ -15,11 +17,11 @@
   {disabled}
   class:opacity-75={disabled}
   class:cursor-not-allowed={disabled}
-  class="{colors[theme] || colors.teal} px-6 py-2
+  class="{colors[theme] || colors.teal} {className}
+    w-full rounded-full px-6 py-2
+    text-xl text-center whitespace-nowrap
     ease-out duration-200 transition-colors
-    w-full rounded-full
-    active:transform active:translate-y-0.5
-    text-xl text-center whitespace-nowrap"
+    active:transform active:translate-y-0.5"
 >
   <slot />
   {#if disabled}

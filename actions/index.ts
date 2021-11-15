@@ -11,7 +11,8 @@ import { team, teamVotes } from '../stores/team';
 // history::init must live outside of the actions otherwise it creates
 // circular dependencies when looping through the events
 export const actions = {
-  'appstate::set': appstate['appstate::set'],
+  'appstate::init': appstate['appstate::init'],
+  'appstate::reset': appstate['appstate::reset'],
   'leader::init': leaderIndexes['leader::init'],
   'leader::change': leaderIndexes['leader::change'],
   'missionvote::cast': missionVotes['missionvote::cast'],

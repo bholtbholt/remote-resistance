@@ -1,10 +1,10 @@
 import type { Action, HistoryEvent } from '../types';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid/non-secure';
 import { createPlayer } from './test-helper';
 import { generateRuleset } from '../stores/rules';
 
 export function createHistoryEvent(action: Action, data = {}): HistoryEvent {
-  return { action, data, timestamp: Date.now(), id: uuid() };
+  return { action, data, timestamp: Date.now(), id: nanoid() };
 }
 
 export const players = [
@@ -81,7 +81,7 @@ export const roundOneStart = [
   createHistoryEvent('ruleset::generate', ruleset),
   createHistoryEvent('rounds::init', ruleset),
   createHistoryEvent('leader::init', players),
-  createHistoryEvent('appstate::set', 'IN_GAME'),
+  createHistoryEvent('appstate::init'),
 ];
 
 export const roundOneTeam = [

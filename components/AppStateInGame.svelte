@@ -1,5 +1,5 @@
 <script>
-  import { fly, fade } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
 
   import { playerIsLoggedIn } from '../stores/player';
   import { phase } from '../stores/phase';
@@ -12,7 +12,6 @@
   import PhaseTeamReveal from './PhaseTeamReveal.svelte';
   import PhaseMission from './PhaseMission.svelte';
   import PhaseMissionReveal from './PhaseMissionReveal.svelte';
-  import UIButton from './UIButton.svelte';
 
   let hideRoleReveal = window.sessionStorage.getItem('hideRoleReveal');
   function hideRoles() {
@@ -21,7 +20,7 @@
   }
 
   // toggleCardVisibility is in AppStateInGame so everything behind the card is blurred
-  $: blurredClasses = showPlayerCard ? 'transition-all duration-1000 ease-out blur opacity-50' : '';
+  $: blurGame = $playerIsLoggedIn && (showPlayerCard || !hideRoleReveal);
   $: showPlayerCard = false;
   function toggleCardVisibility() {
     showPlayerCard = !showPlayerCard;
@@ -36,20 +35,19 @@
   };
 </script>
 
-<div id="AppStateInGame" class={blurredClasses} in:fade>
+<div
+  id="AppStateInGame"
+  class={blurGame && 'transition-all duration-1000 ease-out blur opacity-50'}
+  in:fade
+>
   <RoundTracker />
-  {#if !hideRoleReveal && $playerIsLoggedIn}
-    <PhaseRoleReveal />
-    <div class="mt-8" in:fly={{ y: 200, duration: 600, delay: 3000 }}>
-      <UIButton on:click={hideRoles}>Got it!</UIButton>
-    </div>
-  {/if}
-
-  {#if hideRoleReveal || !$playerIsLoggedIn}
-    <svelte:component this={phases[$phase]} />
-  {/if}
+  <svelte:component this={phases[$phase]} />
 </div>
 
-{#if $playerIsLoggedIn && hideRoleReveal}
-  <RoleCard on:click={toggleCardVisibility} showCard={showPlayerCard} />
+{#if $playerIsLoggedIn}
+  {#if hideRoleReveal}
+    <RoleCard on:click={toggleCardVisibility} showCard={showPlayerCard} />
+  {:else}
+    <PhaseRoleReveal on:click={hideRoles} />
+  {/if}
 {/if}

@@ -7,13 +7,13 @@
   import { blur } from './custom-transitions';
 
   import { previousLeader, leader } from '../stores/leader';
-  import { players, playerIsLeader, playerIsTeamMember, teamMembers } from '../stores/player';
-  import { rounds, currentRound, spiesWin, resistanceWin } from '../stores/round';
+  import { playerIsLeader, teamMembers } from '../stores/player';
+  import { currentRound, spiesWin, resistanceWin } from '../stores/round';
   import { missionPassed } from '../stores/mission';
 
   import UIButton from './UIButton.svelte';
   import UIHeading from './UIHeading.svelte';
-  import { gridSize, toSentance } from './view-helper';
+  import { toSentance } from './view-helper';
 
   // 2..5 Keys for cards.length
   // 0..4 nested keys for card index within the each loop
@@ -58,13 +58,12 @@
   }
 
   function endGame() {
-    socket.emit('appstate::set', 'PRE_GAME');
+    socket.emit('appstate::reset');
     socket.emit('missionvote::reset');
     socket.emit('team::reset');
     socket.emit('teamvote::reset');
     socket.emit('phase::set', 'TEAM_SELECTION');
     socket.emit('rounds::reset');
-    window.sessionStorage.removeItem('hideRoleReveal');
   }
 </script>
 

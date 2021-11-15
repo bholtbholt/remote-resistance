@@ -1,11 +1,14 @@
 import { render, fireEvent } from '@testing-library/svelte';
 import AppFixture from './AppFixture.svelte';
-import JoinGameForm from '../components/JoinGameForm.svelte';
+import PreGamePlayerForm from '../components/PreGamePlayerForm.svelte';
 import { currentPlayerId, players } from '../stores/player';
 const socket = require('socket.io-client')('test');
 
 test('should enable the form by default', () => {
-  const { getByText, getByLabelText } = render(AppFixture, { socket, component: JoinGameForm });
+  const { getByText, getByLabelText } = render(AppFixture, {
+    socket,
+    component: PreGamePlayerForm,
+  });
 
   const nameField = getByLabelText('Name') as HTMLInputElement;
   const button = getByText('Join game') as HTMLButtonElement;
@@ -15,7 +18,7 @@ test('should enable the form by default', () => {
 });
 
 test('should disable the button on submit', async () => {
-  const { getByText } = render(AppFixture, { socket, component: JoinGameForm });
+  const { getByText } = render(AppFixture, { socket, component: PreGamePlayerForm });
 
   const button = getByText('Join game') as HTMLButtonElement;
   await fireEvent.submit(button.form);
@@ -25,7 +28,10 @@ test('should disable the button on submit', async () => {
 
 test('should set the current player', async () => {
   jest.spyOn(currentPlayerId, 'set');
-  const { getByText, getByLabelText } = render(AppFixture, { socket, component: JoinGameForm });
+  const { getByText, getByLabelText } = render(AppFixture, {
+    socket,
+    component: PreGamePlayerForm,
+  });
 
   const nameField = getByLabelText('Name') as HTMLInputElement;
   const button = getByText('Join game') as HTMLButtonElement;
@@ -37,12 +43,15 @@ test('should set the current player', async () => {
 
 test('should add the player to the room', async () => {
   jest.spyOn(socket, 'emit');
-  const { getByText, getByLabelText } = render(AppFixture, { socket, component: JoinGameForm });
+  const { getByText, getByLabelText } = render(AppFixture, {
+    socket,
+    component: PreGamePlayerForm,
+  });
 
   const nameField = getByLabelText('Name') as HTMLInputElement;
-  nameField.value = 'Binks';
-  const button = getByText('Join game') as HTMLButtonElement;
+  await fireEvent.input(nameField, { target: { value: 'Binks' } });
 
+  const button = getByText('Join game') as HTMLButtonElement;
   await fireEvent.submit(button.form);
 
   expect(socket.emit).toHaveBeenCalledWith(
@@ -53,7 +62,7 @@ test('should add the player to the room', async () => {
 
 test('should disable avatars that players have selected', () => {
   players['player::add']({ id: '1234', avatar: '🐶', name: 'Binks' });
-  const { getByText, getByRole } = render(AppFixture, { socket, component: JoinGameForm });
+  const { getByText, getByRole } = render(AppFixture, { socket, component: PreGamePlayerForm });
 
   const button = getByText('Join game') as HTMLButtonElement;
   const dogAvatar = getByRole('radio', { name: '🐶' }) as HTMLInputElement;

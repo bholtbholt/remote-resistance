@@ -36,13 +36,12 @@
   }
 
   function endGame() {
-    socket.emit('appstate::set', 'PRE_GAME');
+    socket.emit('appstate::reset');
     socket.emit('missionvote::reset');
     socket.emit('team::reset');
     socket.emit('teamvote::reset');
     socket.emit('phase::set', 'TEAM_SELECTION');
     socket.emit('rounds::reset');
-    window.sessionStorage.removeItem('hideRoleReveal');
   }
 </script>
 

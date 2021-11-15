@@ -10,15 +10,11 @@ import { history } from '../stores/history';
 import {
   players,
   createHistoryEvent,
+  roundOneStart,
   roundOneTeamApproved,
   roundOneLastVote,
   votesRejected,
 } from './history-states';
-
-test('should initialize all rounds', () => {
-  history['history::init'](roundOneTeamApproved);
-  expect(get(rounds).length).toEqual(5);
-});
 
 test('should update the round', () => {
   history['history::init'](roundOneTeamApproved);
@@ -30,6 +26,35 @@ test('should update the round', () => {
 
   rounds['rounds::update']([roundIndex, expectedResult]);
   expect(get(rounds)[roundIndex]).toEqual(expect.objectContaining(expectedResult));
+});
+
+describe('rounds::init', () => {
+  test('should create 5 rounds', () => {
+    history['history::init'](roundOneStart);
+    expect(get(rounds).length).toEqual(5);
+  });
+
+  test('should add names to the rounds', () => {
+    history['history::init'](roundOneStart);
+    const [round1, round2, round3, round4, round5] = get(rounds);
+
+    expect(round1.name).toEqual('first');
+    expect(round2.name).toEqual('second');
+    expect(round3.name).toEqual('third');
+    expect(round4.name).toEqual('fourth');
+    expect(round5.name).toEqual('last');
+  });
+
+  test('should add indexes to the rounds', () => {
+    history['history::init'](roundOneStart);
+    const [round1, round2, round3, round4, round5] = get(rounds);
+
+    expect(round1.index).toEqual(0);
+    expect(round2.index).toEqual(1);
+    expect(round3.index).toEqual(2);
+    expect(round4.index).toEqual(3);
+    expect(round5.index).toEqual(4);
+  });
 });
 
 describe('#currentRound', () => {
