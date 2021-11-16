@@ -1,10 +1,13 @@
 import express from 'express';
 import http from 'http';
+import sslRedirect from 'heroku-ssl-redirect';
 
 const app = express();
 const expressServer = http.createServer(app);
 const port = process.env.PORT || 4000;
 
+// enable ssl redirect
+app.use(sslRedirect());
 // serves the assets directory
 app.use(express.static('dist'));
 // supports :room_id param
