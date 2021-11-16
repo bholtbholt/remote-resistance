@@ -24,6 +24,7 @@
     "@types/express": "^4.17.13",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "helmet": "^4.6.0",
     "heroku-ssl-redirect": "^0.1.1",
     "nanoid": "^3.1.30",
     "socket.io": "^4.3.1",
