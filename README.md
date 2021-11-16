@@ -158,5 +158,5 @@ Using `history-states` is the easiest way to build up a true state in the applic
   <dt>Tests are failing as a group, but pass individually</dt>
   <dd>Jest runs tests with shared state, so you need to add <code>afterEach(() => { …; return; })</code> to undo the state.</dd>
   <dt>The app is running, but the loading state never ends</dt>
-  <dd>You probably have a typo in your ENV URLS, likely `VITE_EXPRESS_URL`. Make sure there are no trailing slashes at the end of the URL. The socket queries against `window.location.pathname`, which returns something like `/game-id`.</dd>
+  <dd>You probably have a typo in your ENV URLS, likely `VITE_CORS_ORIGIN_URL`. Make sure there are no trailing slashes at the end of the URL. The socket queries against `window.location.pathname`, which returns something like `/game-id`.</dd>
 </dl>
