@@ -5,7 +5,7 @@ import { socketConnection } from './sockets';
 
 const namespaces = new SocketIO(expressServer, {
   cors: {
-    origin: process.env.ORIGIN_URL,
+    origin: process.env.CORS_ORIGIN_URL,
     methods: ['GET', 'POST'],
   },
 }).of(/^\/\w+/);

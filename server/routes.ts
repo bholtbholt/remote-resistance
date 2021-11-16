@@ -1,10 +1,13 @@
 import express from 'express';
 import http from 'http';
+import sslRedirect from 'heroku-ssl-redirect';
 
 const app = express();
 const expressServer = http.createServer(app);
 const port = process.env.PORT || 4000;
 
+// enable ssl redirect
+app.use(sslRedirect());
 // serves the assets directory
 app.use(express.static('dist'));
 // supports :room_id param
@@ -31,7 +34,7 @@ expressServer.listen(port, () => {
   ' 888     888    .o o.  )88b  888  o.  )88b   888 . d8(  888   888   888  888   .o8 888    .o \n',
   'd888b     Y8bod8P  8""888P  o888o 8""888P    "888"  Y888""8o o888o o888o  Y8bod8P   Y8bod8P  \n',
   '\n\n',
-  `URL:${process.env.ORIGIN_URL}      SOCKETS:${port}      HISTORY:${process.env.HISTORY || 'CLEAN'}\n`,
+  `PORT:${port}      HISTORY:${process.env.HISTORY || 'CLEAN'}\n`,
   '_____________________________________________________________________________________________\n\n',
   );
 });
