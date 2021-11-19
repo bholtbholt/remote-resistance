@@ -5,6 +5,7 @@
   "scripts": {
     "build": "npm run clean && vite build",
     "clean": "rm -rf dist && rm -rf .cache",
+    "injectHistory": "ts-node ./server/injectHistory.ts",
     "lint": "svelte-check",
     "setup": "cp .env.sample .env && npm install",
     "prod": "ts-node ./server/index.ts",

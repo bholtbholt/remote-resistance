@@ -75,18 +75,22 @@ Players are "logged in" via `SessionStorage` and can only join a game prior to i
 
 ### Replay History in Development
 
-In development, you can pass a `HISTORY` environment variable to quickly arrive at a given game state. The variable is the name of the `export const` for a given state. All states live in `./tests/history-states.ts`.
+In development, you can run `npm run injectHistory` to generate a state in the app on a given namespace. `injectHistory` adds events into a Redis key as if the events were running in a specific game. It **requires** `HISTORY` and `NAME` env variables.
 
-The server **must** be restarted for history to apply.
+- `HISTORY`: the variable name of the `export const` for a given state. All states live in `./tests/history-states.ts`.
+- `NAME`: the game URL, without the prepended slash. ie. `pizza`, not `/pizza`. This can be any string.
+
+After you've injected history, visit the name of the game: `localhost:3000/pizza`.
 
 ```
 # From the CLI
-HISTORY=withPlayers npm start
-HISTORY=roundOneStart npm start
-HISTORY=roundOneTeamApproved npm start
+HISTORY=withPlayers NAME=pizza npm run injectHistory
+HISTORY=roundOneStart NAME=pizza npm run injectHistory
+HISTORY=roundOneTeamApproved NAME=pizza npm run injectHistory
 
 # OR In your .env file
 HISTORY=withPlayers
+NAME=pizza
 ```
 
 Rounds use the following pattern:
