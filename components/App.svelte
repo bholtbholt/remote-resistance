@@ -36,6 +36,6 @@
   </div>
 {/if}
 
-{#if renderAdminController}
+{#if $historyIsLoaded && renderAdminController}
   <AdminController />
 {/if}

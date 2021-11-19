@@ -1,17 +1,16 @@
 import type { Namespace } from 'socket.io';
 import type { Action } from '../types';
 import { actionNames } from '../actions';
-import { historyEvents, createHistory } from './history';
-import * as historyState from '../tests/history-states';
-const initHistory = historyState[process.env.HISTORY] || [];
+import { getHistory, createHistory } from './history';
 
 function socketConnection(namespaces: Namespace) {
   namespaces.on('connection', (socket) => {
     const { nsp: namespace } = socket;
     // Share socket events through history. The app listens for
     // history::init once to replay events for new connections
-    historyEvents[namespace.name] = historyEvents[namespace.name] || initHistory;
-    namespace.emit('history::init', historyEvents[namespace.name]);
+    getHistory(namespace).then((history) => {
+      namespace.emit('history::init', history);
+    });
 
     // Initialize all socket events and use createHistory
     // to store state on the server and emit socket event

@@ -5,6 +5,7 @@
   "scripts": {
     "build": "npm run clean && vite build",
     "clean": "rm -rf dist && rm -rf .cache",
+    "injectHistory": "ts-node ./server/injectHistory.ts",
     "lint": "svelte-check",
     "setup": "cp .env.sample .env && npm install",
     "prod": "ts-node ./server/index.ts",
@@ -27,6 +28,7 @@
     "helmet": "^4.6.0",
     "heroku-ssl-redirect": "^0.1.1",
     "nanoid": "^3.1.30",
+    "redis": "^4.0.0-rc.4",
     "socket.io": "^4.3.1",
     "socket.io-client": "^4.3.2",
     "svelte": "3.x",
