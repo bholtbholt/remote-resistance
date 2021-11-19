@@ -4,7 +4,7 @@ import { createClient } from 'redis';
 import { nanoid } from 'nanoid/non-secure';
 
 const redisConfig = {
-  url: process.env.REDIS_TLS_URL,
+  url: process.env.REDIS_URL,
 };
 // historyEvents is essentially the database
 // Returns all the events in a given key to be replayed
