@@ -35,7 +35,13 @@ git reset HEAD~; git push -f heroku main
 
 ## Installation
 
+### Prerequisites
+
 - Download the latest version of [Node](https://nodejs.org/en/) and NPM.
+- Download the latest version of [Redis](https://redis.io/download).
+
+### Startup
+
 - Run `npm run setup`, which copies `.env` and runs `npm install`.
 - Run `npm start` and visit `http://localhost:3000/`
 
@@ -47,6 +53,7 @@ git reset HEAD~; git push -f heroku main
 - [Express Server](https://expressjs.com).
 - [Socket.io](https://socket.io).
 - [Vite](https://vitejs.dev).
+- [Redis](https://redis.io).
 
 ## Structure and Content
 
