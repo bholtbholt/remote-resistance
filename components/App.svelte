@@ -19,6 +19,7 @@
   });
 
   import AppStateInGame from './AppStateInGame.svelte';
+  import AppStateNoGame from './AppStateNoGame.svelte';
   import AppStatePreGame from './AppStatePreGame.svelte';
   import UISpinner from './UISpinner.svelte';
   import AdminController from './AdminController.svelte';
@@ -26,8 +27,15 @@
   appstate['appstate::set'](appState);
   const state = {
     IN_GAME: AppStateInGame,
+    NO_GAME: AppStateNoGame,
     PRE_GAME: AppStatePreGame,
   };
+
+  if ($appstate === 'NO_GAME') {
+    setTimeout(() => {
+      history.set([]);
+    }, 100);
+  }
 </script>
 
 {#if $historyIsLoaded}

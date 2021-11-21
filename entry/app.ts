@@ -8,6 +8,7 @@ export default new App({
   props: {
     socket,
     currentPlayerIdSessionKey: window.sessionStorage.getItem('currentPlayerId'),
+    appState: window.location.pathname === '/' ? 'NO_GAME' : 'PRE_GAME',
     renderAdminController: import.meta.env.DEV,
   },
 });
