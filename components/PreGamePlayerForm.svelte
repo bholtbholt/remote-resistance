@@ -7,6 +7,7 @@
   const socket = getContext('socketIORoom');
 
   import UIButton from './UIButton.svelte';
+  import UIFormLink from './UIFormLink.svelte';
   import UIFormText from './UIFormText.svelte';
   import UIFormLabel from './UIFormLabel.svelte';
 
@@ -82,16 +83,6 @@
     {/each}
   </div>
 
-  <UIButton class="mb-8" disabled={!enableForm}>Join game</UIButton>
-
-  <button
-    type="button"
-    on:click
-    class="block mx-auto
-      font-light text-sm hover:underline
-      text-indigo-700 dark:text-purple-300"
-  >
-    <span class="uppercase">Change game code:</span>
-    {window.location.pathname.slice(1)}
-  </button>
+  <UIButton class="mb-6" disabled={!enableForm}>Join game</UIButton>
+  <UIFormLink on:click>Change game</UIFormLink>
 </form>
