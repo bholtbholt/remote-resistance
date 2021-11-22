@@ -69,9 +69,6 @@
   <h1 class="font-light tracking-tight text-indigo-200 dark:text-gray-300 text-xl ml-2">
     Remote Resistance
   </h1>
-  <span class="px-1 text-xs leading-snug rounded-full bg-rose-100 text-rose-800 self-start">
-    beta
-  </span>
   <div
     id="game-code"
     class="ml-auto px-1 rounded
