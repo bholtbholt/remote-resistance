@@ -4,9 +4,9 @@
 
 <div
   id="PhaseRoleReveal"
-  class="fixed inset-0 z-10 cursor-pointer
-    bg-black bg-opacity-75 px-3
-    grid place-items-center h-screen"
+  class="fixed inset-0 cursor-pointer
+    bg-black bg-opacity-75 h-screen
+    grid place-items-center px-3"
   on:click
   transition:fade
 >
