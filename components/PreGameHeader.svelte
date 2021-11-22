@@ -1,5 +1,6 @@
 <script>
   import UIDrawer from './UIDrawer.svelte';
+  const link = { target: '_blank', class: 'cursor-pointer hover:underline' };
 </script>
 
 <header class="mb-8 flex items-center">
@@ -39,6 +40,30 @@
           spies can pass or fail. A new round starts when the mission is complete.
         </li>
       </ul>
+    </section>
+    <section class="mb-8">
+      <h4 class="text-xl font-bold">Credits</h4>
+      <p>
+        Made in 2021 by
+        <a href="https://twitter.com/bholtbholt" {...link} class:font-bold={true}>@BHOLTBHOLT</a>
+        with <a href="https://svelte.dev" {...link}>Svelte</a>. Visit
+        <a href="https://boardgamegeek.com/boardgame/41114/resistance/credits" {...link}
+          >Board Game Geek</a
+        >
+        for game credits.
+        <a
+          href="https://ko-fi.com/bholtbholt"
+          target="_blank"
+          class="block mt-6 px-6 py-2
+            rounded-full border text-center whitespace-nowrap
+            text-rose-600 border-rose-600
+            hover:text-rose-200 hover:border-rose-800 hover:bg-rose-800
+            focus:text-rose-200 focus:border-rose-800 focus:bg-rose-800
+            dark:border-rose-300 dark:text-rose-300
+            ease-out duration-200 transition-colors"
+          >❤️ Support me on Ko-fi
+        </a>
+      </p>
     </section>
   </UIDrawer>
   <h1 class="font-light tracking-tight text-indigo-200 dark:text-gray-300 text-xl ml-2">
