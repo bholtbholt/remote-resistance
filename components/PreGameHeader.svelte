@@ -1,10 +1,14 @@
 <script>
   import UIDrawer from './UIDrawer.svelte';
+  import PreGamePlayerDrawer from './PreGamePlayerDrawer.svelte';
   const link = { target: '_blank', class: 'cursor-pointer hover:underline' };
 </script>
 
 <header class="mb-8 flex items-center">
   <UIDrawer class="text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-700 p-3 pb-6">
+    <section class="mb-8">
+      <PreGamePlayerDrawer />
+    </section>
     <section class="mb-8">
       <h4 class="text-xl font-bold">How to play</h4>
       <p class="mb-3">
