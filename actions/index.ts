@@ -18,6 +18,7 @@ export const actions = {
   'missionvote::cast': missionVotes['missionvote::cast'],
   'missionvote::reset': missionVotes['missionvote::reset'],
   'player::add': players['player::add'],
+  'player::remove': players['player::remove'],
   'rounds::init': rounds['rounds::init'],
   'rounds::update': rounds['rounds::update'],
   'rounds::increment': currentRoundIndex['rounds::increment'],
