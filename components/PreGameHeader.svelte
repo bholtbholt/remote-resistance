@@ -1,11 +1,44 @@
 <script>
+  import { getContext } from 'svelte';
+  const socket = getContext('socketIORoom');
+
+  import { playerIsLoggedIn, currentPlayerId } from '../stores/player';
+  import { redirect } from './redirect';
+
   import UIDrawer from './UIDrawer.svelte';
   import PreGamePlayerDrawer from './PreGamePlayerDrawer.svelte';
+
+  const gameCode = window.location.pathname.slice(1);
+  const nav = {
+    href: '/',
+    class: 'block px-3 py-2 hover:underline dark:hover:text-teal-400 dark:focus:text-teal-400',
+  };
   const link = { target: '_blank', class: 'cursor-pointer hover:underline' };
+
+  function startNewGame() {
+    socket.emit('player::remove', $currentPlayerId);
+    redirect();
+  }
+
+  function leaveGame() {
+    socket.emit('player::remove', $currentPlayerId);
+  }
 </script>
 
 <header class="mb-8 flex items-center">
   <UIDrawer class="text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-700 p-3 pb-6">
+    <nav
+      class="mb-8 rounded-lg
+      text-indigo-800 dark:text-gray-300
+      bg-indigo-100 dark:bg-gray-600
+      divide-y divide-indigo-300 dark:divide-gray-700"
+    >
+      <a {...nav} on:click|preventDefault={startNewGame}>Start a new game</a>
+      <a {...nav} on:click={leaveGame}>Join another game</a>
+      {#if $playerIsLoggedIn}
+        <a {...nav} on:click|preventDefault={leaveGame}>Leave game</a>
+      {/if}
+    </nav>
     <section class="mb-8">
       <PreGamePlayerDrawer />
     </section>
@@ -79,6 +112,6 @@
       border border-indigo-200 text-indigo-200
       dark:border-gray-300 dark:text-gray-300"
   >
-    {window.location.pathname.slice(1)}
+    {gameCode}
   </div>
 </header>
