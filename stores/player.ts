@@ -12,6 +12,9 @@ export const players = (() => {
   return {
     subscribe,
     reset: () => set(init),
+    'player::remove': (playerId: PlayerId) => {
+      update((players) => (players = players.filter((player) => player.id !== playerId)));
+    },
     'player::add': (player: Player) => {
       update((players) => (players = [...players, player]));
     },

@@ -1,6 +1,7 @@
 type NanoID = string;
 export type Action = string;
 export type PlayerId = NanoID;
+export type AppState = 'NO_GAME' | 'PRE_GAME' | 'IN_GAME';
 
 export interface HistoryEvent {
   action: Action;

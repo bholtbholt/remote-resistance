@@ -1,6 +1,7 @@
 <script>
   export let socket;
   export let currentPlayerIdSessionKey;
+  export let appState = 'PRE_GAME';
   export let renderAdminController = false;
 
   import { setContext } from 'svelte';
@@ -17,15 +18,24 @@
     socket.on(actionName, callback);
   });
 
-  import AppStatePreGame from './AppStatePreGame.svelte';
   import AppStateInGame from './AppStateInGame.svelte';
+  import AppStateNoGame from './AppStateNoGame.svelte';
+  import AppStatePreGame from './AppStatePreGame.svelte';
   import UISpinner from './UISpinner.svelte';
   import AdminController from './AdminController.svelte';
 
+  appstate['appstate::set'](appState);
   const state = {
-    PRE_GAME: AppStatePreGame,
     IN_GAME: AppStateInGame,
+    NO_GAME: AppStateNoGame,
+    PRE_GAME: AppStatePreGame,
   };
+
+  if ($appstate === 'NO_GAME') {
+    setTimeout(() => {
+      history.set([]);
+    }, 100);
+  }
 </script>
 
 {#if $historyIsLoaded}

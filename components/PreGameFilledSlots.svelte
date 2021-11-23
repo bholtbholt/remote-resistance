@@ -1,5 +1,5 @@
 <script>
-  import { redirect } from '../entry/redirect';
+  import { redirect } from './redirect';
   import { fly } from 'svelte/transition';
   import { maximumPlayerCount } from '../stores/rules';
 </script>
@@ -16,7 +16,7 @@
     There are already {maximumPlayerCount} players in the room. Wait here to watch, or
     <a
       href="/"
-      on:click|preventDefault={redirect}
+      on:click|preventDefault={() => redirect()}
       class="font-bold cursor-pointer hover:underline
             text-indigo-700 dark:text-purple-300"
     >

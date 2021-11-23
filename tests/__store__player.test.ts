@@ -42,6 +42,30 @@ describe('#players', () => {
 
     expect(get(players)).toEqual([player]);
   });
+
+  test('should remove a player', () => {
+    repeat(5, () => {
+      players['player::add'](createPlayer());
+    });
+    const [p1, p2, p3, p4, p5] = get(players);
+
+    players['player::remove'](p2.id);
+    expect(get(players)).toEqual([p1, p3, p4, p5]);
+  });
+
+  test('should do nothing when the id is not valid', () => {
+    repeat(5, () => {
+      players['player::add'](createPlayer());
+    });
+    const [p1, p2, p3, p4, p5] = get(players);
+
+    players['player::remove'](null);
+    expect(get(players)).toEqual([p1, p2, p3, p4, p5]);
+    players['player::remove'](undefined);
+    expect(get(players)).toEqual([p1, p2, p3, p4, p5]);
+    players['player::remove']('cheese');
+    expect(get(players)).toEqual([p1, p2, p3, p4, p5]);
+  });
 });
 
 describe('#currentPlayer', () => {

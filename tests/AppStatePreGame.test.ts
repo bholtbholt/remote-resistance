@@ -150,13 +150,13 @@ test('should initialize rounds', async () => {
 test('should allow visitors to change the game code', async () => {
   const { getByText, getByLabelText } = render(AppFixture, { socket, component: AppStatePreGame });
 
-  const link = getByText('Change game code:');
+  const link = getByText('Change game');
   await fireEvent.click(link);
 
-  const gameField = getByLabelText('New Game code');
+  const gameField = getByLabelText('Game code');
   await fireEvent.input(gameField, { target: { value: 'HAHA' } });
 
-  const button = getByText('Go to new game') as HTMLButtonElement;
+  const button = getByText('Join game') as HTMLButtonElement;
 
   expect(button).toBeInTheDocument();
 });
