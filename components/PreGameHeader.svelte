@@ -9,10 +9,7 @@
   import PreGamePlayerDrawer from './PreGamePlayerDrawer.svelte';
 
   const gameCode = window.location.pathname.slice(1);
-  const nav = {
-    href: '/',
-    class: 'block px-3 py-2 hover:underline dark:hover:text-teal-400 dark:focus:text-teal-400',
-  };
+  const nav = 'block px-3 py-2 hover:underline dark:hover:text-teal-400 dark:focus:text-teal-400';
   const link = { target: '_blank', class: 'cursor-pointer hover:underline' };
 
   function startNewGame() {
@@ -33,10 +30,10 @@
       bg-indigo-100 dark:bg-gray-600
       divide-y divide-indigo-300 dark:divide-gray-700"
     >
-      <a {...nav} on:click|preventDefault={startNewGame}>Start a new game</a>
-      <a {...nav} on:click={leaveGame}>Join another game</a>
+      <a href="/" class={nav} on:click|preventDefault={startNewGame}>Start a new game</a>
+      <a href="/" class={nav} on:click={leaveGame}>Join another game</a>
       {#if $playerIsLoggedIn}
-        <a {...nav} on:click|preventDefault={leaveGame}>Leave game</a>
+        <a href="/" class={nav} on:click|preventDefault={leaveGame}>Leave game</a>
       {/if}
     </nav>
     <section class="mb-8">

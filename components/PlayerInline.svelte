@@ -1,5 +1,4 @@
 <script>
-  export let id;
   export let avatar;
   export let name;
   export let color = 'text-gray-600 dark:text-gray-300';

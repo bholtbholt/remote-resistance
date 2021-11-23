@@ -5,7 +5,6 @@
   import { players, playerIsLoggedIn } from '../stores/player';
 
   import PlayerInline from './PlayerInline.svelte';
-  import UIButtonCopy from './UIButtonCopy.svelte';
 
   let editing = false;
   function toggleEditing() {
@@ -39,7 +38,7 @@
 </header>
 
 <ul>
-  {#each $players as { ...player }}
+  {#each $players as player}
     <li class="flex align-center mb-2">
       {#if editing && $playerIsLoggedIn}
         <button
@@ -58,7 +57,7 @@
           </svg>
         </button>
       {/if}
-      <PlayerInline {...player} />
+      <PlayerInline avatar={player.avatar} name={player.name} />
     </li>
   {/each}
 </ul>
