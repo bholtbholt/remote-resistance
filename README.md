@@ -1,6 +1,38 @@
 # Remote Resistance
 
-Play Resistance with your friends anywhere – a real-time remote version of the game.
+Play Resistance with your friends anywhere – a real-time remote version of the game. Play with friends at [resistance.quest](https://resistance.quest)!
+
+## Installation
+
+### Prerequisites
+
+- Download the latest version of [Node](https://nodejs.org/en/) and NPM.
+- Download the latest version of [Redis](https://redis.io/download).
+
+### Startup
+
+- Run `npm run setup`, which copies `.env` and runs `npm install`.
+- Run `npm start` and visit `http://localhost:3000/`
+
+### Tech
+
+- [Svelte](https://svelte.dev).
+- [TailwindCSS](https://tailwindcss.com).
+- [TypeScript](https://www.typescriptlang.org).
+- [Express Server](https://expressjs.com).
+- [Socket.io](https://socket.io).
+- [Vite](https://vitejs.dev).
+- [Redis](https://redis.io).
+
+### Structure and Content
+
+- `./actions`: Public events emitted and listened for with socket.io.
+- `./components`: App UI, written in Svelte.
+- `./entry`: CSS + JavaScript entry files.
+- `./server`: App server.
+- `./stores`: Reactive Svelte stores used by the UI. Stores are similar to _Models_ in design. _Anything that should submit an public action should use a store_.
+- `./tests`: Jest tests. All tests live in a flat directory so import statements match elsewhere. Store tests are prefixed with `__store__*` by convention.
+- `./types`: Global types for the app.
 
 ## Deploying
 
@@ -32,38 +64,6 @@ heroku local web
 git commit --allow-empty -m "Redeploy"; git push heroku main
 git reset HEAD~; git push -f heroku main
 ```
-
-## Installation
-
-### Prerequisites
-
-- Download the latest version of [Node](https://nodejs.org/en/) and NPM.
-- Download the latest version of [Redis](https://redis.io/download).
-
-### Startup
-
-- Run `npm run setup`, which copies `.env` and runs `npm install`.
-- Run `npm start` and visit `http://localhost:3000/`
-
-### Tech
-
-- [Svelte](https://svelte.dev).
-- [TailwindCSS](https://tailwindcss.com).
-- [TypeScript](https://www.typescriptlang.org).
-- [Express Server](https://expressjs.com).
-- [Socket.io](https://socket.io).
-- [Vite](https://vitejs.dev).
-- [Redis](https://redis.io).
-
-## Structure and Content
-
-- `./actions`: Public events emitted and listened for with socket.io.
-- `./components`: App UI, written in Svelte.
-- `./entry`: CSS + JavaScript entry files.
-- `./server`: App server.
-- `./stores`: Reactive Svelte stores used by the UI. Stores are similar to _Models_ in design. _Anything that should submit an public action should use a store_.
-- `./tests`: Jest tests. All tests live in a flat directory so import statements match elsewhere. Store tests are prefixed with `__store__*` by convention.
-- `./types`: Global types for the app.
 
 ## History
 
