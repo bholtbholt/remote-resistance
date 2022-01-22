@@ -27,7 +27,7 @@
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "heroku-ssl-redirect": "^0.1.1",
-    "nanoid": "^3.1.30",
+    "nanoid": "^3.1.31",
     "redis": "^4.0.0-rc.4",
     "socket.io": "^4.3.1",
     "socket.io-client": "^4.3.2",
